@@ -19,7 +19,17 @@ namespace AskMate2
             return final;
         }
 
+        public void IdChecker()
+        {
 
+        }
+        public void DisplayAllQuestions(List<Question> allQuest)
+        {
+            foreach (var qst in allQuest)
+            {
+                Console.WriteLine(qst);
+            }
+        }
 
     }
 }
