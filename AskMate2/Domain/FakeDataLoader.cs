@@ -10,16 +10,17 @@ namespace AskMate2.Domain
 
         private List<Question> questions = new List<Question>
         {
-            new Question {Id = 1, Title = "Q1", Text = "T1" },
-            new Question {Id = 2, Title = "Q2", Text = "T2" },
-            new Question {Id = 3, Title = "Q3", Text = "T3" },
-            new Question {Id = 4, Title = "Q4", Text = "T4" }
+            new Question (1,"Q1","T1"),
+            new Question (2,"Q2","T2"),
+            new Question (3,"Q3","T3"),
+            new Question (4,"Q4","T4")
+            //new Question {Id = 4, Title = "Q4", Text = "T4" }
         };
 
         public int AddQuestion(string title, string text)
         {
             int nextId = questions.Select(q => q.Id).Max() + 1;
-            questions.Add(new Question { Id = nextId, Title = title, Text = text });
+            questions.Add(new Question(nextId,title,text));
             return nextId;
         }
 
