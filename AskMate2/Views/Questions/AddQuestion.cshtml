@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Add a new question";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post">
+    <label for="addNewTitle">Title:</label>
+    <br />
+    <textarea id="addNewTitle" name="title" rows="1" cols="80"></textarea>
+    <br />
+    <label for="addNewQuestion">Question:</label>
+    <br />
+    <textarea id="addNewQuestion" name="text" rows="10" cols="80"></textarea>
+    <br />
+    <input type="submit" value="Send the question"
+</form>

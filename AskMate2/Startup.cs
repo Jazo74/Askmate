@@ -50,7 +50,7 @@ namespace AskMate2
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Questions}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

@@ -7,22 +7,22 @@ using AskMate2.Domain;
 
 namespace AskMate2.Controllers
 {
-    public class ListController : Controller
+    public class AnswersController : Controller
     {
         private readonly IDataService _dataService;
 
 
-        public ListController(IDataService dataService)
+        public AnswersController(IDataService dataService)
         {
             _dataService = dataService; //fugg valamelyiktol
             //program nemtudja mitol 
         }
-
-        public IActionResult Index()
+        
+        public IActionResult ListQuestions()
         {
             return View(_dataService.GetQuestions());
         }
-
+        
         public IActionResult AddQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "text")] string text)
         {
             _dataService.AddQuestion(title, text);

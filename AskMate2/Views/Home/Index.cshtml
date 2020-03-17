@@ -3,6 +3,12 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="base-functions">Functions</h1>
+</div>
+<div>
+    <a asp-controller="Questions" asp-action="ListQuestions">List all questions</a>
+    <br />
+    <a asp-controller="Questions" asp-action="AddQuestion">Add a new question</a>
+    <br />
+    <a asp-controller="Answers" asp-action="AddAnswer">Add an answer</a>
 </div>
