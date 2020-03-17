@@ -12,10 +12,16 @@ namespace AskMate2.Domain
 
         public string Text { get; set; }
 
-        public Question()
+        public Question(int id, string title, string text)
         {
-
+            Id = id;
+            Title = title;
+            Text = text;
         }
 
+        public override string ToString()
+        {
+            return $"[{Id}] {Title} ({Text})";
+        }
     }
 }
