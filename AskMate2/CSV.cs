@@ -14,9 +14,9 @@ namespace AskMate2
 			Utility util = new Utility();
 			try
 			{
-				string id = util.IdGenerator();
-				string c = ",";
-				using (System.IO.StreamWriter file = new System.IO.StreamWriter(filename, true))
+				string id = (HighestID("questions.csv") + 1).ToString();
+				string c = ";";
+				using (StreamWriter file = new StreamWriter(filename, true))
 				{
 					file.WriteLine(id + c + title + c + message);
 				}
@@ -26,22 +26,22 @@ namespace AskMate2
 				Console.WriteLine($"Problem occured: {e.Message}");
 			}
 		}
-		public int HighestID(string filename)
+		private int HighestID(string filename)
 		{
 			string[] line = { };
 			List<int> idList = new List<int>();
-			int id;
+			idList.Add(0);
 			try
 			{
 				using (StreamReader file = new StreamReader(filename))
 				{
 					while (file.EndOfStream)
 					{
-						line = file.ReadLine().Split(",").ToArray();
+						line = file.ReadLine().Split(";").ToArray();
 						idList.Add(Int32.Parse(line[0]));
 					}
-					idList.Sort();
 				}
+				idList.Sort();
 				return idList[-1];
 			}
 			catch (Exception)
@@ -62,7 +62,7 @@ namespace AskMate2
 				{
 					while (file.EndOfStream)
 					{
-						line = file.ReadLine().Split(",").ToArray();
+						line = file.ReadLine().Split(";").ToArray();
 						id = Int32.Parse(line[0]);
 						title = line[1];
 						text = line[2];
@@ -74,7 +74,6 @@ namespace AskMate2
 			}
 			catch (Exception)
 			{
-
 				throw;
 			}
 		}
