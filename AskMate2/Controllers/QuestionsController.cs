@@ -23,7 +23,7 @@ namespace AskMate2.Controllers
             }
             return View("ListQuestions"); // has to  be a Questions.cshtml
         }
-        [HttpPost]
+        [HttpGet]
         public IActionResult AddQuestion()
         {
             return View("AddQuestion"); // has to  be a Questions.cshtml

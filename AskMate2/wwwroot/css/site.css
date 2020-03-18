@@ -9,13 +9,36 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+  color:navajowhite;
 }
 
+p {
+  color: navajowhite;
+  font-size: 18px;
+}
+
+label {
+    color: navajowhite;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: navajowhite;
+}
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+    font-size: 18px;
+    font-weight: bold;
+    background-color: navajowhite;
+    border-radius: 12px;
+    border: 1px solid black;
+    color: black;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -61,6 +84,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  background-color:cadetblue
 }
 .footer {
   position: absolute;
