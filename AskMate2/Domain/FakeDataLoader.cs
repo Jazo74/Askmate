@@ -10,11 +10,10 @@ namespace AskMate2.Domain
 
         private List<Question> questions = new List<Question>
         {
-            new Question (1,"Q1","T1"),
-            new Question (2,"Q2","T2"),
-            new Question (3,"Q3","T3"),
-            new Question (4,"Q4","T4")
-            //new Question {Id = 4, Title = "Q4", Text = "T4" }
+            new Question(1,"Q1","T1"),
+            new Question(2,"Q2","T2"),
+            new Question(3,"Q3","T3"),
+            new Question(4,"Q4","T4")
         };
 
         public int AddQuestion(string title, string text)
