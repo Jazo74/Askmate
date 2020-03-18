@@ -18,16 +18,16 @@ namespace AskMate2.Controllers
             //program nemtudja mitol 
         }
         
-        public IActionResult ListQuestions()
-        {
-            return View(_dataService.GetQuestions());
-        }
+        //public IActionResult ListQuestions()
+        //{
+        //    return View(_dataService.GetQuestions());
+        //}
         
-        public IActionResult AddQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "text")] string text)
-        {
-            _dataService.AddQuestion(title, text);
-            return View("List", _dataService.GetQuestions());
-        }
+        //public IActionResult AddAnswer([FromForm(Name = "title")] string title, [FromForm(Name = "text")] string text)
+        //{
+        //    _dataService.AddQuestion(title, text);
+        //    return View("List", _dataService.GetQuestions());
+        //}
 
 
     }

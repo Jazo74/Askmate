@@ -1,23 +1,18 @@
-﻿
-@{
-    ViewData["Title"] = "List all Questions";
-}
-
-<h1>@ViewData["Title"]</h1>
+﻿<h1>List all Questions</h1>
 
 <form method="post">
     <label for="questions">Questions</label>
     <br />
-    <input type="text" list="questions" id="question" name="question-title">
+    <input type="text" style="width:800px;" list="questions" id="question" name="question-title">
     <datalist id="questions">
-        <option value="Question 1"></option>
-        <option value="Question 2"></option>
-        <option value="Question 3"></option>
-        <option value="Question 4"></option>
-        <option value="Question 5"></option>
-        <option value="Question 6"></option>
+        @foreach (KeyValuePair<string, object> item in ViewData)
+        {
+            string key = item.Key;
+            <option value="@key"></option>
+        }
     </datalist>
     <input type="submit" value="jump to this qestion" />
 </form>
+<p>@ViewData.Count()</p>
 
 

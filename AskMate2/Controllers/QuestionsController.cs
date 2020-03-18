@@ -13,6 +13,11 @@ namespace AskMate2.Controllers
         [HttpGet("list")] // <--- this is what you write after {PORT}
         public IActionResult ListQuestions()
         {
+            ViewData.Add("1. kerdes cime", "elso kerdes szovegtozs");
+            ViewData.Add("2. kerdes cime", "masodik kerdes szovegtozs");
+            ViewData.Add("3. kerdes cime", "harmadik kerdes szovegtozs");
+            ViewData.Add("4. kerdes cime", "negyedik kerdes szovegtozs");
+            ViewData.Add("5. kerdes cime", "otodik kerdes szovegtozs");
             return View("ListQuestions"); // has to  be a Questions.cshtml
         }
         [HttpGet("AddQuestion")]
