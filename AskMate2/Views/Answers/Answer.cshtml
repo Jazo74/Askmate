@@ -1,0 +1,15 @@
+﻿@model AskMate2.Domain.Question
+
+<h1>An answer a day keep the doctor away!</h1>
+<br />
+<p>Title: @ViewData.ElementAt(0).Key</p>
+<br />
+<p>Question: @ViewData.ElementAt(0).Value</p>
+<br />
+<label for="answerbox">Answer:</label>
+<form method="post" asp-controller="Answers" asp-action="NewAnswer">
+    <input type="hidden" name="qID" value="@ViewData.ElementAt(0).Key.Split(":").ToArray()[0]" />
+    <textarea id="answerbox" name="answer" rows="6" cols="80"></textarea>
+    <br />
+    <input type="submit" value="Send answer" />
+</form>

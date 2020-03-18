@@ -24,11 +24,6 @@ namespace AskMate2.Controllers
             return View("ListQuestions"); // has to  be a Questions.cshtml
         }
         [HttpPost]
-        public IActionResult Question([FromForm(Name = "question-title")] string title, [FromForm(Name = "question-id")] string id)
-        {
-            ViewData.Add(title, "id1");
-            return View("Question"); // has to  be a Questions.cshtml
-        }
         public IActionResult AddQuestion()
         {
             return View("AddQuestion"); // has to  be a Questions.cshtml

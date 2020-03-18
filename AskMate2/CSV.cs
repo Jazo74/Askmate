@@ -11,7 +11,6 @@ namespace AskMate2
 	{
 		public void QuestionWriteToCSV(string title, string message, string filename)
 		{
-			//Utility util = new Utility();
 			try
 			{
 				string id = (HighestID("Questions.csv") + 1).ToString();
@@ -26,16 +25,15 @@ namespace AskMate2
 				Console.WriteLine($"Problem occured: {e.Message}");
 			}
 		}
-		public void AnswerWriteToCSV(string title, string message, string filename)
+		public void AnswerWriteToCSV(string qID, string answer, string filename)
 		{
-			//Utility util = new Utility();
 			try
 			{
-				string id = (HighestID("Questions.csv") + 1).ToString();
+				string id = (HighestID("Answers.csv") + 1).ToString();
 				string c = ";";
 				using (StreamWriter file = new StreamWriter(filename, true))
 				{
-					file.WriteLine(id + c + title + c + message);
+					file.WriteLine(id + c + qID + c + answer);
 				}
 			}
 			catch (Exception e)

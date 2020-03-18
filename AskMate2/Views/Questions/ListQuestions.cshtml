@@ -1,11 +1,11 @@
 ﻿@model AskMate2.Domain.Question
-<h1>List all Questions</h1>
-
-
+<h1>All Questions</h1>
 @foreach (KeyValuePair<string, object> item in ViewData)
 {
     string value = item.Value.ToString();
-    <option value="@value"></option>
+    string key = item.Key.ToString();
+
+    <p>@key : @value</p>
 }
    
 
