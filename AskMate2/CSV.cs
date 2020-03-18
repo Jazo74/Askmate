@@ -26,27 +26,49 @@ namespace AskMate2
 				Console.WriteLine($"Problem occured: {e.Message}");
 			}
 		}
-
-		public List<Question> ReadFromCSV(List<Question> allQuestions, string filename)
+		public int HighestID(string filename)
 		{
-			Question qst;
-			string[] tempArr = { };
+			string[] line = { };
+			List<int> idList = new List<int>();
+			int id;
+			try
+			{
+				using (StreamReader file = new StreamReader(filename))
+				{
+					while (file.EndOfStream)
+					{
+						line = file.ReadLine().Split(",").ToArray();
+						idList.Add(Int32.Parse(line[0]));
+					}
+					idList.Sort();
+				}
+				return idList[-1];
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+		}
+		public List<Question> ReadFromCSV(string filename)
+		{
+			List<Question> allQuestions = new List<Question>();
+			string[] line = { };
 			int id;
 			string title;
 			string text;
 			try
 			{
-				using (System.IO.StreamReader file = new System.IO.StreamReader(filename))
+				using (StreamReader file = new StreamReader(filename))
 				{
-
-					string[] emptyArr = { };
-					emptyArr = file.ReadLine().Split(",").ToArray();
-					tempArr = emptyArr;
-					id = Int32.Parse(tempArr[0]);
-					title = tempArr[1];
-					text = tempArr[2];
-					qst = new Question(id, title, text);
-					allQuestions.Add(qst);
+					while (file.EndOfStream)
+					{
+						line = file.ReadLine().Split(",").ToArray();
+						id = Int32.Parse(line[0]);
+						title = line[1];
+						text = line[2];
+						Question qst = new Question(id, title, text);
+						allQuestions.Add(qst);
+					}
 				}
 				return allQuestions;
 			}
