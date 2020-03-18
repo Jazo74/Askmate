@@ -39,6 +39,12 @@ namespace AskMate2.Controllers
             return View("ListQuestions"); // has to  be a Questions.cshtml
         }
 
+        public IActionResult DeleteQuestion([FromForm(Name = "DelId")] int delId)
+        {
+            csv.DeleteQuestion(delId);
+
+            return View("DeleteQuestion");
+        }
 
 
     }
