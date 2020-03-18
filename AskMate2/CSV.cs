@@ -9,12 +9,29 @@ namespace AskMate2
 {
 	public class CSV //ide a csv-s dolgok jojjenek
 	{
-		public void WriteToCSV(string title, string message, string filename)
+		public void QuestionWriteToCSV(string title, string message, string filename)
 		{
-			Utility util = new Utility();
+			//Utility util = new Utility();
 			try
 			{
-				string id = (HighestID("questions.csv") + 1).ToString();
+				string id = (HighestID("Questions.csv") + 1).ToString();
+				string c = ";";
+				using (StreamWriter file = new StreamWriter(filename, true))
+				{
+					file.WriteLine(id + c + title + c + message);
+				}
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine($"Problem occured: {e.Message}");
+			}
+		}
+		public void AnswerWriteToCSV(string title, string message, string filename)
+		{
+			//Utility util = new Utility();
+			try
+			{
+				string id = (HighestID("Questions.csv") + 1).ToString();
 				string c = ";";
 				using (StreamWriter file = new StreamWriter(filename, true))
 				{
@@ -35,17 +52,18 @@ namespace AskMate2
 			{
 				using (StreamReader file = new StreamReader(filename))
 				{
-					while (file.EndOfStream)
+					while (!file.EndOfStream)
 					{
 						line = file.ReadLine().Split(";").ToArray();
 						idList.Add(Int32.Parse(line[0]));
 					}
 				}
 				idList.Sort();
-				return idList[-1];
+				return idList[idList.Count-1];
 			}
-			catch (Exception)
+			catch (FileNotFoundException)
 			{
+				Console.WriteLine("File not found");
 				throw;
 			}
 		}
@@ -60,7 +78,7 @@ namespace AskMate2
 			{
 				using (StreamReader file = new StreamReader(filename))
 				{
-					while (file.EndOfStream)
+					while (!file.EndOfStream)
 					{
 						line = file.ReadLine().Split(";").ToArray();
 						id = Int32.Parse(line[0]);
@@ -72,7 +90,7 @@ namespace AskMate2
 				}
 				return allQuestions;
 			}
-			catch (Exception)
+			catch (FileNotFoundException)
 			{
 				throw;
 			}
