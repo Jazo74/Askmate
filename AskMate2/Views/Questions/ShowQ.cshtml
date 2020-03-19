@@ -1,0 +1,12 @@
+﻿@{ 
+    string id = ViewData.ElementAt(0).Key.Split(":").ToArray()[0];
+    string title = ViewData.ElementAt(0).Key.Split(":").ToArray()[1];
+    string text = ViewData.ElementAt(0).Value.ToString();
+}
+<h1>Question</h1>
+<ul>
+    <li>QID: @id</li>
+    <li>Title: @title</li>
+    <li>Qestion: @text</li>
+</ul>
+

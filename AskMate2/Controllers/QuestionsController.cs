@@ -38,12 +38,42 @@ namespace AskMate2.Controllers
             }
             return View("ListQuestions"); // has to  be a Questions.cshtml
         }
-
-        public IActionResult DeleteQuestion([FromForm(Name = "DelId")] int delId)
+        [HttpGet]
+        public IActionResult DeleteQuestion()
         {
-            csv.DeleteQuestion(delId);
-
+            foreach (Question question in csv.ReadFromCSV("Questions.csv"))
+            {
+                ViewData.Add(question.Id.ToString(), question.Title);
+            }
             return View("DeleteQuestion");
+        }
+        [HttpPost]
+        public IActionResult DeleteQuestion([FromForm(Name = "question")] string question)
+        {
+            csv.DeleteQuestion(Int32.Parse(question.Split(":").ToArray()[0]));
+            return View("DeleteQuestion");
+        }
+        [HttpGet]
+        public IActionResult ShowQuestion()
+        {
+            foreach (Question que in csv.ReadFromCSV("Questions.csv"))
+            {
+                ViewData.Add(que.Id + ": " + que.Title, que.Text);
+            }
+            return View("ShowQuestion");
+        }
+        [HttpPost]
+        public IActionResult ShowQuestion([FromForm(Name = "question")] string question)
+        {
+            int id = Int32.Parse(question.Split(":").ToArray()[0]);
+            foreach (Question que in csv.ReadFromCSV("Questions.csv"))
+            {
+                if (que.Id == id)
+                {
+                    ViewData.Add(question, que.Text);
+                }
+            }
+            return View("ShowQ");
         }
 
 
