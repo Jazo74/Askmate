@@ -47,6 +47,10 @@ namespace AskMate2.Controllers
         [HttpGet]
         public IActionResult ShowAnswers()
         {
+            foreach (Question question in csv.ReadFromQuestionsCSV("Questions.csv"))
+            {
+                ViewData.Add(question.Id.ToString(), question.Id.ToString() + ": " + question.Title);
+            }
             return View("ShowAnswers");
         }
         [HttpPost]

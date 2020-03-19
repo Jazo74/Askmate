@@ -94,12 +94,12 @@ namespace AskMate2
 			}
 		}
 
-		public List<Question> ReadFromAnswersCSV(string filename)
+		public List<Answer> ReadFromAnswersCSV(string filename)
 		{
-			List<Question> allQuestions = new List<Question>();
+			List<Answer> allAnswers = new List<Answer>();
 			string[] line = { };
-			int id;
-			string title;
+			int qid;
+			int aid;
 			string text;
 			try
 			{
@@ -108,14 +108,14 @@ namespace AskMate2
 					while (!file.EndOfStream)
 					{
 						line = file.ReadLine().Split(";").ToArray();
-						id = Int32.Parse(line[0]);
-						title = line[1];
+						aid = Int32.Parse(line[0]);
+						qid = Int32.Parse(line[1]);
 						text = line[2];
-						Question qst = new Question(id, title, text);
-						allQuestions.Add(qst);
+						Answer qst = new Answer(aid, qid, text);
+						allAnswers.Add(qst);
 					}
 				}
-				return allQuestions;
+				return allAnswers;
 			}
 			catch (FileNotFoundException)
 			{
