@@ -69,7 +69,7 @@ namespace AskMate2
 		{
 			List<Question> allQuestions = new List<Question>();
 			string[] line = { };
-			int id;
+			string id;
 			string title;
 			string text;
 			try
@@ -79,7 +79,7 @@ namespace AskMate2
 					while (!file.EndOfStream)
 					{
 						line = file.ReadLine().Split(";").ToArray();
-						id = Int32.Parse(line[0]);
+						id = line[0];
 						title = line[1];
 						text = line[2];
 						Question qst = new Question(id, title, text);
@@ -98,8 +98,8 @@ namespace AskMate2
 		{
 			List<Answer> allAnswers = new List<Answer>();
 			string[] line = { };
-			int qid;
-			int aid;
+			string qid;
+			string aid;
 			string text;
 			try
 			{
@@ -108,8 +108,8 @@ namespace AskMate2
 					while (!file.EndOfStream)
 					{
 						line = file.ReadLine().Split(";").ToArray();
-						aid = Int32.Parse(line[0]);
-						qid = Int32.Parse(line[1]);
+						aid = line[0];
+						qid = line[1];
 						text = line[2];
 						Answer qst = new Answer(aid, qid, text);
 						allAnswers.Add(qst);
@@ -123,7 +123,7 @@ namespace AskMate2
 			}
 		}
 
-		public void DeleteQuestion(int id)
+		public void DeleteQuestion(string id)
 		{
 			List<Question> questions = ReadFromQuestionsCSV("Questions.csv");
 			File.Delete("Questions.csv");
@@ -141,7 +141,7 @@ namespace AskMate2
 			}
 		}
 
-		public void QuestionWriteToCSVNoId(int id, string title, string message, string filename)
+		public void QuestionWriteToCSVNoId(string id, string title, string message, string filename)
 		{
 			// NO Id
 			try
@@ -159,7 +159,7 @@ namespace AskMate2
 			}
 		}
 
-		public void EditQuestion(int id, string title, string text)
+		public void EditQuestion(string id, string title, string text)
 		{
 			List<Question> questions = ReadFromQuestionsCSV("Questions.csv");
 			Question qst = new Question(id,title,text);

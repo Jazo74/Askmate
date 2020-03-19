@@ -25,7 +25,7 @@ namespace AskMate2.Controllers
         public IActionResult AddAnswer([FromForm(Name = "question")] string question)
         {
             string text = "";
-            int id = Int32.Parse(question.Split(":").ToArray()[0]);
+            string id = question.Split(":").ToArray()[0];
             foreach (Question que in csv.ReadFromQuestionsCSV("Questions.csv"))
             {
                 if (que.Id == id)
@@ -59,7 +59,7 @@ namespace AskMate2.Controllers
         {
             string text = "";
             List<Transit> transitLst = new List<Transit>();
-            int id = Int32.Parse(question.Split(":").ToArray()[0]);
+            string id = question.Split(":").ToArray()[0];
             string qtext = "";
             foreach (Question que in csv.ReadFromQuestionsCSV("Questions.csv"))
             {

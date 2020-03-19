@@ -7,12 +7,12 @@ namespace AskMate2.Domain
 {
     public class Answer
     {
-        public int AId { get; set; }
-        public int QId { get; set; }
+        public string AId { get; set; }
+        public string QId { get; set; }
 
         public string Text { get; set; }
 
-        public Answer(int Aid, int QId, string Text)
+        public Answer(string Aid, string QId, string Text)
         {
             this.AId = Aid;
             this.QId = QId;

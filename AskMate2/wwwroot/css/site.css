@@ -16,6 +16,9 @@ hr {
   border-top: 1px solid;
   color: teal
 }
+.line-1{
+    border-top: 2px solid;
+}
 p {
   color: navajowhite;
   font-size: 18px;

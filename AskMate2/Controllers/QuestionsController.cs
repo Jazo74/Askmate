@@ -50,7 +50,7 @@ namespace AskMate2.Controllers
         [HttpPost]
         public IActionResult DeleteQuestion([FromForm(Name = "question")] string question)
         {
-            csv.DeleteQuestion(Int32.Parse(question.Split(":").ToArray()[0]));
+            csv.DeleteQuestion(question.Split(":").ToArray()[0]);
             return View("DeleteQuestion");
         }
         [HttpGet]
@@ -65,7 +65,7 @@ namespace AskMate2.Controllers
         [HttpPost]
         public IActionResult ShowQuestion([FromForm(Name = "question")] string question)
         {
-            int id = Int32.Parse(question.Split(":").ToArray()[0]);
+            string id = question.Split(":").ToArray()[0];
             foreach (Question que in csv.ReadFromQuestionsCSV("Questions.csv"))
             {
                 if (que.Id == id)
@@ -76,7 +76,7 @@ namespace AskMate2.Controllers
             return View("ShowQ");
         }
 
-        public IActionResult EditQuestion([FromForm(Name = "editId")] int id, [FromForm(Name = "editTitle")] string title, [FromForm(Name = "editText")] string text)
+        public IActionResult EditQuestion([FromForm(Name = "editId")] string id, [FromForm(Name = "editTitle")] string title, [FromForm(Name = "editText")] string text)
         {
             csv.EditQuestion(id, title, text);
             return View("EditQuestion");
