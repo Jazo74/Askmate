@@ -1,0 +1,31 @@
+﻿@{
+
+}
+@model List<Transit>
+<h1>Answers</h1>
+@{ 
+    if (Model.Count != 0)
+    {
+        <ul>
+            <li>Question ID: @Model[0].Qid</li>
+            <li>Title: @Model[0].Qtitle</li>
+            <hr />
+            <li>Question: @Model[0].Qtext</li>
+        </ul>
+        <hr />
+        <ul>
+            @{
+                foreach (Transit transit in Model)
+                {
+                    <li>Answer ID: @transit.Aid</li>
+                    <li>Answer: @transit.Atext</li>
+                    <hr />
+                }
+             }
+        </ul>
+    }
+    else
+    {
+        <p>There is no answers for this question!</p>
+    }
+}

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AskMate2.Domain;
+using AskMate2.Models;
 
 namespace AskMate2.Controllers
 {
@@ -57,16 +58,32 @@ namespace AskMate2.Controllers
         public IActionResult ShowAnswers([FromForm(Name = "question")] string question)
         {
             string text = "";
+            List<Transit> transitLst = new List<Transit>();
             int id = Int32.Parse(question.Split(":").ToArray()[0]);
-            foreach (Answer que in csv.ReadFromAnswersCSV("Answers.csv"))
+            string qtext = "";
+            foreach (Question que in csv.ReadFromQuestionsCSV("Questions.csv"))
             {
-                if (que.QId == id)
+                if (id == que.Id)
                 {
-                    text = que.Text;
+                    qtext = que.Text;
                 }
             }
-            ViewData.Add(question, text);
-            return View("ShowAnswers");
+            foreach (Answer answer in csv.ReadFromAnswersCSV("Answers.csv"))
+            {
+                if (answer.QId == id)
+                {
+                    Transit transit = new Transit();
+                    text = answer.Text;
+                    transit.Qid = id.ToString();
+                    transit.Aid = answer.AId.ToString();
+                    transit.Qtitle = question.Split(":").ToArray()[1];
+                    transit.Qtext = qtext;
+                    transit.Atext = answer.Text;
+                    transitLst.Add(transit);
+                }
+            }
+            
+            return View("ShowA", transitLst);
         }
 
 
