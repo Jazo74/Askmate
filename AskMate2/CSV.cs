@@ -25,15 +25,31 @@ namespace AskMate2
 				Console.WriteLine($"Problem occured: {e.Message}");
 			}
 		}
-		public void AnswerWriteToCSV(string qID, string answer, string filename)
+		public void AnswerWriteToCSV2Id(int aId, int qId, string text, string filename)
 		{
 			try
 			{
-				string id = (HighestID("Answers.csv") + 1).ToString();
 				string c = ";";
 				using (StreamWriter file = new StreamWriter(filename, true))
 				{
-					file.WriteLine(id + c + qID + c + answer);
+					file.WriteLine(aId + c + qId + c + text);
+				}
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine($"Problem occured: {e.Message}");
+			}
+		}
+
+		public void AnswerWriteToCSV(int qId, string text, string filename)
+		{
+			try
+			{
+				int id = (HighestID("Answers.csv") + 1);
+				string c = ";";
+				using (StreamWriter file = new StreamWriter(filename, true))
+				{
+					file.WriteLine(id + c + qId + c + text);
 				}
 			}
 			catch (Exception e)
@@ -123,6 +139,25 @@ namespace AskMate2
 			}
 		}
 
+		public void DeleteAnswer(int id)
+		{
+			List<Answer> answers = ReadFromAnswersCSV("Answers.csv");
+
+			for (int i = answers.Count - 1; i >= 0; i--)
+			{
+				if (answers[i].AId == id)
+				{
+					answers.Remove(answers[i]);
+				}
+				else
+				{
+					AnswerWriteToCSV(answers[i].AId, answers[i].QId, answers[i].Text, "Answers.csv");
+
+				}
+			}
+		}
+
+		public void DeleteQuestion(int id)
 		public void DeleteQuestion(string id)
 		{
 			List<Question> questions = ReadFromQuestionsCSV("Questions.csv");

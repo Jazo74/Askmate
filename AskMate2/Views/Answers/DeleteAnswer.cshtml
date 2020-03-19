@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "DeleteAnswer";
+}
+@model AskMate2.Domain.Answer
+<h1>DeleteAnswer</h1>
+
+<form method="post" asp-controller="Answers" asp-action="DeleteAnswer">
+    <label for="answers">Answers</label><br/>
+    <input type="text" style="width:auto" list="answers" id="answer" name="answer" autocomplete="off" />
+    <datalist id="answers">
+        @foreach (KeyValuePair<string, object> item in ViewData)
+        {
+            string value = item.Key + ": " + item.Value.ToString();
+            <option value="@value"></option>
+        }
+    </datalist>
+    <br/><br/>
+</form>
+
