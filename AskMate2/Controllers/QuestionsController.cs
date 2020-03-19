@@ -22,12 +22,12 @@ namespace AskMate2.Controllers
             {
                 ViewData.Add(question.Id.ToString(), question.Title);
             }
-            return View("ListQuestions"); // has to  be a Questions.cshtml
+            return View("ListQuestions");
         }
         [HttpGet]
         public IActionResult AddQuestion()
         {
-            return View("AddQuestion"); // has to  be a Questions.cshtml
+            return View("AddQuestion");
         }
         [HttpPost]
         public IActionResult AddQuestion([FromForm(Name="title")] string title, [FromForm(Name = "text")] string text)
@@ -37,7 +37,7 @@ namespace AskMate2.Controllers
             {
                 ViewData.Add(question.Id.ToString(), question.Title);
             }
-            return View("ListQuestions"); // has to  be a Questions.cshtml
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult DeleteQuestion([FromForm(Name = "DelId")] int delId)
@@ -52,7 +52,7 @@ namespace AskMate2.Controllers
         public IActionResult DeleteQuestion([FromForm(Name = "question")] string question)
         {
             csv.DeleteQuestion(question.Split(":").ToArray()[0]);
-            return View("DeleteQuestion");
+            return RedirectToAction("Index", "Home");
         }
         [HttpGet]
         public IActionResult ShowQuestion()
@@ -114,13 +114,5 @@ namespace AskMate2.Controllers
             csv.EditQuestion(id, title, text);
             return RedirectToAction("Index","Home");
         }
-        
-        
-
-
-
-
-
-
     }
 }

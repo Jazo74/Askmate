@@ -2,21 +2,56 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    font-size: 30px !important;
+    font-weight: bold !important;
+    color: cadetblue !important;
 }
 
 /* Provide sufficient contrast against white background */
 a {
   color:navajowhite;
 }
+a:active {
+    color: cadetblue !important;
+}
 .inactive-input {
     background-color: darkgray;
 }
+
+.split {
+    height: 85%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 78px;
+    bottom: 80px;
+    overflow-x: hidden;
+}
+/* Control the left side */
+.left {
+    left: 0;
+}
+
+/* Control the right side */
+.right {
+    right: 0;
+    background-color: #39787a;
+}
+
+.vl {
+    border-left: 2px solid navajowhite;
+    height: 94%;
+    position: absolute;
+    left: 50%;
+    margin-left: -3px;
+    top: 0;
+}
 hr {
   border-top: 1px solid;
-  color: teal
+  color: burlywood;
 }
 .line-1{
     border-top: 2px solid;
@@ -35,25 +70,28 @@ label {
 h1, h2, h3, h4, h5, h6 {
   color: burlywood;
 }
+h1 {
+    font-size: 28px;
+}
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
 li {
-  margin-bottom: 20px;
-  font-size: 18px;
-  font-weight: bold;
-  color: burlywood;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: navajowhite;
 }
 
 input[type=button], input[type=submit], input[type=reset] {
     font-size: 18px;
     font-weight: bold;
     background-color: navajowhite;
-    border-radius: 8px;
-    border: 1px solid black;
-    color: black;
+    border-radius: 6px;
+    border: 1px solid #335e5f;
+    color: cadetblue;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -61,11 +99,19 @@ input[type=button], input[type=submit], input[type=reset] {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
-
+.nav-link {
+    font-size: 30px !important;
+    color: #39787a !important;
+    font-weight: bold;
+}
+.centerimg {
+    width: 6%;
+    height: 6%;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 @media (min-width: 768px) {
   html {
@@ -74,14 +120,15 @@ html {
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 4px solid navajowhite !important;
 }
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    background-color: navajowhite !important;
 }
 
 button.accept-policy {

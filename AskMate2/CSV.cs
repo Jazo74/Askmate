@@ -157,7 +157,6 @@ namespace AskMate2
 				}
 			}
 		}
-
 		public void DeleteQuestion(string id)
 		{
 			List<Question> questions = ReadFromQuestionsCSV("Questions.csv");
@@ -168,11 +167,10 @@ namespace AskMate2
 				{
 					questions.Remove(questions[i]);
 				}
-				else
-				{
-					QuestionWriteToCSVNoId(questions[i].Id, questions[i].Title, questions[i].Text, "Questions.csv");
-
-				}
+			}
+			foreach (Question question in questions)
+			{
+				QuestionWriteToCSVNoId(question.Id, question.Title, question.Text, "Questions.csv");
 			}
 		}
 

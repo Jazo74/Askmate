@@ -1,23 +1,26 @@
-﻿@{
-    
-}
-
-<div class="text-center">
-    <h1 align="left" class="base-functions">Questions vs Answers </h1>
-</div>
-<br />
-<div>
-    <ul >
+﻿<div class="split left">
+    <br />
+    <h1 align="center">Questions</h1>
+    <br />
+    <ul>
         <li><a asp-controller="Questions" asp-action="ListQuestions">List all questions</a></li>
         <li><a asp-controller="Questions" asp-action="ShowQuestion">Show a question</a></li>
         <li><a asp-controller="Questions" asp-action="AddQuestion">Add a new question</a></li>
         <li><a asp-controller="Questions" asp-action="EditQuestion1">Edit a question</a></li>
         <li><a asp-controller="Questions" asp-action="DeleteQuestion">Delete a question</a></li>
     </ul>
+    <br />
+    <br />
+    <br />
+    <br />
 
+    
 </div>
-<hr class="line-1"/>
-<div>
+<div class="vl"></div>
+<div class="split right">
+    <br />
+    <h1 align="center">Answers</h1>
+    <br />
     <ul>
         <li><a asp-controller="Answers" asp-action="ShowAnswers">Show answers for a question</a></li>
         <li><a asp-controller="Answers" asp-action="AddAnswer">Add an answer</a></li>
