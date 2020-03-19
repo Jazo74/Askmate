@@ -88,7 +88,7 @@ namespace AskMate2.Controllers
 
         public IActionResult DeleteAnswer([FromForm(Name = "answer")] string answer)
         {
-            csv.DeleteAnswer(Int32.Parse(answer.Split(":").ToArray()[0]));
+            csv.DeleteAnswer(answer.Split(":").ToArray()[0]);
             return View("DeleteAnswer");
         }
 

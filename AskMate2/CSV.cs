@@ -25,7 +25,7 @@ namespace AskMate2
 				Console.WriteLine($"Problem occured: {e.Message}");
 			}
 		}
-		public void AnswerWriteToCSV2Id(int aId, int qId, string text, string filename)
+		public void AnswerWriteToCSV2Id(string aId, string qId, string text, string filename)
 		{
 			try
 			{
@@ -41,7 +41,7 @@ namespace AskMate2
 			}
 		}
 
-		public void AnswerWriteToCSV(int qId, string text, string filename)
+		public void AnswerWriteToCSV(string qId, string text, string filename)
 		{
 			try
 			{
@@ -139,7 +139,7 @@ namespace AskMate2
 			}
 		}
 
-		public void DeleteAnswer(int id)
+		public void DeleteAnswer(string id)
 		{
 			List<Answer> answers = ReadFromAnswersCSV("Answers.csv");
 
@@ -151,13 +151,12 @@ namespace AskMate2
 				}
 				else
 				{
-					AnswerWriteToCSV(answers[i].AId, answers[i].QId, answers[i].Text, "Answers.csv");
+					AnswerWriteToCSV2Id(answers[i].AId, answers[i].QId, answers[i].Text, "Answers.csv");
 
 				}
 			}
 		}
 
-		public void DeleteQuestion(int id)
 		public void DeleteQuestion(string id)
 		{
 			List<Question> questions = ReadFromQuestionsCSV("Questions.csv");
