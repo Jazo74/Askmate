@@ -76,59 +76,51 @@ namespace AskMate2.Controllers
             }
             return View("ShowQ");
         }
-
-
         [HttpGet]
-        public IActionResult EditQuestion()
+        public IActionResult EditQuestion1()
         {
-            Transit transit = new Transit();
             List<Transit> transList = new List<Transit>();
             List<Question> questions = csv.ReadFromQuestionsCSV("Questions.csv");
             foreach (Question qst in questions)
             {
+                Transit transit = new Transit();
                 transit.Qid = qst.Id;
                 transit.Qtitle = qst.Title;
                 transit.Qtext = qst.Text;
                 transList.Add(transit);
             }
-
-
-            return View("EditQuestion2", transList);
+            return View("EditQuestion1", transList);
         }
-
+        public IActionResult EditQuestion2([FromForm(Name = "editTitle")] string que)
+        {
+            Transit transit = new Transit();
+            List<Question> questions = csv.ReadFromQuestionsCSV("Questions.csv");
+            foreach (Question qst in questions)
+            {
+                if (que.Split(":").ToArray()[0] == qst.Id)
+                {
+                    transit.Qid = qst.Id;
+                    transit.Qtitle = qst.Title;
+                    transit.Qtext = qst.Text;
+                }
+            }
+            return View("EditQuestion2", transit);
+        }
         [HttpPost]
-        public IActionResult EditQuestion([FromForm(Name = "editId")] string id,
+        public IActionResult EditQuestion3([FromForm(Name = "editId")] string id,
                                           [FromForm(Name = "editTitle")] string title,
                                           [FromForm(Name = "editText")] string text)
         {
             csv.EditQuestion(id, title, text);
-            return View("EditQuestion2");
+            return RedirectToAction("Index","Home");
         }
-
-        //[HttpGet]
-        //public IActionResult EditQuestion2()
-        //{
-
-        //}
-
-
-        //[HttpPost]
-        //public IActionResult EditQuestion2([FromForm(Name = "editId")] string id)
-        //{
-        //    Transit transit = new Transit();
-        //    List<Transit> transList = new List<Transit>();
-        //    List<Question> questions = csv.ReadFromQuestionsCSV("Questions.csv");
-        //    foreach (var qst in questions)
-        //    {
-        //        transit.Qid = qst.Id;
-        //        transit.Qtitle = qst.Title;
-        //        transit.Qtext = qst.Text;
-        //        transList.Add(transit);
-        //    }
-        //    return;
-        //}
-
-
         
+        
+
+
+
+
+
+
     }
 }

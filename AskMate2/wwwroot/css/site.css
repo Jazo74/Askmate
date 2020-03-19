@@ -11,7 +11,9 @@ a.navbar-brand {
 a {
   color:navajowhite;
 }
-
+.inactive-input {
+    background-color: darkgray;
+}
 hr {
   border-top: 1px solid;
   color: teal

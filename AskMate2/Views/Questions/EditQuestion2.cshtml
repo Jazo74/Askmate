@@ -1,26 +1,18 @@
-﻿
-@{
-    ViewData["Title"] = "EditQuestion";
-}
-@model List<Transit>
-<h1>EditQuestion2</h1>
+﻿@model Transit 
+<h1>EditQuestion</h1>
 
-<form method="post" asp-controller="Questions" asp-action="EditQuestion">
+<form method="post" asp-controller="Questions" asp-action="EditQuestion3">
 
-    
-    <label for="editQuestionTitle">Title:</label><br />
-    <input type="text" list="EQ2" id="editQuestionTitle" name="editTitle" rows="1" cols="50">@Model[0].Qtitle</input>
-    <datalist id="EQ2">
-        @foreach (Transit qst in Model)
-        {
-            string why2 = $"{qst.Qid}: {qst.Qtitle}";
-            
-            <option value="@why2"></option>
-
-        }
-    </datalist>
+    <label for="editQuestionId">ID:</label>
+    <br/>
+    <textarea class="inactive-input" id="editQuestionId" name="editId" rows="1" cols="50" readonly>@Model.Qid</textarea>
+    <br/>
+    <label for="editQuestionTitle">Title:</label><br/>
+    <textarea id="editQuestionTitle" name="editTitle" rows="1" cols="50">@Model.Qtitle</textarea>
+    <br/>
+    <label for="editQuestionText">Text:</label><br/>
+    <textarea id="editQuestionText" name="editText" rows="1" cols="80" >@Model.Qtext</textarea>
     <br />
-    
-
-    <input type="submit" value="Edit question" />
+    <br />
+    <input type="submit" value="Edit question"/>
 </form>
