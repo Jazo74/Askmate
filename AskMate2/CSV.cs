@@ -142,6 +142,7 @@ namespace AskMate2
 		public void DeleteAnswer(string id)
 		{
 			List<Answer> answers = ReadFromAnswersCSV("Answers.csv");
+			File.Delete("Answers.csv");
 
 			for (int i = answers.Count - 1; i >= 0; i--)
 			{

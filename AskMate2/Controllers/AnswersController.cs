@@ -12,7 +12,7 @@ namespace AskMate2.Controllers
     public class AnswersController : Controller
     {
         CSV csv = new CSV();
-        
+        [HttpGet]
         public IActionResult AddAnswer()
         {
             foreach (Question question in csv.ReadFromQuestionsCSV("Questions.csv"))
@@ -43,7 +43,7 @@ namespace AskMate2.Controllers
             {
                 ViewData.Add(question.Id.ToString(), question.Title);
             }
-            return View("AddAnswer");
+            return RedirectToAction("Index","Home");
         }
         [HttpGet]
         public IActionResult ShowAnswers()
@@ -85,13 +85,51 @@ namespace AskMate2.Controllers
             
             return View("ShowA", transitLst);
         }
-
-        public IActionResult DeleteAnswer([FromForm(Name = "answer")] string answer)
+        [HttpGet]
+        public IActionResult DeleteAnswer()
         {
-            csv.DeleteAnswer(answer.Split(":").ToArray()[0]);
+            foreach (Question question in csv.ReadFromQuestionsCSV("Questions.csv"))
+            {
+                ViewData.Add(question.Id.ToString(), question.Id.ToString() + ": " + question.Title);
+            }
             return View("DeleteAnswer");
         }
+        [HttpPost]
+        public IActionResult DeleteAnswer([FromForm(Name = "question")] string question)
+        {
+            string text = "";
+            List<Transit> transitLst = new List<Transit>();
+            string id = question.Split(":").ToArray()[0];
+            string qtext = "";
+            foreach (Question que in csv.ReadFromQuestionsCSV("Questions.csv"))
+            {
+                if (id == que.Id)
+                {
+                    qtext = que.Text;
+                }
+            }
+            foreach (Answer answer in csv.ReadFromAnswersCSV("Answers.csv"))
+            {
+                if (answer.QId == id)
+                {
+                    Transit transit = new Transit();
+                    text = answer.Text;
+                    transit.Qid = id.ToString();
+                    transit.Aid = answer.AId.ToString();
+                    transit.Qtitle = question.Split(":").ToArray()[1];
+                    transit.Qtext = qtext;
+                    transit.Atext = answer.Text;
+                    transitLst.Add(transit);
+                }
+            }
+            return View("DeleteA", transitLst);
 
+        }
 
+        public IActionResult DelAnswer([FromForm(Name = "Aid")] string Aid)
+        {
+            csv.DeleteAnswer(Aid);
+            return RedirectToAction("Index","Home");
+        }
     }
 }
