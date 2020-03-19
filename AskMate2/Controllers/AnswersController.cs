@@ -58,9 +58,9 @@ namespace AskMate2.Controllers
         {
             string text = "";
             int id = Int32.Parse(question.Split(":").ToArray()[0]);
-            foreach (Question que in csv.ReadFromAnswersCSV("Answers.csv"))
+            foreach (Answer que in csv.ReadFromAnswersCSV("Answers.csv"))
             {
-                if (que.Id == id)
+                if (que.QId == id)
                 {
                     text = que.Text;
                 }
