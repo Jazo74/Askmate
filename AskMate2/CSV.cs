@@ -130,5 +130,23 @@ namespace AskMate2
 			}
 		}
 
+		public void EditQuestion(int id, string title, string text)
+		{
+			List<Question> questions = ReadFromCSV("Questions.csv");
+			Question qst = new Question(id,title,text);
+			for (int i = questions.Count - 1; i >= 0; i--)
+			{
+				if (questions[i].Id == id)
+				{
+					questions[i].Id = id;
+					questions[i].Title = title;
+					questions[i].Text = text;
+					DeleteQuestion(questions[i].Id);
+					QuestionWriteToCSVNoId(questions[i].Id, questions[i].Title, questions[i].Text, "Questions.csv");
+
+				}
+			}
+		}
+
 	}
 }

@@ -38,8 +38,8 @@ namespace AskMate2.Controllers
             }
             return View("ListQuestions"); // has to  be a Questions.cshtml
         }
-        [HttpGet]
-        public IActionResult DeleteQuestion()
+
+        public IActionResult DeleteQuestion([FromForm(Name = "DelId")] int delId)
         {
             foreach (Question question in csv.ReadFromCSV("Questions.csv"))
             {
@@ -76,6 +76,10 @@ namespace AskMate2.Controllers
             return View("ShowQ");
         }
 
-
+        public IActionResult EditQuestion([FromForm(Name = "editId")] int id, [FromForm(Name = "editTitle")] string title, [FromForm(Name = "editText")] string text)
+        {
+            csv.EditQuestion(id, title, text);
+            return View("EditQuestion");
+        }
     }
 }
