@@ -11,16 +11,10 @@ namespace AskMate2.Controllers
     public class AnswersController : Controller
     {
         CSV csv = new CSV();
-        //private readonly IDataService _dataService;
-        //public AnswersController(IDataService dataService)
-        //{
-        //    _dataService = dataService; //fugg valamelyiktol
-        //    //program nemtudja mitol 
-        //}
-
+        
         public IActionResult AddAnswer()
         {
-            foreach (Question question in csv.ReadFromCSV("Questions.csv"))
+            foreach (Question question in csv.ReadFromQuestionsCSV("Questions.csv"))
             {
                 ViewData.Add(question.Id.ToString(), question.Id.ToString() + ": " + question.Title);
             }
@@ -31,7 +25,7 @@ namespace AskMate2.Controllers
         {
             string text = "";
             int id = Int32.Parse(question.Split(":").ToArray()[0]);
-            foreach (Question que in csv.ReadFromCSV("Questions.csv"))
+            foreach (Question que in csv.ReadFromQuestionsCSV("Questions.csv"))
             {
                 if (que.Id == id)
                 {
@@ -39,28 +33,39 @@ namespace AskMate2.Controllers
                 }
             }
             ViewData.Add(question, text);
-            return View("Answer"); // has to  be a Questions.cshtml
+            return View("Answer"); 
         }
         public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "qID")] string qID)
         {
             csv.AnswerWriteToCSV(qID, answer, "Answers.csv");
-            foreach (Question question in csv.ReadFromCSV("Questions.csv"))
+            foreach (Question question in csv.ReadFromQuestionsCSV("Questions.csv"))
             {
                 ViewData.Add(question.Id.ToString(), question.Title);
             }
-            return View("AddAnswer"); // has to  be a Questions.cshtml
+            return View("AddAnswer");
+        }
+        [HttpGet]
+        public IActionResult ShowAnswers()
+        {
+            return View("ShowAnswers");
+        }
+        [HttpPost]
+        public IActionResult ShowAnswers([FromForm(Name = "question")] string question)
+        {
+            string text = "";
+            int id = Int32.Parse(question.Split(":").ToArray()[0]);
+            foreach (Question que in csv.ReadFromAnswersCSV("Answers.csv"))
+            {
+                if (que.Id == id)
+                {
+                    text = que.Text;
+                }
+            }
+            ViewData.Add(question, text);
+            return View("ShowAnswers");
         }
 
-        //public IActionResult ListQuestions()
-        //{
-        //    return View(_dataService.GetQuestions());
-        //}
 
-        //public IActionResult AddAnswer([FromForm(Name = "title")] string title, [FromForm(Name = "text")] string text)
-        //{
-        //    _dataService.AddQuestion(title, text);
-        //    return View("List", _dataService.GetQuestions());
-        //}
 
 
     }

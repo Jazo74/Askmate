@@ -1,0 +1,18 @@
+﻿@model AskMate2.Domain.Question
+<h1>Show answers</h1>
+
+<form method="post" asp-controller="Answers" asp-action="ShowAnswers">
+    <label for="questions">Questions</label>
+    <br />
+    <input type="text" style="width:800px;" list="questions" id="question" name="question" autocomplete="off">
+    <datalist id="questions">
+        @foreach (KeyValuePair<string, object> item in ViewData)
+        {
+            string value = item.Value.ToString();
+            <option value="@value"></option>
+        }
+    </datalist>
+    <br />
+    <br />
+    <input type="submit" value="Show question" />
+</form>

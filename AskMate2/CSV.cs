@@ -65,7 +65,36 @@ namespace AskMate2
 				throw;
 			}
 		}
-		public List<Question> ReadFromCSV(string filename)
+		public List<Question> ReadFromQuestionsCSV(string filename)
+		{
+			List<Question> allQuestions = new List<Question>();
+			string[] line = { };
+			int id;
+			string title;
+			string text;
+			try
+			{
+				using (StreamReader file = new StreamReader(filename))
+				{
+					while (!file.EndOfStream)
+					{
+						line = file.ReadLine().Split(";").ToArray();
+						id = Int32.Parse(line[0]);
+						title = line[1];
+						text = line[2];
+						Question qst = new Question(id, title, text);
+						allQuestions.Add(qst);
+					}
+				}
+				return allQuestions;
+			}
+			catch (FileNotFoundException)
+			{
+				throw;
+			}
+		}
+
+		public List<Question> ReadFromAnswersCSV(string filename)
 		{
 			List<Question> allQuestions = new List<Question>();
 			string[] line = { };
@@ -96,7 +125,7 @@ namespace AskMate2
 
 		public void DeleteQuestion(int id)
 		{
-			List<Question> questions = ReadFromCSV("Questions.csv");
+			List<Question> questions = ReadFromQuestionsCSV("Questions.csv");
 			File.Delete("Questions.csv");
 			for (int i = questions.Count - 1; i >= 0; i--)
 			{
@@ -132,7 +161,7 @@ namespace AskMate2
 
 		public void EditQuestion(int id, string title, string text)
 		{
-			List<Question> questions = ReadFromCSV("Questions.csv");
+			List<Question> questions = ReadFromQuestionsCSV("Questions.csv");
 			Question qst = new Question(id,title,text);
 			for (int i = questions.Count - 1; i >= 0; i--)
 			{

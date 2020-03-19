@@ -17,7 +17,7 @@ namespace AskMate2.Controllers
         [HttpGet("list")] // <--- this is what you write after {PORT}
         public IActionResult ListQuestions()
         {
-            foreach (Question question in csv.ReadFromCSV("Questions.csv"))
+            foreach (Question question in csv.ReadFromQuestionsCSV("Questions.csv"))
             {
                 ViewData.Add(question.Id.ToString(), question.Title);
             }
@@ -32,7 +32,7 @@ namespace AskMate2.Controllers
         public IActionResult AddQuestion([FromForm(Name="title")] string title, [FromForm(Name = "text")] string text)
         {
             csv.QuestionWriteToCSV(title, text, "Questions.csv");
-            foreach (Question question in csv.ReadFromCSV("Questions.csv"))
+            foreach (Question question in csv.ReadFromQuestionsCSV("Questions.csv"))
             {
                 ViewData.Add(question.Id.ToString(), question.Title);
             }
@@ -41,7 +41,7 @@ namespace AskMate2.Controllers
 
         public IActionResult DeleteQuestion([FromForm(Name = "DelId")] int delId)
         {
-            foreach (Question question in csv.ReadFromCSV("Questions.csv"))
+            foreach (Question question in csv.ReadFromQuestionsCSV("Questions.csv"))
             {
                 ViewData.Add(question.Id.ToString(), question.Title);
             }
@@ -56,7 +56,7 @@ namespace AskMate2.Controllers
         [HttpGet]
         public IActionResult ShowQuestion()
         {
-            foreach (Question que in csv.ReadFromCSV("Questions.csv"))
+            foreach (Question que in csv.ReadFromQuestionsCSV("Questions.csv"))
             {
                 ViewData.Add(que.Id + ": " + que.Title, que.Text);
             }
@@ -66,7 +66,7 @@ namespace AskMate2.Controllers
         public IActionResult ShowQuestion([FromForm(Name = "question")] string question)
         {
             int id = Int32.Parse(question.Split(":").ToArray()[0]);
-            foreach (Question que in csv.ReadFromCSV("Questions.csv"))
+            foreach (Question que in csv.ReadFromQuestionsCSV("Questions.csv"))
             {
                 if (que.Id == id)
                 {
