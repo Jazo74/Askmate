@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AskMate2;
 using AskMate2.Domain;
+using AskMate2.Models;
 
 namespace AskMate2.Controllers
 {
@@ -76,10 +77,58 @@ namespace AskMate2.Controllers
             return View("ShowQ");
         }
 
-        public IActionResult EditQuestion([FromForm(Name = "editId")] string id, [FromForm(Name = "editTitle")] string title, [FromForm(Name = "editText")] string text)
+
+        [HttpGet]
+        public IActionResult EditQuestion()
+        {
+            Transit transit = new Transit();
+            List<Transit> transList = new List<Transit>();
+            List<Question> questions = csv.ReadFromQuestionsCSV("Questions.csv");
+            foreach (Question qst in questions)
+            {
+                transit.Qid = qst.Id;
+                transit.Qtitle = qst.Title;
+                transit.Qtext = qst.Text;
+                transList.Add(transit);
+            }
+
+
+            return View("EditQuestion2", transList);
+        }
+
+        [HttpPost]
+        public IActionResult EditQuestion([FromForm(Name = "editId")] string id,
+                                          [FromForm(Name = "editTitle")] string title,
+                                          [FromForm(Name = "editText")] string text)
         {
             csv.EditQuestion(id, title, text);
-            return View("EditQuestion");
+            return View("EditQuestion2");
         }
+
+        //[HttpGet]
+        //public IActionResult EditQuestion2()
+        //{
+
+        //}
+
+
+        //[HttpPost]
+        //public IActionResult EditQuestion2([FromForm(Name = "editId")] string id)
+        //{
+        //    Transit transit = new Transit();
+        //    List<Transit> transList = new List<Transit>();
+        //    List<Question> questions = csv.ReadFromQuestionsCSV("Questions.csv");
+        //    foreach (var qst in questions)
+        //    {
+        //        transit.Qid = qst.Id;
+        //        transit.Qtitle = qst.Title;
+        //        transit.Qtext = qst.Text;
+        //        transList.Add(transit);
+        //    }
+        //    return;
+        //}
+
+
+        
     }
 }
