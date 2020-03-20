@@ -22,7 +22,7 @@ namespace AskMate2.Controllers
             {
                 ViewData.Add(question.Id.ToString(), question.Title);
             }
-            return View("ListQuestions");
+            return View("AltListQuestions");
         }
         [HttpGet]
         public IActionResult AddQuestion()
