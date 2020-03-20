@@ -5,9 +5,9 @@
     @{
         if (ViewData.Count != 0)
         {
-            <label for="questions">Question</label>
+            <label for="questions">Question:</label>
             <br />
-            <input type="text" style="width:800px;" list="questions" id="question" name="question" autocomplete="off" required>
+            <input type="text" style="width:500px;" list="questions" id="question" name="question" autocomplete="off" required>
             <datalist id="questions" >
                 @foreach (KeyValuePair<string, object> item in ViewData)
                 {
