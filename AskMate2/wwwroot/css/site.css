@@ -8,6 +8,7 @@ a.navbar-brand {
     font-size: 30px !important;
     font-weight: bold !important;
     color: cadetblue !important;
+    padding-left: 80px;
 }
 
 /* Provide sufficient contrast against white background */
@@ -22,17 +23,18 @@ a:active {
 }
 
 .split {
-    height: 85%;
+    height: 812px;
     width: 50%;
     position: fixed;
     z-index: 1;
-    top: 78px;
+    top: 84px;
     bottom: 80px;
     overflow-x: hidden;
 }
 /* Control the left side */
 .left {
     left: 0;
+    
 }
 
 /* Control the right side */
@@ -78,11 +80,15 @@ h1 {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+ul {
+    padding-left: 60px;
+}
 li {
     margin-bottom: 20px;
     font-size: 20px;
     font-weight: bold;
     color: navajowhite;
+    
 }
 
 input[type=button], input[type=submit], input[type=reset] {
@@ -100,13 +106,14 @@ input[type=button], input[type=submit], input[type=reset] {
   border-color: #1861ac;
 }
 .nav-link {
-    font-size: 30px !important;
+    font-size: 28px !important;
     color: #39787a !important;
     font-weight: bold;
 }
 .centerimg {
     width: 6%;
     height: 6%;
+    
 }
 /* Sticky footer styles
 -------------------------------------------------- */

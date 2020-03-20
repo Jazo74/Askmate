@@ -1,14 +1,21 @@
 ﻿@model AskMate2.Domain.Question
 <h1>Stop making lists!</h1>
 <hr />
-@foreach (KeyValuePair<string, object> item in ViewData)
-{
-    string value = item.Value.ToString();
-    string key = item.Key.ToString();
+@{ if (ViewData.Count != 0)
+    {
+        foreach (KeyValuePair<string, object> item in ViewData)
+        {
+            string value = item.Value.ToString();
+            string key = item.Key.ToString();
 
-    <p>@key : @value</p>
+            <p>@key : @value</p>
+        }
+    }
+    else
+    {
+        <p>There are no questions!</p>
+    }
 }
-   
 
 
 

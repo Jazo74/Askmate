@@ -66,12 +66,15 @@ namespace AskMate2.Controllers
         [HttpPost]
         public IActionResult ShowQuestion([FromForm(Name = "question")] string question)
         {
-            string id = question.Split(":").ToArray()[0];
-            foreach (Question que in csv.ReadFromQuestionsCSV("Questions.csv"))
+            if (question != null && question.Length != 0)
             {
-                if (que.Id == id)
+                string id = question.Split(":").ToArray()[0];
+                foreach (Question que in csv.ReadFromQuestionsCSV("Questions.csv"))
                 {
-                    ViewData.Add(question, que.Text);
+                    if (que.Id == id)
+                    {
+                        ViewData.Add(question, que.Text);
+                    }
                 }
             }
             return View("ShowQ");

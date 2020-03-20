@@ -1,14 +1,22 @@
-﻿@{ 
-    string id = ViewData.ElementAt(0).Key.Split(":").ToArray()[0];
-    string title = ViewData.ElementAt(0).Key.Split(":").ToArray()[1];
-    string text = ViewData.ElementAt(0).Value.ToString();
-}
-<h1>Question</h1>
+﻿<h1>Question</h1>
 <hr />
-<ul>
-    <li>QID: @id</li>
-    <li>Title: @title</li>
-    <hr class="line-1"/>
-    <li>Qestion: @text</li>
-</ul>
+@{ 
+    if (ViewData.Count != 0)
+    {
+        string id = ViewData.ElementAt(0).Key.Split(":").ToArray()[0];
+        string title = ViewData.ElementAt(0).Key.Split(":").ToArray()[1];
+        string text = ViewData.ElementAt(0).Value.ToString();
+        <ul>
+            <li>QID: @id</li>
+            <li>Title: @title</li>
+            <hr class="line-1" />
+            <li>Qestion: @text</li>
+        </ul>
+    }
+    else
+    {
+        <p>There is no such question!</p>
+    }
+}
+
 

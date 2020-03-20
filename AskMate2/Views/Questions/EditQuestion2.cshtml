@@ -8,10 +8,10 @@
     <textarea class="inactive-input" id="editQuestionId" name="editId" rows="1" cols="50" readonly>@Model.Qid</textarea>
     <br/>
     <label for="editQuestionTitle">Title:</label><br/>
-    <textarea id="editQuestionTitle" name="editTitle" rows="1" cols="80">@Model.Qtitle</textarea>
+    <textarea id="editQuestionTitle" name="editTitle" rows="1" cols="80" required>@Model.Qtitle</textarea>
     <br/>
     <label for="editQuestionText">Text:</label><br/>
-    <textarea id="editQuestionText" name="editText" rows="5" cols="80" >@Model.Qtext</textarea>
+    <textarea id="editQuestionText" name="editText" rows="5" cols="80" required>@Model.Qtext</textarea>
     <br />
     <br />
     <input type="submit" value="Edit question"/>
