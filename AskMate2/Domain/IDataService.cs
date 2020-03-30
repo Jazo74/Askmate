@@ -20,6 +20,8 @@ namespace AskMate2.Domain
 
         void DeleteQuestion(string questionId);
 
+        void UpdateQuestion(string questionId, string title, string text);
+
 
         // answers
         void AddAnswer(Answer answer);
@@ -32,7 +34,7 @@ namespace AskMate2.Domain
 
         int GetVoteForAnswer(string answerId);
 
-        void DeleteAnswer(string answerId)
+        void DeleteAnswer(string answerId);
 
         
         

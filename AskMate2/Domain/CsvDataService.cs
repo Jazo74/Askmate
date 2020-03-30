@@ -222,20 +222,20 @@ namespace AskMate2
 			}
 			foreach (Question question in questions)
 			{
-				 (question.Id, question.Title, question.Text, "Questions.csv");
+				 AddQuestionWOId(question);
 			}
 		}
 
-		public void QuestionWriteToCSVNoId(string id, string title, string message, string filename)
+		private void AddQuestionWOId(Question question)
 		{
 			// NO Id
+			string filename = "Questions.csv";
 			try
 			{
-
 				string c = ";";
 				using (StreamWriter file = new StreamWriter(filename, true))
 				{
-					file.WriteLine(id + c + title + c + message);
+					file.WriteLine(question.Id + c + question.Title + c + question.Text);
 				}
 			}
 			catch (Exception e)
@@ -244,40 +244,42 @@ namespace AskMate2
 			}
 		}
 
-		public void EditQuestion(string id, string title, string text)
+		public void UpdateQuestion(string qid, string title, string text)
 		{
-			List<Question> questions = ReadFromQuestionsCSV("Questions.csv");
-			Question qst = new Question(id,title,text);
+			string filename = "Questions.csv";
+			List<Question> questions = GetQuestions();
+			File.Delete(filename);
 			for (int i = questions.Count - 1; i >= 0; i--)
 			{
-				if (questions[i].Id == id)
+				if (questions[i].Id == qid)
 				{
-					questions[i].Id = id;
 					questions[i].Title = title;
 					questions[i].Text = text;
-					DeleteQuestion(questions[i].Id);
-					QuestionWriteToCSVNoId(questions[i].Id, questions[i].Title, questions[i].Text, "Questions.csv");
-
+					AddQuestionWOId(questions[i]);
+				}
+				else
+				{
+					AddQuestionWOId(questions[i]);
 				}
 			}
 		}
 
-		public void AddVoteForQuestion(int questionId)
+		public void AddVoteForQuestion(string questionId)
 		{
 			throw new NotImplementedException();
 		}
 
-		public int GetVoteForQuestion(int questionId)
+		public int GetVoteForQuestion(string questionId)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void AddVoteForAnswer(int answerId)
+		public void AddVoteForAnswer(string answerId)
 		{
 			throw new NotImplementedException();
 		}
 
-		public int GetVoteForAnswer(int answerId)
+		public int GetVoteForAnswer(string answerId)
 		{
 			throw new NotImplementedException();
 		}
