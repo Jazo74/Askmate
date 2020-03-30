@@ -34,10 +34,7 @@ namespace AskMate2.Controllers
         {
 
             ds.AddQuestion(ds.MakeQuestionWoId(title, text));
-            foreach (Question question in ds.GetQuestions())
-            {
-                ViewData.Add(question.Id.ToString(), question.Title);
-            }
+            
             return RedirectToAction("Index", "Home");
         }
 
