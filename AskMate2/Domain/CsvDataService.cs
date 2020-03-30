@@ -75,7 +75,6 @@ namespace AskMate2
 			string filename = "Answers.csv";
 			try
 			{
-				int id = (HighestID("Answers.csv") + 1);
 				string c = ";";
 				using (StreamWriter file = new StreamWriter(filename, true))
 				{
@@ -282,6 +281,32 @@ namespace AskMate2
 		public int GetVoteForAnswer(string answerId)
 		{
 			throw new NotImplementedException();
+		}
+
+		public Answer MakeAnswer(string answerId, string qid, string text)
+		{
+			Answer answer = new Answer(answerId, qid, text);
+			return answer;
+		}
+
+		public Answer MakeAnswerWoId(string qid, string text)
+		{
+			string answerId = (HighestID("Answers.csv") + 1).ToString();
+			Answer answer = new Answer(answerId, qid, text);
+			return answer;
+		}
+
+		public Question MakeQuestion(string questionId, string title, string text)
+		{
+			Question question = new Question(questionId, title, text);
+			return question;
+		}
+
+		public Question MakeQuestionWoId(string title, string text)
+		{
+			string questionId = (HighestID("Questions.csv") + 1).ToString();
+			Question question = new Question(questionId, title, text);
+			return question;
 		}
 	}
 }

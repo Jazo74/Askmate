@@ -11,11 +11,11 @@ namespace AskMate2.Controllers
     
     public class AnswersController : Controller
     {
-        CsvDataService csv = new CsvDataService();
+        IDataService ds = new CsvDataService();
         [HttpGet]
         public IActionResult AddAnswer()
         {
-            foreach (Question question in csv.ReadFromQuestionsCSV("Questions.csv"))
+            foreach (Question question in ds.GetQuestions())
             {
                 ViewData.Add(question.Id.ToString(), question.Id.ToString() + ": " + question.Title);
             }
@@ -26,7 +26,7 @@ namespace AskMate2.Controllers
         {
             string text = "";
             string id = question.Split(":").ToArray()[0];
-            foreach (Question que in csv.ReadFromQuestionsCSV("Questions.csv"))
+            foreach (Question que in ds.GetQuestions())
             {
                 if (que.Id == id)
                 {
@@ -38,17 +38,18 @@ namespace AskMate2.Controllers
         }
         public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "qID")] string qID)
         {
-            csv.AnswerWriteToCSV(qID, answer, "Answers.csv");
-            foreach (Question question in csv.ReadFromQuestionsCSV("Questions.csv"))
-            {
-                ViewData.Add(question.Id.ToString(), question.Title);
-            }
+            
+            ds.AddAnswer(ds.MakeAnswerWoId(qID, answer));
+            //foreach (Question question in ds.GetQuestions())
+            //{
+            //    ViewData.Add(question.Id.ToString(), question.Title);
+            //}
             return RedirectToAction("Index","Home");
         }
         [HttpGet]
         public IActionResult ShowAnswers()
         {
-            foreach (Question question in csv.ReadFromQuestionsCSV("Questions.csv"))
+            foreach (Question question in ds.GetQuestions())
             {
                 ViewData.Add(question.Id.ToString(), question.Id.ToString() + ": " + question.Title);
             }
@@ -61,14 +62,14 @@ namespace AskMate2.Controllers
             List<Transit> transitLst = new List<Transit>();
             string id = question.Split(":").ToArray()[0];
             string qtext = "";
-            foreach (Question que in csv.ReadFromQuestionsCSV("Questions.csv"))
+            foreach (Question que in ds.GetQuestions())
             {
                 if (id == que.Id)
                 {
                     qtext = que.Text;
                 }
             }
-            foreach (Answer answer in csv.ReadFromAnswersCSV("Answers.csv"))
+            foreach (Answer answer in ds.GetAllAnswers())
             {
                 if (answer.QId == id)
                 {
@@ -88,7 +89,7 @@ namespace AskMate2.Controllers
         [HttpGet]
         public IActionResult DeleteAnswer()
         {
-            foreach (Question question in csv.ReadFromQuestionsCSV("Questions.csv"))
+            foreach (Question question in ds.GetQuestions())
             {
                 ViewData.Add(question.Id.ToString(), question.Id.ToString() + ": " + question.Title);
             }
@@ -101,14 +102,14 @@ namespace AskMate2.Controllers
             List<Transit> transitLst = new List<Transit>();
             string id = question.Split(":").ToArray()[0];
             string qtext = "";
-            foreach (Question que in csv.ReadFromQuestionsCSV("Questions.csv"))
+            foreach (Question que in ds.GetQuestions())
             {
                 if (id == que.Id)
                 {
                     qtext = que.Text;
                 }
             }
-            foreach (Answer answer in csv.ReadFromAnswersCSV("Answers.csv"))
+            foreach (Answer answer in ds.GetAllAnswers())
             {
                 if (answer.QId == id)
                 {
@@ -128,7 +129,7 @@ namespace AskMate2.Controllers
 
         public IActionResult DelAnswer([FromForm(Name = "Aid")] string Aid)
         {
-            csv.DeleteAnswer(Aid);
+            ds.DeleteAnswer(Aid);
             return RedirectToAction("Index","Home");
         }
     }

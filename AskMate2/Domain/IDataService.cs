@@ -8,6 +8,11 @@ namespace AskMate2.Domain
     public interface IDataService
     {
         // questions
+
+        Question MakeQuestion(string questionId, string title, string text);
+
+        Question MakeQuestionWoId(string title, string text);
+
         void AddQuestion(Question question);
 
         Question GetQuestion(string questionId);
@@ -24,6 +29,11 @@ namespace AskMate2.Domain
 
 
         // answers
+
+        Answer MakeAnswer(string answerId, string questionId, string text);
+
+        Answer MakeAnswerWoId(string questionId, string text);
+
         void AddAnswer(Answer answer);
 
         List<Answer> GetAnswers(string questionId);

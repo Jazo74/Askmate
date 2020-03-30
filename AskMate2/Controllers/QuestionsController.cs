@@ -13,12 +13,12 @@ namespace AskMate2.Controllers
     [Microsoft.AspNetCore.Components.Route("")]
     public class QuestionsController : Controller
     {
-        CsvDataService csv = new CsvDataService();
+        IDataService ds = new CsvDataService();
 
         [HttpGet("list")] // <--- this is what you write after {PORT}
         public IActionResult ListQuestions()
         {
-            foreach (Question question in csv.ReadFromQuestionsCSV("Questions.csv"))
+            foreach (Question question in ds.GetQuestions())
             {
                 ViewData.Add(question.Id.ToString(), question.Title);
             }
@@ -32,8 +32,9 @@ namespace AskMate2.Controllers
         [HttpPost]
         public IActionResult AddQuestion([FromForm(Name="title")] string title, [FromForm(Name = "text")] string text)
         {
-            csv.QuestionWriteToCSV(title, text, "Questions.csv");
-            foreach (Question question in csv.ReadFromQuestionsCSV("Questions.csv"))
+
+            ds.AddQuestion(ds.MakeQuestionWoId(title, text));
+            foreach (Question question in ds.GetQuestions())
             {
                 ViewData.Add(question.Id.ToString(), question.Title);
             }
@@ -42,7 +43,7 @@ namespace AskMate2.Controllers
 
         public IActionResult DeleteQuestion([FromForm(Name = "DelId")] int delId)
         {
-            foreach (Question question in csv.ReadFromQuestionsCSV("Questions.csv"))
+            foreach (Question question in ds.GetQuestions())
             {
                 ViewData.Add(question.Id.ToString(), question.Title);
             }
@@ -51,13 +52,13 @@ namespace AskMate2.Controllers
         [HttpPost]
         public IActionResult DeleteQuestion([FromForm(Name = "question")] string question)
         {
-            csv.DeleteQuestion(question.Split(":").ToArray()[0]);
+            ds.DeleteQuestion(question.Split(":").ToArray()[0]);
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]
         public IActionResult ShowQuestion()
         {
-            foreach (Question que in csv.ReadFromQuestionsCSV("Questions.csv"))
+            foreach (Question que in ds.GetQuestions())
             {
                 ViewData.Add(que.Id + ": " + que.Title, que.Text);
             }
@@ -69,7 +70,7 @@ namespace AskMate2.Controllers
             if (question != null && question.Length != 0)
             {
                 string id = question.Split(":").ToArray()[0];
-                foreach (Question que in csv.ReadFromQuestionsCSV("Questions.csv"))
+                foreach (Question que in ds.GetQuestions())
                 {
                     if (que.Id == id)
                     {
@@ -83,7 +84,7 @@ namespace AskMate2.Controllers
         public IActionResult EditQuestion1()
         {
             List<Transit> transList = new List<Transit>();
-            List<Question> questions = csv.ReadFromQuestionsCSV("Questions.csv");
+            List<Question> questions = ds.GetQuestions();
             foreach (Question qst in questions)
             {
                 Transit transit = new Transit();
@@ -97,7 +98,7 @@ namespace AskMate2.Controllers
         public IActionResult EditQuestion2([FromForm(Name = "editTitle")] string que)
         {
             Transit transit = new Transit();
-            List<Question> questions = csv.ReadFromQuestionsCSV("Questions.csv");
+            List<Question> questions = ds.GetQuestions();
             foreach (Question qst in questions)
             {
                 if (que.Split(":").ToArray()[0] == qst.Id)
@@ -114,7 +115,7 @@ namespace AskMate2.Controllers
                                           [FromForm(Name = "editTitle")] string title,
                                           [FromForm(Name = "editText")] string text)
         {
-            csv.EditQuestion(id, title, text);
+            ds.UpdateQuestion(id, title, text);
             return RedirectToAction("Index","Home");
         }
     }

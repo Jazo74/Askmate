@@ -6,7 +6,7 @@
 <form method="post" asp-controller="Questions" asp-action="EditQuestion2">
     <label for="editQuestionTitle">Question title:</label>
     <br />
-    <input type="text" list="EQ2" id="editQuestionTitle" name="editTitle" rows="1" cols="50" size="50" required />
+    <input type="text" list="EQ2" id="editQuestionTitle" name="editTitle" rows="1" cols="50" size="50" autocomplete="off" required />
     <datalist id="EQ2">
         @foreach (Transit qst in Model)
         {
