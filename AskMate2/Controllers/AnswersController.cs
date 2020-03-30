@@ -11,7 +11,7 @@ namespace AskMate2.Controllers
     
     public class AnswersController : Controller
     {
-        CSV csv = new CSV();
+        CsvDataService csv = new CsvDataService();
         [HttpGet]
         public IActionResult AddAnswer()
         {
