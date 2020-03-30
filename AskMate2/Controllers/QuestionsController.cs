@@ -13,7 +13,7 @@ namespace AskMate2.Controllers
     [Microsoft.AspNetCore.Components.Route("")]
     public class QuestionsController : Controller
     {
-        IDataService ds = new CsvDataService();
+        IDataService ds = new DBService();
 
         [HttpGet("list")] // <--- this is what you write after {PORT}
         public IActionResult ListQuestions()

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AskMate2;
 
 namespace AskMate2.Domain
 {
@@ -29,24 +31,30 @@ namespace AskMate2.Domain
 
         public Question MakeQuestionWoId(string title, string text)
         {
-            throw new NotImplementedException();
-            /*string questionId = (HighestID("Questions.csv") + 1).ToString();
-            Question question = new Question(questionId, title, text);
-            return question;*/
+            Question question = new Question("kamu", title, text);
+            return question;
         }
 
 
-        public void AddQuestion(Question question)
+        public void AddQuestion(Question question) 
         {
-
-            using (var cmd = new NpgsqlCommand(
-                "INSERT INTO question (submission_time, view_number, vote_number, title, question_message, image) " +
-                "VALUES ((@p)", conn))
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
             {
-                cmd.Parameters.AddWithValue("p", "some_value");
-                cmd.ExecuteNonQuery();
+                conn.Open();
+                using (var cmd = new NpgsqlCommand(
+                 "INSERT INTO question (submission_time, view_number, vote_number, title, question_message, image) " +
+                 "VALUES (@subtime, @viewnum, @votenum, @title, @quemess, @image)", conn))
+                {
+                    cmd.Parameters.AddWithValue("subtime", DateTime.Now);
+                    cmd.Parameters.AddWithValue("viewnum", 0);
+                    cmd.Parameters.AddWithValue("votenum", 0);
+                    cmd.Parameters.AddWithValue("title", question.Title);
+                    cmd.Parameters.AddWithValue("quemess", question.Text);
+                    cmd.Parameters.AddWithValue("image", "index.hu");
+                    cmd.ExecuteNonQuery();
+                }
             }
-            // throw new NotImplementedException();
+                        
         }
 
 
