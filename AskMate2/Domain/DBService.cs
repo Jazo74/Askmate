@@ -234,5 +234,21 @@ namespace AskMate2.Domain
         {
             throw new NotImplementedException();
         }
+
+        public void Vote(string questionId)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("UPDATE question SET vote_number = vote_number + 1 WHERE question_id = @qid", conn))
+                {
+                    cmd.Parameters.AddWithValue("qid", Int32.Parse(questionId));
+                    cmd.ExecuteNonQuery();
+
+                }
+
+
+            }
+        }
     }
 }

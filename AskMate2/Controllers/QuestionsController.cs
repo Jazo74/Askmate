@@ -113,5 +113,34 @@ namespace AskMate2.Controllers
             ds.UpdateQuestion(id, title, text);
             return RedirectToAction("Index","Home");
         }
+
+        [HttpGet]
+        public IActionResult Vote()
+        {
+            List<Transit> transit_list = new List<Transit>();
+
+            foreach (Question que in ds.GetQuestions())
+            {
+                Transit transit = new Transit();
+                transit.Qid = que.Id;
+                transit.Qtitle = que.Title;
+                transit.Qtext = que.Text;
+                transit.Qvote = que.Vote;
+                transit_list.Add(transit);
+            }
+            return View("Vote", transit_list);
+        }
+        //Change from Vote -> Vote2
+
+        [HttpPost]
+        public IActionResult Vote([FromForm(Name = "question")] string question)
+        {
+            string qId = question.Split(":").ToArray()[0];
+            ds.Vote(qId);
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
     }
 }
