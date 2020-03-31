@@ -65,7 +65,7 @@ namespace AskMate2.Domain
                 {
                     cmd.Parameters.AddWithValue("subtime", DateTime.Now);
                     cmd.Parameters.AddWithValue("votenum", 0);
-                    cmd.Parameters.AddWithValue("qid", answer.QId);
+                    cmd.Parameters.AddWithValue("qid", Convert.ToInt32(answer.QId));
                     cmd.Parameters.AddWithValue("answmess", answer.Text);
                     cmd.Parameters.AddWithValue("image", "index.hu");
                     cmd.ExecuteNonQuery();
@@ -81,7 +81,7 @@ namespace AskMate2.Domain
                 using (var cmd = new NpgsqlCommand(
                  "DELETE FROM answer WHERE answer_id = @aid", conn))
                 {
-                    cmd.Parameters.AddWithValue("aid", answerId);
+                    cmd.Parameters.AddWithValue("aid", Convert.ToInt32(answerId));
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -101,14 +101,35 @@ namespace AskMate2.Domain
             }
         }
 
-        public List<Answer> GetAllAnswers()
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Answer> GetAnswers(string questionId)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("SELECT * FROM answer WHERE question_id = @qid", conn))
+                {
+                    cmd.Parameters.AddWithValue("qid", int.Parse(questionId));
+                    List<Answer> answerList = new List<Answer>();
+                    var answerId = "";
+                    DateTime submission_time = new DateTime();
+                    var voteNumber = 0;
+                    var qId = "";
+                    var questionMessage = "";
+                    var image = "";
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        answerId = reader["answer_id"].ToString();
+                        submission_time = Convert.ToDateTime(reader["submission_time"]);
+                        voteNumber = Convert.ToInt32(reader["vote_number"]);
+                        qId = reader["question_id"].ToString();
+                        questionMessage = reader["answer_message"].ToString();
+                        image = reader["image"].ToString();
+                    }
+                    answerList.Add(new Answer(answerId, qId, questionMessage.ToString()));
+                    return answerList;
+                }
+            }
         }
 
         public Question GetQuestion(string questionId)
@@ -119,7 +140,7 @@ namespace AskMate2.Domain
                 using (var cmd = new NpgsqlCommand("SELECT * FROM question WHERE question_id = @qid", conn))
                 {
                     cmd.Parameters.AddWithValue("qid", int.Parse(questionId));
-                    var reader = cmd.ExecuteReader();
+                    
                     var question_id = "";
                     DateTime submission_time = new DateTime();
                     var view_number = 0;
@@ -127,6 +148,7 @@ namespace AskMate2.Domain
                     var title = "";
                     var question_message = "";
                     var image = "";
+                    var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
                         question_id = reader["question_id"].ToString();
@@ -177,7 +199,18 @@ namespace AskMate2.Domain
 
         public void UpdateQuestion(string questionId, string title, string text)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand(
+                 "UPDATE question SET title = @title, question_message = @quemess WHERE question_id = @qid", conn))
+                {
+                    cmd.Parameters.AddWithValue("qid", Convert.ToInt32(questionId));
+                    cmd.Parameters.AddWithValue("title", title);
+                    cmd.Parameters.AddWithValue("quemess", text);
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         /// VOTE

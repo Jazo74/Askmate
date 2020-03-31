@@ -38,8 +38,6 @@ namespace AskMate2.Domain
 
         List<Answer> GetAnswers(string questionId);
 
-        List<Answer> GetAllAnswers();
-
         void AddVoteForAnswer(string answerId);
 
         int GetVoteForAnswer(string answerId);

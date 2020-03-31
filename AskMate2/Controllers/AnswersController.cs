@@ -66,21 +66,19 @@ namespace AskMate2.Controllers
             {
                 if (id == que.Id)
                 {
-                    qtext = que.Text;
-                }
-            }
-            foreach (Answer answer in ds.GetAllAnswers())
-            {
-                if (answer.QId == id)
-                {
                     Transit transit = new Transit();
-                    text = answer.Text;
                     transit.Qid = id.ToString();
-                    transit.Aid = answer.AId.ToString();
                     transit.Qtitle = question.Split(":").ToArray()[1];
-                    transit.Qtext = qtext;
-                    transit.Atext = answer.Text;
-                    transitLst.Add(transit);
+                    transit.Qtext = que.Text;
+                    List<Answer> answers = ds.GetAnswers(que.Id);
+
+                    foreach (Answer answer in answers)
+                    {
+                        text = answer.Text;
+                        transit.Aid = answer.AId.ToString();
+                        transit.Atext = answer.Text;
+                        transitLst.Add(transit); 
+                    }
                 }
             }
             
@@ -109,7 +107,7 @@ namespace AskMate2.Controllers
                     qtext = que.Text;
                 }
             }
-            foreach (Answer answer in ds.GetAllAnswers())
+            foreach (Answer answer in ds.GetAnswers(id))
             {
                 if (answer.QId == id)
                 {
