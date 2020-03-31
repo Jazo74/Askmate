@@ -1,16 +1,15 @@
 ﻿<h1>Question</h1>
 <hr />
+@model List<Transit>
 @{ 
-    if (ViewData.Count != 0)
+    if (Model.Count != 0)
     {
-        string id = ViewData.ElementAt(0).Key.Split(":").ToArray()[0];
-        string title = ViewData.ElementAt(0).Key.Split(":").ToArray()[1];
-        string text = ViewData.ElementAt(0).Value.ToString();
+        
         <ul>
-            <li>QID: @id</li>
-            <li>Title: @title</li>
+            <li>QID: @Model[0].Qid</li>
+            <li>Title: @Model[0].Qtitle</li>
             <hr class="line-1" />
-            <li>Qestion: @text</li>
+            <li>Qestion: @Model[0].Qtext</li>
         </ul>
         
     }

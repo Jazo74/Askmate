@@ -62,14 +62,19 @@ namespace AskMate2.Controllers
         [HttpGet]
         public IActionResult ShowQuestion()
         {
+            List<Transit> transitList = new List<Transit>();
             foreach (Question que in ds.GetQuestions())
             {
-                ViewData.Add(que.Id + ": " + que.Title, que.Text);
+                Transit transit = new Transit();
+                transit.Qid = que.Id;
+                transit.Qtitle = que.Title;
+                transit.Qtext = que.Text;
+                transitList.Add(transit);
             }
-            return View("ShowQuestion");
+            return View("ShowQuestion", transitList);
         }
         [HttpPost]
-        public IActionResult ShowQuestion([FromForm(Name = "question")] string question)
+        public IActionResult ShowQ([FromForm(Name = "question")] string question)
         {
             string id = question.Split(":").ToArray()[0];
             ds.ViewIncrement(id);
@@ -87,6 +92,35 @@ namespace AskMate2.Controllers
             }
             return View("ShowQ");
         }
+        [HttpGet]
+        [Microsoft.AspNetCore.Mvc.Route("/Questions/ShowQe/{qid}")]
+        public IActionResult ShowQe(string qid)
+        {
+            //string id = qid.Split(":").ToArray()[0];
+            ds.ViewIncrement(qid);
+            //HERE INSTERt
+            List<Transit> transitList = new List<Transit>();
+            if (qid != null && qid.Length != 0)
+            {
+
+                foreach (Question que in ds.GetQuestions())
+                {
+                    if (que.Id == qid)
+                    {
+                        Transit transit = new Transit();
+                        transit.Qid = que.Id;
+                        transit.Qtitle = que.Title;
+                        transit.Qtext = que.Text;
+                        transit.Qview = que.ViewNumber;
+                        transit.Qvote = que.VoteNumber;
+                        transit.QsubmissionTime = que.SubmissionTime;
+                        transitList.Add(transit);
+                    }
+                }
+            }
+            return View("ShowQ", transitList);
+        }
+
         [HttpGet]
         public IActionResult EditQuestion1()
         {

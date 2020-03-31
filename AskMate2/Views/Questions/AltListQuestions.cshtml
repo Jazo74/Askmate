@@ -9,7 +9,6 @@
             <tr>
                 <th>ID</th>
                 <th>Title</th>
-                <th>Question</th>
                 <th>Votes</th>
                 <th>Views</th>
                 <th>Created</th>
@@ -19,10 +18,9 @@
                     {
                             <tr>
                                 <td>@item.Qid</td>
-                                <td>@item.Qtitle</td>
-                                <td>@item.Qtext</td>
+                                <td><a asp-controller="Questions" asp-action="ShowQe" asp-route-qid=@(item.Qid)>@item.Qtitle</a></td>
                                 <td>@item.Qvote</td>
-                                <td>@item.Qview</td>
+                                <td>@item.Qview</td>0
                                 <td>@item.QsubmissionTime</td>
                             </tr>
                     }

@@ -1,7 +1,7 @@
-﻿@model AskMate2.Domain.Question
+﻿@model List<Transit>
 <h1>Was it showing or shoveling?...</h1>
 <hr />
-<form method="post" asp-controller="Questions" asp-action="ShowQuestion">
+<form method="post" asp-controller="Questions" asp-action="ShowQ">
     @{
         if (ViewData.Count != 0)
         {
@@ -9,9 +9,9 @@
             <br />
             <input type="text" style="width:500px;" list="questions" id="question" name="question" autocomplete="off" required>
             <datalist id="questions" >
-                @foreach (KeyValuePair<string, object> item in ViewData)
+                @foreach (Transit item in Model)
                 {
-                    string value = item.Key.ToString();
+                    string value = item.Qid + ": " + item.Qtitle;
                     <option value="@value"></option>
                 }
             </datalist>
