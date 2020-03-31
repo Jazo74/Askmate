@@ -21,15 +21,15 @@ namespace AskMate2.Domain
             return answer;
         }
 
-        public Question MakeQuestion(string questionId, string title, string text)
+        public Question MakeQuestion(string questionId, string title, string text, int voteNumber, int viewNumber, DateTime submissionTime, string image)
         {
-            Question question = new Question(questionId, title, text);
+            Question question = new Question(questionId, title, text, voteNumber, viewNumber, submissionTime, image);
             return question;
         }
 
-        public Question MakeQuestionWoId(string title, string text)
+        public Question MakeQuestionWoId(string title, string text, int voteNumber, int viewNumber, DateTime submissionTime, string image)
         {
-            Question question = new Question("fakeid", title, text);
+            Question question = new Question("fakeid", title, text, voteNumber, viewNumber, submissionTime, image);
             return question;
         }
 
@@ -141,25 +141,25 @@ namespace AskMate2.Domain
                 {
                     cmd.Parameters.AddWithValue("qid", int.Parse(questionId));
                     
-                    var question_id = "";
-                    DateTime submission_time = new DateTime();
-                    var view_number = 0;
-                    var vote_number = 0;
+                    var questionid = "";
+                    DateTime submissionTime = new DateTime();
+                    var viewNumber = 0;
+                    var voteNumber = 0;
                     var title = "";
-                    var question_message = "";
+                    var questionMessage = "";
                     var image = "";
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        question_id = reader["question_id"].ToString();
-                        submission_time = Convert.ToDateTime(reader["submission_time"]);
-                        view_number = Convert.ToInt32(reader["view_number"]);
-                        vote_number = Convert.ToInt32(reader["vote_number"]);
+                        questionid = reader["question_id"].ToString();
+                        submissionTime = Convert.ToDateTime(reader["submission_time"]);
+                        viewNumber = Convert.ToInt32(reader["view_number"]);
+                        voteNumber = Convert.ToInt32(reader["vote_number"]);
                         title = reader["title"].ToString();
-                        question_message = reader["question_message"].ToString();
+                        questionMessage = reader["question_message"].ToString();
                         image = reader["image"].ToString();
                     }
-                    Question question = new Question(question_id, title.ToString(), question_message.ToString());
+                    Question question = new Question(questionid, title.ToString(), questionMessage.ToString(), voteNumber, viewNumber, submissionTime, image);
                     return question;
                 }
             }
@@ -174,23 +174,23 @@ namespace AskMate2.Domain
                 {
                     List<Question> questionList = new List<Question>();
                     var reader = cmd.ExecuteReader();
-                    var question_id = "";
-                    DateTime submission_time = new DateTime();
-                    var view_number = 0;
-                    var vote_number = 0;
+                    var questionid = "";
+                    DateTime submissionTime = new DateTime();
+                    var viewNumber = 0;
+                    var voteNumber = 0;
                     var title = "";
-                    var question_message = "";
+                    var questionMessage = "";
                     var image = "";
                     while (reader.Read())
                     {
-                        question_id = reader["question_id"].ToString();
-                        submission_time = Convert.ToDateTime(reader["submission_time"]);
-                        view_number = Convert.ToInt32(reader["view_number"]);
-                        vote_number = Convert.ToInt32(reader["vote_number"]);
+                        questionid = reader["question_id"].ToString();
+                        submissionTime = Convert.ToDateTime(reader["submission_time"]);
+                        viewNumber = Convert.ToInt32(reader["view_number"]);
+                        voteNumber = Convert.ToInt32(reader["vote_number"]);
                         title = reader["title"].ToString();
-                        question_message = reader["question_message"].ToString();
+                        questionMessage = reader["question_message"].ToString();
                         image = reader["image"].ToString();
-                        questionList.Add(new Question(question_id, title.ToString(), question_message.ToString()));
+                        questionList.Add(new Question(questionid, title.ToString(), questionMessage.ToString(), voteNumber, viewNumber, submissionTime, image));
                     }
                     return questionList;
                 }

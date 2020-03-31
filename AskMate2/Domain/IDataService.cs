@@ -9,9 +9,9 @@ namespace AskMate2.Domain
     {
         // questions
 
-        Question MakeQuestion(string questionId, string title, string text);
+        Question MakeQuestion(string questionId, string title, string text, int voteNumber, int viewNumber, DateTime submissionTime, string image);
 
-        Question MakeQuestionWoId(string title, string text);
+        Question MakeQuestionWoId(string title, string text, int voteNumber, int viewNumber, DateTime submissionTime, string image);
 
         void AddQuestion(Question question);
 
