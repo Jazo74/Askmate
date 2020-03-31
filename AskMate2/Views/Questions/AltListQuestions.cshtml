@@ -1,23 +1,30 @@
 ﻿<h1>Stop making lists!</h1>
 <hr />
-@{ if (ViewData.Count != 0)
+@model List<Transit> 
+<h6>Questions</h6>
+<br />
+@{ if (Model.Count != 0)
     {
         <table class="tablazat">
             <tr>
-                <th>Question ID</th>
-                <th>Question title</th>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Question</th>
+                <th>Votes</th>
+                <th>Views</th>
+                <th>Created</th>
             </tr>
                 @{
-                    foreach (KeyValuePair
-                    <string, object>
-                        item in ViewData)
+                    foreach (Transit item in Model)
                     {
-                        string value = item.Value.ToString();
-                        string key = item.Key.ToString();
-                        <tr>
-                            <td>@key</td>
-                            <td>@value</td>
-                        </tr>
+                            <tr>
+                                <td>@item.Qid</td>
+                                <td>@item.Qtitle</td>
+                                <td>@item.Qtext</td>
+                                <td>@item.Qvote</td>
+                                <td>@item.Qview</td>
+                                <td>@item.QsubmissionTime</td>
+                            </tr>
                     }
                 }
         </table>

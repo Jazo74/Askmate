@@ -12,8 +12,9 @@ namespace AskMate2.Domain
         public string Text { get; set; }
         public int VoteNumber { get; set; }
         public int ViewNumber { get; set; }
-        DateTime SubmissionTime = new DateTime();
-        string Image { get; set; }
+        public string Image { get; set; }
+        public DateTime SubmissionTime { get; set; }
+        
 
 
         public Question(string id, string title, string text, int voteNumber, int viewNumber, DateTime submissionTime, string image)

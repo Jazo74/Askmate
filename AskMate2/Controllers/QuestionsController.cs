@@ -18,11 +18,20 @@ namespace AskMate2.Controllers
         [HttpGet("list")] // <--- this is what you write after {PORT}
         public IActionResult ListQuestions()
         {
+            List<Transit> transitList = new List<Transit>();
             foreach (Question question in ds.GetQuestions())
             {
-                ViewData.Add(question.Id.ToString(), question.Title);
+                Transit transit = new Transit();
+                transit.Qid = question.Id.ToString();
+                transit.Qtitle = question.Title;
+                transit.Qtext = question.Text;
+                transit.Qview = question.ViewNumber;
+                transit.Qvote = question.VoteNumber;
+                transit.QsubmissionTime = question.SubmissionTime;
+                transit.Qimage = question.Image;
+                transitList.Add(transit);
             }
-            return View("AltListQuestions");
+            return View("AltListQuestions", transitList);
         }
         [HttpGet]
         public IActionResult AddQuestion()
