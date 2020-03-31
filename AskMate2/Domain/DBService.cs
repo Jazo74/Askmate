@@ -17,10 +17,8 @@ namespace AskMate2.Domain
 
         public Answer MakeAnswerWoId(string qid, string text)
         {
-            throw new NotImplementedException();
-            /*string answerId = (HighestID("Answers.csv") + 1).ToString();
-            Answer answer = new Answer(answerId, qid, text);
-            return answer;*/
+            Answer answer = new Answer("fakeid", qid, text);
+            return answer;
         }
 
         public Question MakeQuestion(string questionId, string title, string text)
@@ -31,7 +29,7 @@ namespace AskMate2.Domain
 
         public Question MakeQuestionWoId(string title, string text)
         {
-            Question question = new Question("kamu", title, text);
+            Question question = new Question("fakeid", title, text);
             return question;
         }
 
@@ -54,23 +52,53 @@ namespace AskMate2.Domain
                     cmd.ExecuteNonQuery();
                 }
             }
-                        
         }
-
 
         public void AddAnswer(Answer answer)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand(
+                 "INSERT INTO answer (submission_time, vote_number, question_id, answer_message, image) " +
+                 "VALUES (@subtime, @votenum, @qid, @answmess, @image)", conn))
+                {
+                    cmd.Parameters.AddWithValue("subtime", DateTime.Now);
+                    cmd.Parameters.AddWithValue("votenum", 0);
+                    cmd.Parameters.AddWithValue("qid", answer.QId);
+                    cmd.Parameters.AddWithValue("answmess", answer.Text);
+                    cmd.Parameters.AddWithValue("image", "index.hu");
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public void DeleteAnswer(string answerId)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand(
+                 "DELETE FROM answer WHERE answer_id = @aid", conn))
+                {
+                    cmd.Parameters.AddWithValue("aid", answerId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public void DeleteQuestion(string questionId)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand(
+                 "DELETE FROM question WHERE question_id = @qid", conn))
+                {
+                    cmd.Parameters.AddWithValue("qid", int.Parse(questionId));
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public List<Answer> GetAllAnswers()
@@ -85,15 +113,67 @@ namespace AskMate2.Domain
 
         public Question GetQuestion(string questionId)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("SELECT * FROM question WHERE question_id = @qid", conn))
+                {
+                    cmd.Parameters.AddWithValue("qid", int.Parse(questionId));
+                    var reader = cmd.ExecuteReader();
+                    var question_id = "";
+                    DateTime submission_time = new DateTime();
+                    var view_number = 0;
+                    var vote_number = 0;
+                    var title = "";
+                    var question_message = "";
+                    var image = "";
+                    while (reader.Read())
+                    {
+                        question_id = reader["question_id"].ToString();
+                        submission_time = Convert.ToDateTime(reader["submission_time"]);
+                        view_number = Convert.ToInt32(reader["view_number"]);
+                        vote_number = Convert.ToInt32(reader["vote_number"]);
+                        title = reader["title"].ToString();
+                        question_message = reader["question_message"].ToString();
+                        image = reader["image"].ToString();
+                    }
+                    Question question = new Question(question_id, title.ToString(), question_message.ToString());
+                    return question;
+                }
+            }
         }
 
         public List<Question> GetQuestions()
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("SELECT * FROM question", conn))
+                {
+                    List<Question> questionList = new List<Question>();
+                    var reader = cmd.ExecuteReader();
+                    var question_id = "";
+                    DateTime submission_time = new DateTime();
+                    var view_number = 0;
+                    var vote_number = 0;
+                    var title = "";
+                    var question_message = "";
+                    var image = "";
+                    while (reader.Read())
+                    {
+                        question_id = reader["question_id"].ToString();
+                        submission_time = Convert.ToDateTime(reader["submission_time"]);
+                        view_number = Convert.ToInt32(reader["view_number"]);
+                        vote_number = Convert.ToInt32(reader["vote_number"]);
+                        title = reader["title"].ToString();
+                        question_message = reader["question_message"].ToString();
+                        image = reader["image"].ToString();
+                        questionList.Add(new Question(question_id, title.ToString(), question_message.ToString()));
+                    }
+                    return questionList;
+                }
+            }
         }
-
-        
 
         public void UpdateQuestion(string questionId, string title, string text)
         {

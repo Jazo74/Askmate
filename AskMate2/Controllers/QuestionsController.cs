@@ -32,9 +32,7 @@ namespace AskMate2.Controllers
         [HttpPost]
         public IActionResult AddQuestion([FromForm(Name="title")] string title, [FromForm(Name = "text")] string text)
         {
-
             ds.AddQuestion(ds.MakeQuestionWoId(title, text));
-            
             return RedirectToAction("Index", "Home");
         }
 
