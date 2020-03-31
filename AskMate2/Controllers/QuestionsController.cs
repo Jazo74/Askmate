@@ -125,7 +125,7 @@ namespace AskMate2.Controllers
                 transit.Qid = que.Id;
                 transit.Qtitle = que.Title;
                 transit.Qtext = que.Text;
-                transit.Qvote = que.Vote;
+                transit.Qvote = que.VoteNumber;
                 transit_list.Add(transit);
             }
             return View("Vote", transit_list);
