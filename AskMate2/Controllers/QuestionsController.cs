@@ -71,9 +71,12 @@ namespace AskMate2.Controllers
         [HttpPost]
         public IActionResult ShowQuestion([FromForm(Name = "question")] string question)
         {
+            string id = question.Split(":").ToArray()[0];
+            ds.ViewIncrement(id);
+             //HERE INSTERt
             if (question != null && question.Length != 0)
             {
-                string id = question.Split(":").ToArray()[0];
+                
                 foreach (Question que in ds.GetQuestions())
                 {
                     if (que.Id == id)

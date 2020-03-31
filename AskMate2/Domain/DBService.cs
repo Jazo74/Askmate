@@ -244,11 +244,34 @@ namespace AskMate2.Domain
                 {
                     cmd.Parameters.AddWithValue("qid", Int32.Parse(questionId));
                     cmd.ExecuteNonQuery();
-
                 }
-
-
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+        public void ViewIncrement(string questionId)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("UPDATE question SET view_number = view_number + 1 WHERE question_id = @qid", conn))
+                {
+                    cmd.Parameters.AddWithValue("qid", Int32.Parse(questionId));
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+
     }
 }

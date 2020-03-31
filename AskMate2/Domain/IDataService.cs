@@ -45,11 +45,26 @@ namespace AskMate2.Domain
         void DeleteAnswer(string answerId);
 
         void Vote(string qestionId);
-        
 
-        
 
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        void ViewIncrement(string questionId);
+
 
 
 
