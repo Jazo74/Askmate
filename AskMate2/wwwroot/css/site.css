@@ -21,6 +21,12 @@ a:active {
 .inactive-input {
     background-color: darkgray;
 }
+.qSearch {
+    white-space: pre;
+}
+.inlinethingy {
+    display: inline-block;
+}
 
 .tablazat th {
     color: #39787a;

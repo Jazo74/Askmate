@@ -1,8 +1,24 @@
 ﻿<h1>Stop making lists!</h1>
 <hr />
 @model List<Transit> 
-<h6>Questions</h6>
-<br />
+<h2>Questions</h2>
+<hr />
+<form method="post" asp-controller="Questions" asp-action="ShowQWithSelect">
+    <label for="wordSearch">Search a word: </label>
+    <input type="text" id="wordSearch" name="wordToSearch" size="40" />
+    <br />
+    <label for="voteSearch">Minimal votes: </label>
+    <input type="text" id="voteSearch" name="fromVoteSearch" size="4" />
+    <br />
+    <label for="fromTime">Created from: </label>
+    <input type="text" id="fromTime" name="fromTimeToSearch" size="10" />
+    <br />
+    <label for="toTime">Created to: </label>
+    <input type="text" id="toTimeSearch" name="toTimeToSearch" size="10" />
+    <br />
+    <input type="submit" value="search" />
+</form>
+<hr />
 @{ if (Model.Count != 0)
     {
         <table class="tablazat">

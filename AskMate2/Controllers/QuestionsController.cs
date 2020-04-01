@@ -186,6 +186,16 @@ namespace AskMate2.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpPost]
+        public IActionResult ShowQWithSelect([FromForm(Name = "wordToSearch")] string text,
+                                          [FromForm(Name = "fromTimeToSearch")] DateTime fromTime,
+                                          [FromForm(Name = "toTimeToSearch")] DateTime toTime)
+        {
+            
+            return RedirectToAction("Index", "Home");
+        }
+
+
 
 
     }
