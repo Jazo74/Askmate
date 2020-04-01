@@ -272,6 +272,59 @@ namespace AskMate2.Domain
         }
 
 
+        public void AnswerVote(string answerId)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("UPDATE answer SET vote_number = vote_number + 1 WHERE answer_id = @aid", conn))
+                {
+                    cmd.Parameters.AddWithValue("aid", Int32.Parse(answerId));
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+
+
+        public void AddCommentQuestion(string questionId, string komment)
+        {
+            DateTime subTime = DateTime.Now;
+            int edit = 0;
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("INSERT INTO komment(question_id, komment_message, submission_time, edited_number) VALUES (@qid, @komment, @subTime, @edit);", conn))
+                {
+                    cmd.Parameters.AddWithValue("qid", Int32.Parse(questionId));
+                    cmd.Parameters.AddWithValue("komment", komment);
+                    cmd.Parameters.AddWithValue("subTime", subTime);
+                    cmd.Parameters.AddWithValue("edit", edit);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        public void AddCommentAnswer(string answerId, string komment)
+        {
+            DateTime subTime = DateTime.Now;
+            int edit = 0;
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("INSERT INTO komment(answer_id, komment_message, submission_time, edited_number) VALUES (@aid, @komment, @subTime, @edit)", conn))
+                {
+                    cmd.Parameters.AddWithValue("aid", Int32.Parse(answerId));
+                    cmd.Parameters.AddWithValue("komment", komment);
+                    cmd.Parameters.AddWithValue("subTime", subTime);
+                    cmd.Parameters.AddWithValue("edit", edit);
+                    cmd.ExecuteNonQuery(); //this has to be here'
+                }
+            }
+        }
+
 
     }
 }

@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "CommentToAnswer";
+}
+
+<h1>CommentToAnswer</h1>
+
+<form asp-controller="Answers" asp-action="CommentToAnswer" method="post">
+    
+    <input type="text" name="answerId" value="AnswerID" />
+    <input type="text" style="width:inherit;" name="komment" value="Comment" />
+    <input type="submit" value="Add Comment" />
+    
+</form>

@@ -198,5 +198,31 @@ namespace AskMate2.Controllers
 
 
 
+
+        //[HttpPost]
+        //public IActionResult AnswerVote([FromForm(Name = "answer")] string answer)
+        //{
+        //    string aId = answer.Split(":").ToArray()[0];
+        //    ds.Vote(aId);
+        //    return RedirectToAction("Index", "Home");
+        //}
+
+        
+
+        [HttpGet]
+        public IActionResult CommentToQuestion()
+        {
+            return View("CommentToQuestion");
+        }
+
+        [HttpPost]
+        public IActionResult CommentToQuestion(string questionId, string komment)
+        {
+            ds.AddCommentQuestion(questionId, komment);
+            return RedirectToAction("Index", "Home"); //EDIT (according to specifications)
+        }
+
+        
+
     }
 }

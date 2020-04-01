@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewData["Title"] = "VoteAnswer";
+}
+
+<h1>VoteAnswer</h1>
+<form method="post" asp-controller="Answers" asp-action="AnswerVote">
+    <input type="text" name="answerId" style="width:40px;" />
+    <input type="submit" value="Vote" />
+</form>

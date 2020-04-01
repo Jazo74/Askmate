@@ -130,5 +130,40 @@ namespace AskMate2.Controllers
             ds.DeleteAnswer(Aid);
             return RedirectToAction("Index","Home");
         }
+
+
+        [HttpGet]
+        public IActionResult AnswerVote()
+        {
+            return View("VoteAnswer");
+        }
+
+        [HttpPost]
+        public IActionResult AnswerVote([FromForm(Name = "answerId")] string answerId)
+        {
+            ds.AnswerVote(answerId);
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
+
+
+
+
+
+
+        [HttpGet]
+        public IActionResult CommentToAnswer()
+        {
+            return View("CommentToAnswer");
+        }
+
+        [HttpPost]
+        public IActionResult CommentToAnswer(string answerId, string komment)
+        {
+            ds.AddCommentAnswer(answerId, komment);
+            return RedirectToAction("Index", "Home"); //EDIT (according to specifications)
+        }
     }
 }
