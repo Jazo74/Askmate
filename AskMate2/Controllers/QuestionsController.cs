@@ -187,6 +187,13 @@ namespace AskMate2.Controllers
         }
 
         [HttpPost]
+        public IActionResult VoteForQuestion([FromForm(Name = "qId")] string qId)
+        {
+            ds.Vote(qId);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
         public IActionResult ShowQWithSelect([FromForm(Name = "wordToSearch")] string word,
                                           [FromForm(Name = "fromTimeToSearch")] DateTime fromTime,
                                           [FromForm(Name = "toTimeToSearch")] DateTime toTime,
