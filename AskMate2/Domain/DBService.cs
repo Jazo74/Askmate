@@ -48,7 +48,7 @@ namespace AskMate2.Domain
                     cmd.Parameters.AddWithValue("votenum", 0);
                     cmd.Parameters.AddWithValue("title", question.Title);
                     cmd.Parameters.AddWithValue("quemess", question.Text);
-                    cmd.Parameters.AddWithValue("image", "index.hu");
+                    cmd.Parameters.AddWithValue("image", "");
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -67,7 +67,7 @@ namespace AskMate2.Domain
                     cmd.Parameters.AddWithValue("votenum", 0);
                     cmd.Parameters.AddWithValue("qid", Convert.ToInt32(answer.QId));
                     cmd.Parameters.AddWithValue("answmess", answer.Text);
-                    cmd.Parameters.AddWithValue("image", "index.hu");
+                    cmd.Parameters.AddWithValue("image", "");
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -248,16 +248,6 @@ namespace AskMate2.Domain
             }
         }
 
-
-
-
-
-
-
-
-
-
-
         public void ViewIncrement(string questionId)
         {
             using (var conn = new NpgsqlConnection(Program.ConnectionString))
@@ -271,7 +261,6 @@ namespace AskMate2.Domain
             }
         }
 
-
         public void AnswerVote(string answerId)
         {
             using (var conn = new NpgsqlConnection(Program.ConnectionString))
@@ -284,9 +273,6 @@ namespace AskMate2.Domain
                 }
             }
         }
-
-
-
 
         public void AddCommentQuestion(string questionId, string komment)
         {
