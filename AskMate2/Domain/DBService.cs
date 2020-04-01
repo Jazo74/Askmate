@@ -365,5 +365,40 @@ namespace AskMate2.Domain
                 }
             }
         }
+
+
+
+
+
+
+
+        public void EditCommentAnswer(string answerId, string komment)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("UPDATE komment SET komment_message = @komment,edited_number  = edited_number +1 WHERE answer_id = @aid", conn))
+                {
+                    cmd.Parameters.AddWithValue("aid", Int32.Parse(answerId));
+                    cmd.Parameters.AddWithValue("komment",komment);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void EditCommentQuestion(string questionId, string komment)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();//or AND
+                using (var cmd = new NpgsqlCommand("UPDATE komment SET komment_message  = @komment, edited_number  = edited_number +1 WHERE question_id = @qid", conn))
+                {
+                    cmd.Parameters.AddWithValue("qid", Int32.Parse(questionId));
+                    cmd.Parameters.AddWithValue("komment", komment);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
     }
 }

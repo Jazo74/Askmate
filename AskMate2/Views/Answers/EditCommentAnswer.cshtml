@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "EditCommentAnswer"; //ANSWER
+}
+
+<h1>EditCommentAnswer</h1>
+
+<form method="post" asp-controller="Answers" asp-action="EditCommentAnswer">
+
+    <input type="text" name="answerId" value="A ID?" />
+    <input type="text" name="komment" value="New Comment" />
+    <input type="submit" value="Edit Comment" />
+
+</form>

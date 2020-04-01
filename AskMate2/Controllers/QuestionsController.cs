@@ -260,5 +260,23 @@ namespace AskMate2.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
+
+
+
+        [HttpGet]
+        public IActionResult EditCommentQuestion()
+        {
+            return View("EditCommentQuestion");
+        }
+        [HttpPost]
+        public IActionResult EditCommentQuestion([FromForm(Name = "questionId")] string questionId, [FromForm(Name = "komment")] string komment)
+        {
+            ds.EditCommentQuestion(questionId, komment);
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        
     }
 }

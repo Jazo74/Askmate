@@ -80,5 +80,12 @@ namespace AskMate2.Domain
 
         void AddImageToQuestion(string questionId, string image);
 
+
+
+
+        void EditCommentQuestion(string questionId, string komment);
+        void EditCommentAnswer(string answernId, string komment);
+
+
     }
 }
