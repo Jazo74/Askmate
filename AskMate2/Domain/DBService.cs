@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AskMate2;
+using AskMate2.Models;
 
 namespace AskMate2.Domain
 {
@@ -400,5 +401,119 @@ namespace AskMate2.Domain
             }
         }
 
+        public List<Question> GetQuestions(int latestX)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                List<Question> questionList = new List<Question>();
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("SELECT * FROM question " +
+                    "ORDER BY submission_time DESC LIMIT @latestX", conn))
+                {
+                    cmd.Parameters.AddWithValue("latestX", latestX);
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        var questionid = reader["question_id"].ToString();
+                        var submissionTime = Convert.ToDateTime(reader["submission_time"]);
+                        var viewNumber = Convert.ToInt32(reader["view_number"]);
+                        var voteNumber = Convert.ToInt32(reader["vote_number"]);
+                        var title = reader["title"].ToString();
+                        var questionMessage = reader["question_message"].ToString();
+                        var image = reader["image"].ToString();
+                        Question question = new Question(questionid, title.ToString(), questionMessage.ToString(), voteNumber, viewNumber, submissionTime, image);
+                        questionList.Add(question);
+                    }
+
+                    return questionList;
+                }
+            }
+        }
+
+        public QAC GetQuestionWithAnswers(string questionId)
+        {
+            QAC qac = new QAC();
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("SELECT * FROM question " +
+                    "WHERE question_id = @questionId", conn))
+                {
+                    cmd.Parameters.AddWithValue("questionId", Int32.Parse(questionId));
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        var questionid = reader["question_id"].ToString();
+                        var qSubmissionTime = Convert.ToDateTime(reader["submission_time"]);
+                        var qViewNumber = Convert.ToInt32(reader["view_number"]);
+                        var qVoteNumber = Convert.ToInt32(reader["vote_number"]);
+                        var qTitle = reader["title"].ToString();
+                        var questionMessage = reader["question_message"].ToString();
+                        var qImage = reader["image"].ToString();
+                        QuestionModel qModel = new QuestionModel();
+                        qModel.Qid = questionid;
+                        qModel.Qtitle = qTitle.ToString();
+                        qModel.Qtext = questionMessage.ToString();
+                        qModel.Qvote = qVoteNumber;
+                        qModel.Qview = qViewNumber;
+                        qModel.QsubmissionTime = qSubmissionTime;
+                        qModel.Qimage = qImage;
+                        qac.qModelList.Add(qModel);
+                    }
+                    conn.Close();
+                }
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("SELECT * FROM answer " +
+                    "WHERE question_id = @questionId", conn))
+                {
+                    cmd.Parameters.AddWithValue("questionId", Int32.Parse(questionId));
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        var answerid = reader["answer_id"].ToString();
+                        var aSubmissionTime = Convert.ToDateTime(reader["submission_time"]);
+                        var aViewNumber = Convert.ToInt32(reader["view_number"]);
+                        var aVoteNumber = Convert.ToInt32(reader["vote_number"]);
+                        var answerMessage = reader["answer_message"].ToString();
+                        var aImage = reader["image"].ToString();
+                        AnswerModel aModel = new AnswerModel();
+                        aModel.Aid = answerid;
+                        aModel.Atext = answerMessage.ToString();
+                        aModel.Avote = aVoteNumber;
+                        aModel.AsubmissionTime = aSubmissionTime;
+                        aModel.Aimage = aImage;
+                        qac.aModelList.Add(aModel);
+                    }
+                    conn.Close();
+                }
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("SELECT * FROM komment " +
+                    "WHERE question_id = @questionId OR answer_id IN " +
+                    "(SELECT answer_id FROM answer WHERE question_id = @questionId)", conn))
+                {
+                    cmd.Parameters.AddWithValue("questionId", Int32.Parse(questionId));
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        var kommentId = reader["komment_id"].ToString();
+                        var qId = reader["question_id"].ToString();
+                        var aId = reader["answer_id"].ToString();
+                        var cSubmissionTime = Convert.ToDateTime(reader["submission_time"]);
+                        var commentMessage = reader["komment_message"].ToString();
+                        var cEditNr = reader["edited_number"];
+                        CommentModel cModel = new CommentModel();
+                        cModel.Cid = kommentId;
+                        cModel.Qid = qId;
+                        cModel.Aid = aId;
+                        cModel.Ctext = commentMessage;
+                        cModel.CsubmissionTime = cSubmissionTime;
+                        
+                        qac.cModelList.Add(cModel);
+                    }
+                    return qac;
+                }
+            }
+        }
     }
 }

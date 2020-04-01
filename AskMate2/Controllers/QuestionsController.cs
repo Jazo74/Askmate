@@ -96,30 +96,8 @@ namespace AskMate2.Controllers
         [Microsoft.AspNetCore.Mvc.Route("/Questions/ShowQe/{qid}")]
         public IActionResult ShowQe(string qid)
         {
-            //string id = qid.Split(":").ToArray()[0];
             ds.ViewIncrement(qid);
-            //HERE INSTERt
-            List<Transit> transitList = new List<Transit>();
-            if (qid != null && qid.Length != 0)
-            {
-
-                foreach (Question que in ds.GetQuestions())
-                {
-                    if (que.Id == qid)
-                    {
-                        Transit transit = new Transit();
-                        transit.Qid = que.Id;
-                        transit.Qtitle = que.Title;
-                        transit.Qtext = que.Text;
-                        transit.Qview = que.ViewNumber;
-                        transit.Qvote = que.VoteNumber;
-                        transit.QsubmissionTime = que.SubmissionTime;
-                        transit.Qimage = que.Image;
-                        transitList.Add(transit);
-                    }
-                }
-            }
-            return View("ShowQ", transitList);
+            return View("ShowQ", ds.GetQuestionWithAnswers(qid));
         }
 
         [HttpGet]
@@ -216,6 +194,25 @@ namespace AskMate2.Controllers
             return RedirectToAction("AltListQuestions",transitList);
         }
 
+        [HttpPost]
+        public IActionResult ShowQLatestSelect([FromForm(Name = "latestX")] int latestX)
+        {
+            List<Transit> transitList = new List<Transit>();
+            List<Question> questionList = ds.GetQuestions(latestX);
+            foreach (Question que in questionList)
+            {
+                Transit transit = new Transit();
+                transit.Qid = que.Id;
+                transit.Qtitle = que.Title;
+                transit.Qtext = que.Text;
+                transit.Qvote = que.VoteNumber;
+                transit.QsubmissionTime = que.SubmissionTime;
+                transitList.Add(transit);
+            }
+            return View("ALtListQuestions", transitList);
+            return RedirectToAction("AltListQuestions", transitList);
+        }
+
 
 
 
@@ -228,7 +225,7 @@ namespace AskMate2.Controllers
         //    return RedirectToAction("Index", "Home");
         //}
 
-        
+
 
         [HttpGet]
         public IActionResult CommentToQuestion()
@@ -254,7 +251,7 @@ namespace AskMate2.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddImageToQuestion([FromForm(Name = "image")] string image, [FromForm(Name ="questionId")] string questionId)
+        public IActionResult AddImageToQuestion([FromForm(Name = "image")] string image, [FromForm(Name ="qid")] string questionId)
         {
             ds.AddImageToQuestion(questionId, image);
             return RedirectToAction("Index", "Home");

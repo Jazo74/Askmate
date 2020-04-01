@@ -1,6 +1,4 @@
-﻿<h1>Stop making lists!</h1>
-<hr />
-@model List<Transit> 
+﻿@model List<Transit> 
 <h2>Questions</h2>
 <hr />
 <form method="post" asp-controller="Questions" asp-action="ShowQWithSelect">
@@ -8,7 +6,7 @@
     <input type="text" id="wordSearch" name="wordToSearch" size="40" />
     <br />
     <label for="voteSearch">Minimal votes: </label>
-    <input type="text" id="voteSearch" name="fromVoteSearch" size="3" value="0"/>
+    <input type="text" id="voteSearch" name="fromVoteSearch" size="3" value="0" />
     <br />
     <label for="fromTime">Created from: </label>
     <input type="text" id="fromTime" name="fromTimeToSearch" size= "7" maxlength="10" value="1900.01.01"/>
@@ -17,6 +15,12 @@
     <input type="text" id="toTimeSearch" name="toTimeToSearch" size="7" maxlength="10" value="2100.01.01" />
     <br />
     <input type="submit" value="search" />
+</form>
+<hr />
+<form method="post" asp-controller="Questions" asp-action="ShowQLatestSelect">
+    <label for="lastLimit">The latest questions: </label>
+    <input type="text" id="lastLimit" name="latestX" size="4" />
+    <input type="submit" value="latest" />
 </form>
 <hr />
 @{ if (Model.Count != 0)

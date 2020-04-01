@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AskMate2.Models;
 
 namespace AskMate2.Domain
 {
@@ -29,6 +30,8 @@ namespace AskMate2.Domain
 
         List<Question> GetQuestions(string word, int minVotes, DateTime from, DateTime to);
 
+        List<Question> GetQuestions(int latestX);
+
 
 
 
@@ -50,29 +53,10 @@ namespace AskMate2.Domain
 
         void Vote(string qestionId);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        QAC GetQuestionWithAnswers(string questionId);
 
         void ViewIncrement(string questionId);
         void AnswerVote(string answerId);
-
-
-
-
 
         void AddCommentQuestion(string questionId, string komment);
 
@@ -80,10 +64,8 @@ namespace AskMate2.Domain
 
         void AddImageToQuestion(string questionId, string image);
 
-
-
-
         void EditCommentQuestion(string questionId, string komment);
+
         void EditCommentAnswer(string answernId, string komment);
 
 
