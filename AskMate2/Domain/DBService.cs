@@ -325,6 +325,27 @@ namespace AskMate2.Domain
             }
         }
 
+
+
+
+
+
+
+        public void AddImageToQuestion(string questionId, string image)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("UPDATE question SET image=@image WHERE question_id = @qid", conn))
+                {
+                    cmd.Parameters.AddWithValue("qid", Int32.Parse(questionId));
+                    cmd.Parameters.AddWithValue("image", image);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
         public List<Question> GetQuestions(string word, int minVotes, DateTime from, DateTime to)
         {
             using (var conn = new NpgsqlConnection(Program.ConnectionString))
