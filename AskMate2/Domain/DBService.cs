@@ -325,6 +325,42 @@ namespace AskMate2.Domain
             }
         }
 
-
+        public List<Question> GetQuestions(string word, int minVotes, DateTime from, DateTime to)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                //var questionid = "";
+                //DateTime submissionTime = new DateTime();
+                //var viewNumber = 0;
+                //var voteNumber = 0;
+                //var title = "";
+                //var questionMessage = "";
+                //var image = "";
+                List<Question> questionList = new List<Question>();
+                conn.Open();
+                word = "%" + word + "%";
+                using (var cmd = new NpgsqlCommand("SELECT * FROM question WHERE " + 
+                    "(question_message ILIKE @word OR title ILIKE @word) AND vote_number >= @minVotes", conn))
+                {
+                    cmd.Parameters.AddWithValue("word", word);
+                    cmd.Parameters.AddWithValue("minVotes", minVotes);
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        var questionid = reader["question_id"].ToString();
+                        var submissionTime = Convert.ToDateTime(reader["submission_time"]);
+                        var viewNumber = Convert.ToInt32(reader["view_number"]);
+                        var voteNumber = Convert.ToInt32(reader["vote_number"]);
+                        var title = reader["title"].ToString();
+                        var questionMessage = reader["question_message"].ToString();
+                        var image = reader["image"].ToString();
+                        Question question = new Question(questionid, title.ToString(), questionMessage.ToString(), voteNumber, viewNumber, submissionTime, image);
+                        questionList.Add(question);
+                    }
+                    
+                    return questionList;
+                }
+            }
+        }
     }
 }

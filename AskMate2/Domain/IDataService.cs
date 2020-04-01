@@ -27,6 +27,10 @@ namespace AskMate2.Domain
 
         void UpdateQuestion(string questionId, string title, string text);
 
+        List<Question> GetQuestions(string word, int minVotes, DateTime from, DateTime to);
+
+
+
 
         // answers
 

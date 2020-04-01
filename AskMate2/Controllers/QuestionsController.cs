@@ -187,12 +187,24 @@ namespace AskMate2.Controllers
         }
 
         [HttpPost]
-        public IActionResult ShowQWithSelect([FromForm(Name = "wordToSearch")] string text,
+        public IActionResult ShowQWithSelect([FromForm(Name = "wordToSearch")] string word,
                                           [FromForm(Name = "fromTimeToSearch")] DateTime fromTime,
-                                          [FromForm(Name = "toTimeToSearch")] DateTime toTime)
+                                          [FromForm(Name = "toTimeToSearch")] DateTime toTime,
+                                          [FromForm(Name = "fromVoteSearch")] int fromVote)
         {
-            
-            return RedirectToAction("Index", "Home");
+            List<Transit> transitList = new List<Transit>();
+            List<Question> questionList = ds.GetQuestions(word, fromVote, fromTime, toTime);
+            foreach (Question que in questionList)
+            {
+                Transit transit = new Transit();
+                transit.Qid = que.Id;
+                transit.Qtitle = que.Title;
+                transit.Qtext = que.Text;
+                transit.Qvote = que.VoteNumber;
+                transitList.Add(transit);
+            }
+            return View("ALtListQuestions", transitList);
+            return RedirectToAction("AltListQuestions",transitList);
         }
 
 
