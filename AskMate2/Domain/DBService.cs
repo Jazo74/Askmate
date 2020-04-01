@@ -329,21 +329,17 @@ namespace AskMate2.Domain
         {
             using (var conn = new NpgsqlConnection(Program.ConnectionString))
             {
-                //var questionid = "";
-                //DateTime submissionTime = new DateTime();
-                //var viewNumber = 0;
-                //var voteNumber = 0;
-                //var title = "";
-                //var questionMessage = "";
-                //var image = "";
                 List<Question> questionList = new List<Question>();
                 conn.Open();
                 word = "%" + word + "%";
                 using (var cmd = new NpgsqlCommand("SELECT * FROM question WHERE " + 
-                    "(question_message ILIKE @word OR title ILIKE @word) AND vote_number >= @minVotes", conn))
+                    "(question_message ILIKE @word OR title ILIKE @word) AND vote_number >= @minVotes " + "" +
+                    "AND submission_time >= @from AND submission_time <= @to", conn))
                 {
                     cmd.Parameters.AddWithValue("word", word);
                     cmd.Parameters.AddWithValue("minVotes", minVotes);
+                    cmd.Parameters.AddWithValue("from", from);
+                    cmd.Parameters.AddWithValue("to", to);
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {

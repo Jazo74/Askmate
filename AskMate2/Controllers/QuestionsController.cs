@@ -201,6 +201,7 @@ namespace AskMate2.Controllers
                 transit.Qtitle = que.Title;
                 transit.Qtext = que.Text;
                 transit.Qvote = que.VoteNumber;
+                transit.QsubmissionTime = que.SubmissionTime;
                 transitList.Add(transit);
             }
             return View("ALtListQuestions", transitList);
