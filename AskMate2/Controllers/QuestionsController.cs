@@ -114,6 +114,7 @@ namespace AskMate2.Controllers
                         transit.Qview = que.ViewNumber;
                         transit.Qvote = que.VoteNumber;
                         transit.QsubmissionTime = que.SubmissionTime;
+                        transit.Qimage = que.Image;
                         transitList.Add(transit);
                     }
                 }
@@ -235,7 +236,22 @@ namespace AskMate2.Controllers
             return RedirectToAction("Index", "Home"); //EDIT (according to specifications)
         }
 
-        
+
+
+
+
+        [HttpGet]
+        public IActionResult AddImageToQuestion()
+        {
+            return View("AddImage");
+        }
+
+        [HttpPost]
+        public IActionResult AddImageToQuestion([FromForm(Name = "image")] string image, [FromForm(Name ="questionId")] string questionId)
+        {
+            ds.AddImageToQuestion(questionId, image);
+            return RedirectToAction("Index", "Home");
+        }
 
     }
 }

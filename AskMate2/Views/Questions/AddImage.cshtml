@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "AddImage";
+}
+
+<h1>AddImage</h1>
+
+
+<form  method="post" asp-controller="Questions" asp-action="AddImageToQuestion">
+
+    <input type="text" name="questionId" value="Q ID" />
+    <input type="text" name="image" value="image link here" />
+    <input type="submit"  value="Add Image" />
+</form>
+
