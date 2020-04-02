@@ -7,7 +7,7 @@ a.navbar-brand {
     word-break: break-all;
     font-size: 30px !important;
     font-weight: bold !important;
-    color: cadetblue !important;
+    color: #5e86b2 !important;
     padding-left: 80px;
 }
 
@@ -15,9 +15,9 @@ a.navbar-brand {
 a {
   color:navajowhite;
 }
-a:active {
-    color: cadetblue !important;
-}
+    a:active {
+        color: #5e86b2 !important;
+    }
 .inactive-input {
     background-color: darkgray;
 }
@@ -29,12 +29,12 @@ a:active {
 }
 
 .tablazat th {
-    color: #39787a;
+    color: #5e86b2;
     background-color: navajowhite;
     font-size: 18px;
     border: 1px solid navajowhite;
     padding: 8px;
-    text-align:center;
+    text-align: center;
     font-weight: bold;
 }
 
@@ -58,13 +58,13 @@ a:active {
 /* Control the left side */
 .left {
     left: 0;
-    
+    background-color: #5e86b2;
 }
 
 /* Control the right side */
 .right {
     right: 0;
-    background-color: #39787a;
+    background-color: #5e86b2;
 }
 
 .vl {
@@ -88,7 +88,7 @@ hr {
 }
 p {
   color: navajowhite;
-  font-size: 16px;
+  font-size: 18px;
   margin-top: 1px;
   margin-bottom: 1px;
 }
@@ -145,8 +145,8 @@ input[type=button], input[type=submit], input[type=reset] {
     font-weight: bold;
     background-color: navajowhite;
     border-radius: 6px;
-    border: 1px solid #335e5f;
-    color: cadetblue;
+    border: 1px solid #5e86b2;
+    color: #5e86b2;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -157,10 +157,15 @@ input[type=button], input[type=submit], input[type=reset] {
 
 img {
     padding: 10px;
+    max-width: 90%;
+    height: auto;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 .nav-link {
     font-size: 28px !important;
-    color: #39787a !important;
+    color: #5e86b2 !important;
     font-weight: bold;
 }
 .centerimg {
@@ -204,10 +209,9 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-  background-color:cadetblue
-
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: #5e86b2;
 }
 .footer {
   position: absolute;

@@ -36,10 +36,10 @@ namespace AskMate2.Controllers
             ViewData.Add(question, text);
             return View("Answer"); 
         }
-        public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "qID")] string qID)
+        public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "qID")] string qID, [FromForm(Name = "image")] string image)
         {
             
-            ds.AddAnswer(ds.MakeAnswerWoId(qID, answer));
+            ds.AddAnswer(ds.MakeAnswerWoId(qID, answer, image));
             //foreach (Question question in ds.GetQuestions())
             //{
             //    ViewData.Add(question.Id.ToString(), question.Title);
@@ -139,12 +139,18 @@ namespace AskMate2.Controllers
         }
 
         [HttpPost]
-        public IActionResult AnswerVote([FromForm(Name = "answerId")] string answerId)
+        public IActionResult AnswerVote([FromForm(Name = "aId")] string answerId)
         {
             ds.AnswerVote(answerId);
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpPost]
+        public IActionResult AddImageToAnswer([FromForm(Name = "image")] string image, [FromForm(Name = "aid")] string answerId)
+        {
+            ds.AddImageToAnswer(answerId, image);
+            return RedirectToAction("Index", "Home");
+        }
 
 
 

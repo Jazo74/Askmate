@@ -37,9 +37,9 @@ namespace AskMate2.Domain
 
         // answers
 
-        Answer MakeAnswer(string answerId, string questionId, string text);
+        Answer MakeAnswer(string answerId, string questionId, string text, string image);
 
-        Answer MakeAnswerWoId(string questionId, string text);
+        Answer MakeAnswerWoId(string questionId, string text, string image);
 
         void AddAnswer(Answer answer);
 

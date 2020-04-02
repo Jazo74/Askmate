@@ -10,15 +10,15 @@ namespace AskMate2.Domain
 {
     public class DBService : IDataService
     {
-        public Answer MakeAnswer(string answerId, string qid, string text)
+        public Answer MakeAnswer(string answerId, string qid, string text, string image)
         {
-            Answer answer = new Answer(answerId, qid, text);
+            Answer answer = new Answer(answerId, qid, text, image);
             return answer;
         }
 
-        public Answer MakeAnswerWoId(string qid, string text)
+        public Answer MakeAnswerWoId(string qid, string text, string image)
         {
-            Answer answer = new Answer("fakeid", qid, text);
+            Answer answer = new Answer("fakeid", qid, text, image);
             return answer;
         }
 
@@ -68,7 +68,7 @@ namespace AskMate2.Domain
                     cmd.Parameters.AddWithValue("votenum", 0);
                     cmd.Parameters.AddWithValue("qid", Convert.ToInt32(answer.QId));
                     cmd.Parameters.AddWithValue("answmess", answer.Text);
-                    cmd.Parameters.AddWithValue("image", "");
+                    cmd.Parameters.AddWithValue("image", answer.Image);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -127,7 +127,7 @@ namespace AskMate2.Domain
                         questionMessage = reader["answer_message"].ToString();
                         image = reader["image"].ToString();
                     }
-                    answerList.Add(new Answer(answerId, qId, questionMessage.ToString()));
+                    answerList.Add(new Answer(answerId, qId, questionMessage.ToString(), image));
                     return answerList;
                 }
             }
@@ -337,7 +337,7 @@ namespace AskMate2.Domain
             using (var conn = new NpgsqlConnection(Program.ConnectionString))
             {
                 conn.Open();
-                using (var cmd = new NpgsqlCommand("UPDATE question SET image=@image WHERE answer_id = @aid", conn))
+                using (var cmd = new NpgsqlCommand("UPDATE answer SET image=@image WHERE answer_id = @aid", conn))
                 {
                     cmd.Parameters.AddWithValue("aid", Int32.Parse(answerId));
                     cmd.Parameters.AddWithValue("image", image);

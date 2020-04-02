@@ -1,5 +1,5 @@
 ﻿@model QAC
-<h2>Question</h2>
+<br />
 <hr class="thickhr" />
 @{ if (Model.qModelList.Count != 0)
     {
@@ -7,13 +7,20 @@
         @{
             foreach (QuestionModel item in Model.qModelList)
             {
-                <p>#@item.Qid - @item.QsubmissionTime - <b>votes:</b> @item.Qvote - <b>views:</b> @item.Qview  </p>
-                <p class="centerP"><b></b>@item.Qtitle</p>
-                <p><b>Question: </b>@item.Qtext</p>
+                <p>
+                    Question #@item.Qid - @item.QsubmissionTime - <b>answers: </b> @Model.cModelList.Count - <b>votes:</b> @item.Qvote - <b>views:</b> @item.Qview
+                    <form method="post" asp-controller="Questions" asp-action="VoteForQuestion">
+                        <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
+                        <input type="submit" value="Vote" style="float:right;" />
+                    </form>
+                </p>
+                <br />
+                <p><b>@item.Qtitle</b></p>
+                <p>@item.Qtext</p>
             }
             if (Model.qModelList[0].Qimage != null && Model.qModelList[0].Qimage != "")
             {
-                <img src="@Model.qModelList[0].Qimage" width="600" height="400"></img>
+                <img src="@Model.qModelList[0].Qimage"></img>
             }
             else
             {
@@ -26,55 +33,83 @@
                 <input type="submit" value="Link image" />
             </form>
             <br />
-            <form method="post" asp-controller="Questions" asp-action="VoteForQuestion">
-                <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
-                <input type="submit" value="Vote for this question" />
-            </form>
-            <br />
             <h6><u>Comments:</u></h6>
             foreach (CommentModel comment in Model.cModelList)
             {
                 if (comment.Qid == Model.qModelList[0].Qid)
                 {
                     <ul>
-                        <li>#@comment.Cid - @comment.CsubmissionTime - edited @comment.CeditNr times</li>
+                        <li>Comment #@comment.Cid - @comment.CsubmissionTime - edited @comment.CeditNr times</li>
                         <li><b></b>@comment.Ctext</li>
                         <br />
                     </ul>
-                    
+
                 }
             }
         }
     </div>
-        <div class="answers">
-            <h3>Answers</h3>
-            <hr class="thickhr" />
-            @{
+    <div class="answers">
+        <h3>Answers</h3>
+        <hr class="thickhr" />
+        @{
             foreach (AnswerModel answer in Model.aModelList)
             {
-                <p>#@answer.Aid - @answer.AsubmissionTime - votes: @answer.Avote </p>
-                <p>@answer.Atext</p>
+                <p>Answer #@answer.Aid - @answer.AsubmissionTime - votes: @answer.Avote 
+                <form method="post" asp-controller="Answers" asp-action="AnswerVote">
+                    <input type="hidden" name="aId" value="@answer.Aid" />
+                    <input type="submit" value="Vote" style="float:right;"/>
+                </form></p>
+                <p><b>Answer: </b>@answer.Atext</p>
                 <br />
-                if (answer.Aimage != null && answer.Aimage != "")
+                if (Model.aModelList[0].Aimage != null && Model.aModelList[0].Aimage != "")
                 {
-                    <image src="@answer.Aimage" width="600" height="400"></image>
+                    <img src="@answer.Aimage"></img>
                 }
+                else
+                {
+                    <br />
+                    <p>There is no linked image</p>
+                }
+                <form method="post" asp-controller="Answers" asp-action="AddImageToAnswer">
+                    <input type="text" name="image" size="80" value="@answer.Aimage" />
+                    <input type="hidden" name="aId" value="@answer.Aid" />
+                    <input type="submit" value="Link image" />
+                </form>
+                <br />
                 <h6><u>Comments:</u></h6>
                 foreach (CommentModel comment in Model.cModelList)
                 {
                     if (comment.Aid == answer.Aid)
                     {
                         <ul>
-                            <li>#@comment.Cid - @comment.CsubmissionTime - edited @comment.CeditNr times</li>
+                            <li>Comment #@comment.Cid - @comment.CsubmissionTime - edited @comment.CeditNr times</li>
                             <li><b></b>@comment.Ctext</li>
                             <br />
                         </ul>
                     }
                 }
-                <hr />
-                }
+                <br />
             }
-        </div>
+        }
+    </div>
+    <div>
+        <h3>Add a new answer</h3>
+        <hr class="thickhr" />
+        <br />
+        <form method="post" asp-controller="Answers" asp-action="NewAnswer">
+            <input type="hidden" name="qID" value="@Model.qModelList[0].Qid" />
+            <label for="answerbox">Your answer: </label>
+            <br />
+            <textarea id="answerbox" name="answer" rows="6" cols="82" required></textarea>
+            <br />
+            <label for="img">Your linked image:</label>
+            <br />
+            <input type="text" id="img "name="image" size="80"  />
+            <br />
+            <br />
+            <input type="submit" value="Send answer" />
+        </form>
+    </div>
     }
     else
     {

@@ -11,12 +11,14 @@ namespace AskMate2.Domain
         public string QId { get; set; }
 
         public string Text { get; set; }
+        public string Image { get; set; }
 
-        public Answer(string Aid, string QId, string Text)
+        public Answer(string aId, string qId, string text, string image)
         {
-            this.AId = Aid;
-            this.QId = QId;
-            this.Text = Text;
+            AId = aId;
+            QId = qId;
+            Text = text;
+            Image = image;
         }
 
         public override string ToString()
