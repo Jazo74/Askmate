@@ -76,15 +76,29 @@ a:active {
     top: 0;
 }
 hr {
-  border-top: 1px solid;
-  color: burlywood;
+    border-top: 1px solid;
+    color: burlywood;
+    margin-bottom: 0;
+    margin-top: 0;
+    justify-content: center !important;
+    text-align: center;
 }
 .line-1{
     border-top: 2px solid;
 }
 p {
   color: navajowhite;
-  font-size: 18px;
+  font-size: 16px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+.centerP {
+    color: navajowhite;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    text-align:center;
 }
 
 label {
@@ -106,13 +120,24 @@ h1 {
 }
 ul {
     padding-left: 60px;
+    margin: 0;
 }
 li {
     margin-bottom: 20px;
-    font-size: 20px;
-    font-weight: bold;
     color: navajowhite;
-    
+    margin: 0;
+}
+.thickhr {
+    border-top: 3px solid;
+}
+.questions .answers {
+    font-size: 16px !important;
+    background-color: navajowhite !important;
+    line-height: 0.7 !important;
+    padding: 1px !important;
+    margin-top: 1px !important;
+    margin-bottom: 1px !important;
+    margin: 0 !important;
 }
 
 input[type=button], input[type=submit], input[type=reset] {
@@ -128,6 +153,10 @@ input[type=button], input[type=submit], input[type=reset] {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+}
+
+img {
+    padding: 10px;
 }
 .nav-link {
     font-size: 28px !important;

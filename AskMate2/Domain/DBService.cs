@@ -530,14 +530,14 @@ namespace AskMate2.Domain
                         var aId = reader["answer_id"].ToString();
                         var cSubmissionTime = Convert.ToDateTime(reader["submission_time"]);
                         var commentMessage = reader["komment_message"].ToString();
-                        var cEditNr = reader["edited_number"];
+                        var cEditNr = Convert.ToInt32(reader["edited_number"]);
                         CommentModel cModel = new CommentModel();
                         cModel.Cid = kommentId;
                         cModel.Qid = qId;
                         cModel.Aid = aId;
                         cModel.Ctext = commentMessage;
                         cModel.CsubmissionTime = cSubmissionTime;
-
+                        cModel.CeditNr = cEditNr;
                         qac.cModelList.Add(cModel);
                     }
                     return qac;

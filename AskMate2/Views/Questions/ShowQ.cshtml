@@ -1,64 +1,81 @@
-﻿<h1>Stop making lists!</h1>
-<hr />
-@model QAC
-<h2><u>Question:</u></h2>
-
-<br />
+﻿@model QAC
+<h2>Question</h2>
+<hr class="thickhr" />
 @{ if (Model.qModelList.Count != 0)
     {
-        <form method="post" asp-controller="Questions" asp-action="VoteForQuestion">
-            <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
-            <input type="submit" value="Vote for this question" />
-        </form>
-        <br />
-        foreach (QuestionModel item in Model.qModelList)
-        {
-            <p><b>Question ID: </b>@item.Qid</p>
-            <p><b>Title: </b>@item.Qtitle</p>
-            <p><b>Question: </b>@item.Qtext</p>
-            <p><b>Vote Nr.: </b>@item.Qvote</p>
-            <p><b>View Nr.: </b>@item.Qview</p>
-            <p><b>Created: </b>@item.QsubmissionTime</p>
+    <div class="questions">
+        @{
+            foreach (QuestionModel item in Model.qModelList)
+            {
+                <p>#@item.Qid - @item.QsubmissionTime - <b>votes:</b> @item.Qvote - <b>views:</b> @item.Qview  </p>
+                <p class="centerP"><b></b>@item.Qtitle</p>
+                <p><b>Question: </b>@item.Qtext</p>
+            }
+            if (Model.qModelList[0].Qimage != null && Model.qModelList[0].Qimage != "")
+            {
+                <img src="@Model.qModelList[0].Qimage" width="600" height="400"></img>
+            }
+            else
+            {
+                <p>There is no linked image</p>
+            }
+            <form method="post" asp-controller="Questions" asp-action="AddImageToQuestion">
+                <input type="text" name="image" size="80" value="@Model.qModelList[0].Qimage" />
+                <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
+                <input type="submit" value="Link image" />
+            </form>
+            <br />
+            <form method="post" asp-controller="Questions" asp-action="VoteForQuestion">
+                <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
+                <input type="submit" value="Vote for this question" />
+            </form>
+            <br />
+            <hr class="thickhr" />
+            <h6><u>Comments:</u></h6>
+            foreach (CommentModel comment in Model.cModelList)
+            {
+                if (comment.Qid == Model.qModelList[0].Qid)
+                {
+                    <ul>
+                        <li>#@comment.Cid - @comment.CsubmissionTime - edited @comment.CeditNr times</li>
+                        <li><b></b>@comment.Ctext</li>
+                        <br />
+                    </ul>
+                    
+                }
+            }
         }
-        <p>Linked image:</p>
-        if (Model.qModelList[0].Qimage != null && Model.qModelList[0].Qimage != "")
-        {
-            <image src="@Model.qModelList[0].Qimage" width="600" height="400"></image>
-        }
-        else
-        {
-            <p>There is no linked image</p>
-        }
-        <form method="post" asp-controller="Questions" asp-action="AddImageToQuestion">
-            <input type="text" name="image" size="80" value="@Model.qModelList[0].Qimage" />
-            <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
-            <input type="submit" value="Link or edit an image" />
-        </form>
-        <hr />
-        <h4><u>Comments:</u></h4>
-        foreach (CommentModel comment in Model.cModelList)
-        {
-            <p><b>Comment ID: </b>@comment.Cid</p>
-            <p><b>Comment: </b>@comment.Ctext</p>
-            <p><b>Created: </b>@comment.CsubmissionTime</p>
-            <p><b>Edit number: </b>@comment.CeditNr</p>
-            <hr />
-        }
-        <h4><u>Answers:</u></h4>
-        foreach (AnswerModel answer in Model.aModelList)
-        {
-            <p><b>>Answer ID: </b>@answer.Aid</p>
-            <p><b>Answer: </b>@answer.Atext</p>
-            <p><b>Votes: </b>@answer.Avote</p>
-            <p><b>Created: </b>@answer.AsubmissionTime</p>
+    </div>
+        <div class="answers">
+            <h3>Answers</h3>
+            <hr class="thickhr" />
+            @{
+            foreach (AnswerModel answer in Model.aModelList)
+            {
+            <p>#@answer.Aid - @answer.AsubmissionTime - votes: @answer.Avote </p>
+            <p>@answer.Atext</p>
             <br />
             if (answer.Aimage != null && answer.Aimage != "")
             {
+            <br />
+            <image src="@answer.Aimage" width="600" height="400"></image>
+            }
+            <h6><u>Comments:</u></h6>
+            foreach (CommentModel comment in Model.cModelList)
+            {
+            if (comment.Aid == answer.Aid)
+            {
+            <ul>
+                <li>#@comment.Cid - @comment.CsubmissionTime - edited @comment.CeditNr times</li>
+                <li><b></b>@comment.Ctext</li>
                 <br />
-                <image src="@answer.Aimage" width="600" height="400"></image>
+            </ul>
+            }
             }
             <hr />
-        }
+            }
+            }
+        </div>
     }
     else
     {
