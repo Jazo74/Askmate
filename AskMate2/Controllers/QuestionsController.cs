@@ -39,9 +39,10 @@ namespace AskMate2.Controllers
             return View("AddQuestion");
         }
         [HttpPost]
-        public IActionResult AddQuestion([FromForm(Name="title")] string title, [FromForm(Name = "text")] string text)
+
+        public IActionResult AddQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "text")] string text, [FromForm(Name = "image")] string image)
         {
-            ds.AddQuestion(ds.MakeQuestionWoId(title, text, 0, 0, DateTime.Now,""));
+            ds.AddQuestion(ds.MakeQuestionWoId(title, text, 0, 0, DateTime.Now, image));
             return RedirectToAction("Index", "Home");
         }
 

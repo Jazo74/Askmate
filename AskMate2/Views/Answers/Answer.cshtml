@@ -7,9 +7,13 @@
 <p>Question: @ViewData.ElementAt(0).Value</p>
 <br />
 <label for="answerbox">Answer:</label>
+<label for="image">Image Link:</label>
 <form method="post" asp-controller="Answers" asp-action="NewAnswer">
     <input type="hidden" name="qID" value="@ViewData.ElementAt(0).Key.Split(":").ToArray()[0]" />
     <textarea id="answerbox" name="answer" rows="6" cols="80" required></textarea>
+    <br />
+
+    <textarea id="image" name="image" rows="1" cols="80" style="ruby-align:auto"></textarea>
     <br />
     <input type="submit" value="Send answer" />
 </form>

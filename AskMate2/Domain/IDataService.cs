@@ -47,6 +47,7 @@ namespace AskMate2.Domain
 
         void AddVoteForAnswer(string answerId);
 
+        void AddImageToAnswer(string answerId, string image);
         int GetVoteForAnswer(string answerId);
 
         void DeleteAnswer(string answerId);

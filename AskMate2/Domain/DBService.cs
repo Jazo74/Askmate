@@ -49,7 +49,7 @@ namespace AskMate2.Domain
                     cmd.Parameters.AddWithValue("votenum", 0);
                     cmd.Parameters.AddWithValue("title", question.Title);
                     cmd.Parameters.AddWithValue("quemess", question.Text);
-                    cmd.Parameters.AddWithValue("image", "");
+                    cmd.Parameters.AddWithValue("image", question.Image);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -332,6 +332,19 @@ namespace AskMate2.Domain
             }
         }
 
+        public void AddImageToAnswer(string answerId, string image)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("UPDATE question SET image=@image WHERE answer_id = @aid", conn))
+                {
+                    cmd.Parameters.AddWithValue("aid", Int32.Parse(answerId));
+                    cmd.Parameters.AddWithValue("image", image);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
         public List<Question> GetQuestions(string word, int minVotes, DateTime from, DateTime to)
         {
