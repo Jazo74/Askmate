@@ -1,7 +1,7 @@
 ﻿<h1>Stop making lists!</h1>
 <hr />
 @model QAC
-<h2>Questions</h2>
+<h2><u>Question:</u></h2>
 
 <br />
 @{ if (Model.qModelList.Count != 0)
@@ -10,49 +10,47 @@
             <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
             <input type="submit" value="Vote for this question" />
         </form>
-
         <br />
-        <table class="tablazat">
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Question</th>
-                <th>Votes</th>
-                <th>Views</th>
-                <th>Created</th>
-            </tr>
-            @{
-                foreach (QuestionModel item in Model.qModelList)
-                {
-                    <tr>
-                        <td>@item.Qid</td>
-                        <td>@item.Qtitle</td>
-                        <td>@item.Qtext</td>
-                        <td>@item.Qvote</td>
-                        <td>@item.Qview</td>
-                        <td>@item.QsubmissionTime</td>
-                    </tr>
-                }
-            }
-        </table>
-        <br />
+        foreach (QuestionModel item in Model.qModelList)
+        {
+            <p><b>Question ID: </b>@item.Qid</p>
+            <p><b>Title: </b>@item.Qtitle</p>
+            <p><b>Question: </b>@item.Qtext</p>
+            <p><b>Vote Nr.: </b>@item.Qvote</p>
+            <p><b>View Nr.: </b>@item.Qview</p>
+            <p><b>Created: </b>@item.QsubmissionTime</p>
+        }
+        <p>Linked image:</p>
+        if (Model.qModelList[0].Qimage != null && Model.qModelList[0].Qimage != "")
+        {
+            <image src="@Model.qModelList[0].Qimage" width="600" height="400"></image>
+        }
+        else
+        {
+            <p>There is no linked image</p>
+        }
         <form method="post" asp-controller="Questions" asp-action="AddImageToQuestion">
             <input type="text" name="image" size="80" value="@Model.qModelList[0].Qimage" />
             <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
             <input type="submit" value="Link or edit an image" />
         </form>
-        if (Model.qModelList[0].Qimage != null && Model.qModelList[0].Qimage != "")
-        {
-            <br />
-            <image src="@Model.qModelList[0].Qimage" width="600" height="400"></image>
-        }
         <hr />
+        <h4><u>Comments:</u></h4>
+        foreach (CommentModel comment in Model.cModelList)
+        {
+            <p><b>Comment ID: </b>@comment.Cid</p>
+            <p><b>Comment: </b>@comment.Ctext</p>
+            <p><b>Created: </b>@comment.CsubmissionTime</p>
+            <p><b>Edit number: </b>@comment.CeditNr</p>
+            <hr />
+        }
+        <h4><u>Answers:</u></h4>
         foreach (AnswerModel answer in Model.aModelList)
         {
-            <p>Answer ID: @answer.Aid</p>
-            <p>Answer: @answer.Atext</p>
-            <p>Votes: @answer.Avote</p>
-            <p>Created: @answer.AsubmissionTime</p>
+            <p><b>>Answer ID: </b>@answer.Aid</p>
+            <p><b>Answer: </b>@answer.Atext</p>
+            <p><b>Votes: </b>@answer.Avote</p>
+            <p><b>Created: </b>@answer.AsubmissionTime</p>
             <br />
             if (answer.Aimage != null && answer.Aimage != "")
             {
@@ -61,11 +59,11 @@
             }
             <hr />
         }
-   }
-   else
-   {
-<p>There are no questions!</p>
-   }
+    }
+    else
+    {
+        <p>There are no questions!</p>
+    }
 }
 
 
