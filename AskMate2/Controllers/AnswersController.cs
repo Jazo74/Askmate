@@ -188,9 +188,9 @@ namespace AskMate2.Controllers
             return View("EditAnswer");
         }
         [HttpPost]
-        public IActionResult EditAnswer([FromForm(Name = "questionId")] string questionId, [FromForm(Name = "message")] string message, [FromForm(Name = "image")] string image)
+        public IActionResult EditAnswer([FromForm(Name = "answerId")] string answerId, [FromForm(Name = "message")] string message, [FromForm(Name = "image")] string image)
         {
-            ds.EditAnswer(questionId, message, image);
+            ds.EditAnswer(answerId, message, image);
             return RedirectToAction("Index", "Home");
         }
     }

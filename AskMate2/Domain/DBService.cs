@@ -430,12 +430,42 @@ namespace AskMate2.Domain
             }
         }
 
+
+        public void EditAnswer(string answerId, string message, string image)
+        {
+            DateTime subTime = DateTime.Now;
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("UPDATE answer SET submission_time = @subTime, answer_message = @message, image = @img WHERE answer_id = @aid", conn))
+                {
+                    cmd.Parameters.AddWithValue("subTime", subTime);
+                    cmd.Parameters.AddWithValue("message", message);
+                    cmd.Parameters.AddWithValue("img", image);
+                    cmd.Parameters.AddWithValue("aid", Int32.Parse(answerId));
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void DeleteCommentQuestion(string questionId)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();//or AND
+                using (var cmd = new NpgsqlCommand("DELETE FROM komment WHERE question_id = @qid", conn))
+                {
+                    cmd.Parameters.AddWithValue("qid", Int32.Parse(questionId));
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
         public QAC GetQuestionWithAnswers(string questionId)
         {
             QAC qac = new QAC();
             using (var conn = new NpgsqlConnection(Program.ConnectionString))
             {
-                
+
                 conn.Open();
                 using (var cmd = new NpgsqlCommand("SELECT * FROM question " +
                     "WHERE question_id = @questionId", conn))
@@ -507,55 +537,13 @@ namespace AskMate2.Domain
                         cModel.Aid = aId;
                         cModel.Ctext = commentMessage;
                         cModel.CsubmissionTime = cSubmissionTime;
-                        
+
                         qac.cModelList.Add(cModel);
                     }
                     return qac;
                 }
             }
         }
-            }
-        }
-
-
-
-
-
-
-
-
-
-        public void DeleteCommentQuestion(string questionId)
-        {
-            using (var conn = new NpgsqlConnection(Program.ConnectionString))
-            {
-                conn.Open();//or AND
-                using (var cmd = new NpgsqlCommand("DELETE FROM komment WHERE question_id = @qid", conn))
-                {
-                    cmd.Parameters.AddWithValue("qid", Int32.Parse(questionId));
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
-
-        public void EditAnswer(string questionId, string message, string image)
-        {
-            DateTime subTime = DateTime.Now;
-            using (var conn = new NpgsqlConnection(Program.ConnectionString))
-            {
-                conn.Open();
-                using (var cmd = new NpgsqlCommand("UPDATE answer SET answer_id = answer_id, submission_time = @subTime, answer_message = @message, image = @img WHERE question_id = @qid ", conn))
-                {
-                    cmd.Parameters.AddWithValue("subTime", subTime);
-                    cmd.Parameters.AddWithValue("message", message);
-                    cmd.Parameters.AddWithValue("img", image);
-                    cmd.Parameters.AddWithValue("qid", Int32.Parse(questionId));
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
-
     }
 }
+

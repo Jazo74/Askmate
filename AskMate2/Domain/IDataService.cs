@@ -73,7 +73,7 @@ namespace AskMate2.Domain
         //void DeleteCommentAnswer(string answerId);
 
 
-        void EditAnswer(string questionId, string message, string image);
+        void EditAnswer(string answerId, string message, string image);
 
     }
 }
