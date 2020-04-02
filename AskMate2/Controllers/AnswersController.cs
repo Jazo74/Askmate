@@ -180,5 +180,18 @@ namespace AskMate2.Controllers
             ds.EditCommentAnswer(answerId, komment);
             return RedirectToAction("Index", "Home");
         }
+
+
+        [HttpGet]
+        public IActionResult EditAnswer()
+        {
+            return View("EditAnswer");
+        }
+        [HttpPost]
+        public IActionResult EditAnswer([FromForm(Name = "questionId")] string questionId, [FromForm(Name = "message")] string message, [FromForm(Name = "image")] string image)
+        {
+            ds.EditAnswer(questionId, message, image);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

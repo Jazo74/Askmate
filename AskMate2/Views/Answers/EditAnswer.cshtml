@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "EditAnswer";
+}
+
+<h1>EditAnswer</h1>
+
+<form method="post" asp-controller="Answers" asp-action="EditAnswer">
+
+    <input type="text" name="questionId" value="Q ID?" />
+    <input type="text" name="message" value="New Message" />
+    <input type="text" name="image" value="Image url" />
+    <input type="submit" value="Edit Answer" />
+</form>

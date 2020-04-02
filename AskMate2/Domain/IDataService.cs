@@ -69,5 +69,11 @@ namespace AskMate2.Domain
         void EditCommentAnswer(string answernId, string komment);
 
 
+        void DeleteCommentQuestion(string questionId);
+        //void DeleteCommentAnswer(string answerId);
+
+
+        void EditAnswer(string questionId, string message, string image);
+
     }
 }

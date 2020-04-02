@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "DelQ";
+}
+
+<h1>DelQ</h1>
+
+<form asp-controller="Questions" asp-action="DeleteCommentQuestion" method="post">
+
+    <input type="text" name="questionId" value="Q ID" />
+    <input type="submit" value="Delete" />
+
+</form>

@@ -274,6 +274,19 @@ namespace AskMate2.Controllers
         }
 
 
-        
+
+        [HttpGet]
+        public IActionResult DeleteCommentQuestion()
+        {
+            return View("DelQ");
+        }
+        [HttpPost]
+        public IActionResult DeleteCommentQuestion([FromForm(Name = "questionId")] string questionId)
+        {
+            ds.DeleteCommentQuestion(questionId);
+            return RedirectToAction("Index", "Home");
+        }
+
+
     }
 }
