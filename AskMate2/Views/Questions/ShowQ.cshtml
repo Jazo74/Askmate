@@ -17,6 +17,7 @@
             }
             else
             {
+                <br />
                 <p>There is no linked image</p>
             }
             <form method="post" asp-controller="Questions" asp-action="AddImageToQuestion">
@@ -30,7 +31,6 @@
                 <input type="submit" value="Vote for this question" />
             </form>
             <br />
-            <hr class="thickhr" />
             <h6><u>Comments:</u></h6>
             foreach (CommentModel comment in Model.cModelList)
             {
@@ -52,28 +52,27 @@
             @{
             foreach (AnswerModel answer in Model.aModelList)
             {
-            <p>#@answer.Aid - @answer.AsubmissionTime - votes: @answer.Avote </p>
-            <p>@answer.Atext</p>
-            <br />
-            if (answer.Aimage != null && answer.Aimage != "")
-            {
-            <br />
-            <image src="@answer.Aimage" width="600" height="400"></image>
-            }
-            <h6><u>Comments:</u></h6>
-            foreach (CommentModel comment in Model.cModelList)
-            {
-            if (comment.Aid == answer.Aid)
-            {
-            <ul>
-                <li>#@comment.Cid - @comment.CsubmissionTime - edited @comment.CeditNr times</li>
-                <li><b></b>@comment.Ctext</li>
+                <p>#@answer.Aid - @answer.AsubmissionTime - votes: @answer.Avote </p>
+                <p>@answer.Atext</p>
                 <br />
-            </ul>
-            }
-            }
-            <hr />
-            }
+                if (answer.Aimage != null && answer.Aimage != "")
+                {
+                    <image src="@answer.Aimage" width="600" height="400"></image>
+                }
+                <h6><u>Comments:</u></h6>
+                foreach (CommentModel comment in Model.cModelList)
+                {
+                    if (comment.Aid == answer.Aid)
+                    {
+                        <ul>
+                            <li>#@comment.Cid - @comment.CsubmissionTime - edited @comment.CeditNr times</li>
+                            <li><b></b>@comment.Ctext</li>
+                            <br />
+                        </ul>
+                    }
+                }
+                <hr />
+                }
             }
         </div>
     }

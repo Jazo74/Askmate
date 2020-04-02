@@ -1,33 +1,36 @@
 ﻿@model List<Transit> 
 <h2>Questions</h2>
-<hr />
+<hr class="thickhr"/>
+<br />
 <form method="post" asp-controller="Questions" asp-action="ShowQWithSelect">
-    <label for="wordSearch">Search a word: </label>
-    <input type="text" id="wordSearch" name="wordToSearch" size="40" />
+    <input type="text" id="wordSearch" name="wordToSearch" size="30" style="margin-bottom: 7px;" />
+    <input type="submit" value="search" />
     <br />
     <label for="voteSearch">Minimal votes: </label>
     <input type="text" id="voteSearch" name="fromVoteSearch" size="3" value="0" />
     <br />
-    <label for="fromTime">Created from: </label>
-    <input type="text" id="fromTime" name="fromTimeToSearch" size= "7" maxlength="10" value="1900.01.01"/>
+    <label for="fromTime">from: </label>
+    <input type="text" id="fromTime" name="fromTimeToSearch" size="7" maxlength="10" value="1900.01.01" />
     <br />
-    <label for="toTime">Created to: </label>
+    <label for="toTime">to: </label>
     <input type="text" id="toTimeSearch" name="toTimeToSearch" size="7" maxlength="10" value="2100.01.01" />
     <br />
-    <input type="submit" value="search" />
 </form>
+<br />
 <hr />
+<br />
 <form method="post" asp-controller="Questions" asp-action="ShowQLatestSelect">
-    <label for="lastLimit">The latest questions: </label>
-    <input type="text" id="lastLimit" name="latestX" size="4" />
-    <input type="submit" value="latest" />
+    <input type="submit" value="show" />
+    <label for="lastLimit">the latest </label>
+    <input type="text" id="lastLimit" name="latestX" size="2" value="5" />
+
 </form>
-<hr />
+<br>
 @{ if (Model.Count != 0)
     {
         <table class="tablazat">
             <tr>
-                <th>ID</th>
+                <th>#</th>
                 <th>Title</th>
                 <th>Votes</th>
                 <th>Views</th>

@@ -342,7 +342,7 @@ namespace AskMate2.Domain
                 word = "%" + word + "%";
                 using (var cmd = new NpgsqlCommand("SELECT * FROM question WHERE " + 
                     "(question_message ILIKE @word OR title ILIKE @word) AND vote_number >= @minVotes " + "" +
-                    "AND submission_time >= @from AND submission_time <= @to", conn))
+                    "AND submission_time >= @from AND submission_time <= @to ORDER BY submission_time DESC", conn))
                 {
                     cmd.Parameters.AddWithValue("word", word);
                     cmd.Parameters.AddWithValue("minVotes", minVotes);
@@ -495,7 +495,7 @@ namespace AskMate2.Domain
                 }
                 conn.Open();
                 using (var cmd = new NpgsqlCommand("SELECT * FROM answer " +
-                    "WHERE question_id = @questionId", conn))
+                    "WHERE question_id = @questionId ORDER BY submission_time DESC", conn))
                 {
                     cmd.Parameters.AddWithValue("questionId", Int32.Parse(questionId));
                     var reader = cmd.ExecuteReader();
@@ -519,7 +519,8 @@ namespace AskMate2.Domain
                 conn.Open();
                 using (var cmd = new NpgsqlCommand("SELECT * FROM komment " +
                     "WHERE question_id = @questionId OR answer_id IN " +
-                    "(SELECT answer_id FROM answer WHERE question_id = @questionId)", conn))
+                    "(SELECT answer_id FROM answer WHERE question_id = @questionId) " +
+                    "ORDER BY submission_time DESC", conn))
                 {
                     cmd.Parameters.AddWithValue("questionId", Int32.Parse(questionId));
                     var reader = cmd.ExecuteReader();
