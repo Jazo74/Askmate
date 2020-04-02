@@ -166,9 +166,9 @@ namespace AskMate2.Controllers
         }
 
         [HttpPost]
-        public IActionResult CommentToAnswer(string answerId, string komment)
+        public IActionResult CommentToAnswer([FromForm(Name = "answerId")] string answerId, [FromForm(Name = "comment")] string comment)
         {
-            ds.AddCommentAnswer(answerId, komment);
+            ds.AddCommentAnswer(answerId, comment);
             return RedirectToAction("Index", "Home"); //EDIT (according to specifications)
         }
 

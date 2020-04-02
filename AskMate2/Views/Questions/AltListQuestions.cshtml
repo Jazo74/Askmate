@@ -6,14 +6,13 @@
     <input type="text" id="wordSearch" name="wordToSearch" size="30" style="margin-bottom: 7px;" />
     <input type="submit" value="search" />
     <br />
-    <label for="voteSearch">Minimal votes: </label>
-    <input type="text" id="voteSearch" name="fromVoteSearch" size="3" value="0" />
-    <br />
-    <label for="fromTime">from: </label>
+    <label for="fromTime">Date: </label>
     <input type="text" id="fromTime" name="fromTimeToSearch" size="7" maxlength="10" value="1900.01.01" />
-    <br />
-    <label for="toTime">to: </label>
+    <label for="toTime"> - </label>
     <input type="text" id="toTimeSearch" name="toTimeToSearch" size="7" maxlength="10" value="2100.01.01" />
+    <br />
+    <label for="voteSearch">Min. votes: </label>
+    <input type="text" id="voteSearch" name="fromVoteSearch" size="3" value="0" />
     <br />
 </form>
 <br />
@@ -22,7 +21,7 @@
 <form method="post" asp-controller="Questions" asp-action="ShowQLatestSelect">
     <input type="submit" value="show" />
     <label for="lastLimit">the latest </label>
-    <input type="text" id="lastLimit" name="latestX" size="2" value="5" />
+    <input class="input-2digit" type="text" id="lastLimit" name="latestX" value="5" />
 
 </form>
 <br>

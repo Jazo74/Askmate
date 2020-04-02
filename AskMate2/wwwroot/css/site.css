@@ -15,11 +15,21 @@ a.navbar-brand {
 a {
   color:navajowhite;
 }
-    a:active {
-        color: #5e86b2 !important;
-    }
+a:active {
+    color: #5e86b2 !important;
+}
 .inactive-input {
     background-color: darkgray;
+}
+
+input {
+    background-color: #c3d8ee;
+    border-radius: 3px;
+}
+
+.input-2digit {
+    width: 3ch;
+    text-align:center;
 }
 .qSearch {
     white-space: pre;
@@ -59,12 +69,14 @@ a {
 .left {
     left: 0;
     background-color: #5e86b2;
+    border: 1px solid navajowhite;
 }
 
 /* Control the right side */
 .right {
     right: 0;
     background-color: #5e86b2;
+    border: 1px solid navajowhite;
 }
 
 .vl {
@@ -154,7 +166,15 @@ input[type=button], input[type=submit], input[type=reset] {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
-
+.biglogo {
+    padding: 10px;
+    max-width: 30%;
+    height: auto;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    display:block;
+}
 img {
     padding: 10px;
     max-width: 90%;
@@ -165,12 +185,12 @@ img {
 }
 .nav-link {
     font-size: 28px !important;
-    color: #5e86b2 !important;
+    color: #1861ac !important;
     font-weight: bold;
 }
 .centerimg {
-    width: 6%;
-    height: 6%;
+    width: 10%;
+    height: auto;
     
 }
 /* Sticky footer styles

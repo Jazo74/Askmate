@@ -77,21 +77,10 @@ namespace AskMate2.Controllers
         [HttpPost]
         public IActionResult ShowQ([FromForm(Name = "question")] string question)
         {
-            string id = question.Split(":").ToArray()[0];
-            ds.ViewIncrement(id);
-             //HERE INSTERt
-            if (question != null && question.Length != 0)
-            {
-                
-                foreach (Question que in ds.GetQuestions())
-                {
-                    if (que.Id == id)
-                    {
-                        ViewData.Add(question, que.Text);
-                    }
-                }
-            }
-            return View("ShowQ");
+            string qid = question.Split(":").ToArray()[0];
+            ds.ViewIncrement(qid);
+            return View("ShowQ", ds.GetQuestionWithAnswers(qid));
+
         }
         [HttpGet]
         [Microsoft.AspNetCore.Mvc.Route("/Questions/ShowQe/{qid}")]
@@ -235,9 +224,9 @@ namespace AskMate2.Controllers
         }
 
         [HttpPost]
-        public IActionResult CommentToQuestion(string questionId, string komment)
+        public IActionResult CommentToQuestion([FromForm(Name = "questionId")] string questionId, [FromForm(Name = "comment")] string comment)
         {
-            ds.AddCommentQuestion(questionId, komment);
+            ds.AddCommentQuestion(questionId, comment);
             return RedirectToAction("Index", "Home"); //EDIT (according to specifications)
         }
 

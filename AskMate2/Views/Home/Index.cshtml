@@ -1,7 +1,8 @@
-﻿<div class="split left">
-    <br />
-    <h1 align="center">Questions</h1>
-    <br />
+﻿    <br />
+    <a asp-controller="Questions" asp-action="ListQuestions">
+        <img class="biglogo" src="https://png2.cleanpng.com/sh/25a61b5e4d554150b88f14d37d70090e/L0KzQYm3VcAzN5J0j5H0aYP2gLBuTfNwdaF6jNd7LXnmf7B6TgN6dZN0hJ9sbHnzPbL5lL02aZZmT6NrZHXkcoeAUb4xPGc9T6ICMEG4Qoa6UcM6QGIATqM9LoDxd1==/kisspng-computer-icons-symbol-clip-art-5aea71bdeab671.0468707015253139819614.png" alt="Transparent Background Questions And Answers Clipart" />
+    </a>
+    <h4>Test functions</h4>
     <ul>
         <li><a asp-controller="Questions" asp-action="ListQuestions">List all questions</a></li>
         <li><a asp-controller="Questions" asp-action="ShowQuestion">Show a question</a></li>
@@ -13,20 +14,6 @@
         <li><a asp-controller="Questions" asp-action="AddImageToQuestion">Add Image to question</a></li>
         <li><a asp-controller="Questions" asp-action="EditCommentQuestion">Edit comment on question</a></li>
         <li><a asp-controller="Questions" asp-action="DeleteCommentQuestion">Delete comment on question</a></li>
-    </ul>
-    <br />
-    <br />
-    <br />
-    <br />
-
-
-</div>
-<div class="vl"></div>
-<div class="split right">
-    <br />
-    <h1 align="center">Answers</h1>
-    <br />
-    <ul>
         <li><a asp-controller="Answers" asp-action="ShowAnswers">Show answers for a question</a></li>
         <li><a asp-controller="Answers" asp-action="AddAnswer">Add an answer</a></li>
         <li><a asp-controller="Answers" asp-action="DeleteAnswer">Delete an answer</a></li>
@@ -37,4 +24,3 @@
 
     </ul>
 
-</div>

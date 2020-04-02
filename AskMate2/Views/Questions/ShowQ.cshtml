@@ -46,7 +46,16 @@
 
                 }
             }
+            <form method="post" asp-controller="Questions" asp-action="CommentToQuestion">
+                <input type="hidden" name="questionId" value="@Model.qModelList[0].Qid" />
+                <label for="answerbox">Your comment: </label>
+                <br />
+                <textarea id="answerbox" name="comment" rows="4" cols="82" required></textarea>
+                <br />
+                <input type="submit" value="Comment" />
+            </form>
         }
+    <br />
     </div>
     <div class="answers">
         <h3>Answers</h3>
@@ -54,14 +63,16 @@
         @{
             foreach (AnswerModel answer in Model.aModelList)
             {
-                <p>Answer #@answer.Aid - @answer.AsubmissionTime - votes: @answer.Avote 
-                <form method="post" asp-controller="Answers" asp-action="AnswerVote">
-                    <input type="hidden" name="aId" value="@answer.Aid" />
-                    <input type="submit" value="Vote" style="float:right;"/>
-                </form></p>
+                <p>
+                    Answer #@answer.Aid - @answer.AsubmissionTime - votes: @answer.Avote
+                    <form method="post" asp-controller="Answers" asp-action="AnswerVote">
+                        <input type="hidden" name="aId" value="@answer.Aid" />
+                        <input type="submit" value="Vote" style="float:right;" />
+                    </form>
+                </p>
                 <p><b>Answer: </b>@answer.Atext</p>
                 <br />
-                if (Model.aModelList[0].Aimage != null && Model.aModelList[0].Aimage != "")
+                if (answer.Aimage != null && answer.Aimage != "")
                 {
                     <img src="@answer.Aimage"></img>
                 }
@@ -88,6 +99,14 @@
                         </ul>
                     }
                 }
+                <form method="post" asp-controller="Answers" asp-action="CommentToAnswer">
+                    <input type="hidden" name="answerId" value="@answer.Aid" />
+                    <label for="answerbox">Your comment: </label>
+                    <br />
+                    <textarea id="answerbox" name="comment" rows="4" cols="82" required></textarea>
+                    <br />
+                    <input type="submit" value="Comment" />
+                </form>
                 <br />
             }
         }
