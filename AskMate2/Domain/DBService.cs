@@ -473,7 +473,6 @@ namespace AskMate2.Domain
                     {
                         var answerid = reader["answer_id"].ToString();
                         var aSubmissionTime = Convert.ToDateTime(reader["submission_time"]);
-                        var aViewNumber = Convert.ToInt32(reader["view_number"]);
                         var aVoteNumber = Convert.ToInt32(reader["vote_number"]);
                         var answerMessage = reader["answer_message"].ToString();
                         var aImage = reader["image"].ToString();

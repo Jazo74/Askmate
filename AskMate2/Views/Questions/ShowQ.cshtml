@@ -46,11 +46,26 @@
             <br />
             <image src="@Model.qModelList[0].Qimage" width="600" height="400"></image>
         }
-    }
-    else
-    {
-        <p>There are no questions!</p>
-    }
+        <hr />
+        foreach (AnswerModel answer in Model.aModelList)
+        {
+            <p>Answer ID: @answer.Aid</p>
+            <p>Answer: @answer.Atext</p>
+            <p>Votes: @answer.Avote</p>
+            <p>Created: @answer.AsubmissionTime</p>
+            <br />
+            if (answer.Aimage != null && answer.Aimage != "")
+            {
+                <br />
+                <image src="@answer.Aimage" width="600" height="400"></image>
+            }
+            <hr />
+        }
+   }
+   else
+   {
+<p>There are no questions!</p>
+   }
 }
 
 
