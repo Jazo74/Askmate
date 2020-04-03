@@ -168,12 +168,13 @@ input[type=button], input[type=submit], input[type=reset] {
 }
 .biglogo {
     padding: 10px;
-    max-width: 30%;
+    max-width: 50%;
     height: auto;
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
     display:block;
+    align-items:center; 
 }
 img {
     padding: 10px;
@@ -192,6 +193,12 @@ img {
     width: 10%;
     height: auto;
     
+}
+.theeye {
+    width: 7%;
+    height: auto;
+    float: right;
+    align-items: 
 }
 /* Sticky footer styles
 -------------------------------------------------- */

@@ -1,6 +1,6 @@
-﻿@model List<Transit> 
+﻿@model List<Transit>
 <h2>Questions</h2>
-<hr class="thickhr"/>
+<hr class="thickhr" />
 <br />
 <form method="post" asp-controller="Questions" asp-action="ShowQWithSelect">
     <input type="text" id="wordSearch" name="wordToSearch" size="30" style="margin-bottom: 7px;" />
@@ -35,24 +35,45 @@
                 <th>Views</th>
                 <th>Created</th>
             </tr>
-                @{
-                    foreach (Transit item in Model)
-                    {
-                            <tr>
-                                <td>@item.Qid</td>
-                                <td><a asp-controller="Questions" asp-action="ShowQe" asp-route-qid=@(item.Qid)>@item.Qtitle</a></td>
-                                <td>@item.Qvote</td>
-                                <td>@item.Qview</td>
-                                <td>@item.QsubmissionTime</td>
-                            </tr>
-                    }
+            @{
+                foreach (Transit item in Model)
+                {
+                    <tr>
+                        <td>@item.Qid</td>
+                        <td><a asp-controller="Questions" asp-action="ShowQe" asp-route-qid=@(item.Qid)>@item.Qtitle</a></td>
+                        <td>@item.Qvote</td>
+                        <td>@item.Qview</td>
+                        <td>@item.QsubmissionTime</td>
+                    </tr>
                 }
+            }
         </table>
     }
     else
     {
         <p>There are no questions!</p>
     }
+    <br />
+    <div>
+        <h3>Add a new question</h3>
+        <hr class="thickhr" />
+        <br />
+        <form method="post" asp-controller="Questions" asp-action="AddQuestion">
+            <label for="addNewTitle">Title:</label>
+            <br />
+            <textarea id="addNewTitle" name="title" rows="1" cols="82" required></textarea>
+            <br />
+            <label for="addNewQuestion">Question:</label>
+            <br />
+            <textarea id="addNewQuestion" name="text" rows="10" cols="82" required></textarea>
+            <br />
+            <label for="image">Link an image:</label>
+            <br />
+            <textarea id="image" name="image" rows="1" cols="82"></textarea>
+            <br />
+            <input type="submit" value="Add question" />
+        </form>
+    </div>
 }
 
 

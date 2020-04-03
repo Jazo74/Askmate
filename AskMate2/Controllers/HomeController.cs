@@ -33,6 +33,11 @@ namespace AskMate2.Controllers
             return View();
         }
 
+        public IActionResult Theeye()
+        {
+            return View("devspage");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
