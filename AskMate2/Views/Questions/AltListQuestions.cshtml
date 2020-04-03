@@ -4,16 +4,13 @@
 <br />
 <form method="post" asp-controller="Questions" asp-action="ShowQWithSelect">
     <input type="text" id="wordSearch" name="wordToSearch" size="30" style="margin-bottom: 7px;" />
-    <input type="submit" value="search" />
-    <br />
-    <label for="fromTime">Date: </label>
+    <label for="fromTime"> date: </label>
     <input type="text" id="fromTime" name="fromTimeToSearch" size="7" maxlength="10" value="1900.01.01" />
     <label for="toTime"> - </label>
     <input type="text" id="toTimeSearch" name="toTimeToSearch" size="7" maxlength="10" value="2100.01.01" />
-    <br />
-    <label for="voteSearch">Min. votes: </label>
+    <label for="voteSearch"> min. votes: </label>
     <input type="text" id="voteSearch" name="fromVoteSearch" size="3" value="0" />
-    <br />
+    <input type="submit" value="search" />
 </form>
 <br />
 <hr />
@@ -25,6 +22,7 @@
 
 </form>
 <br>
+<button class="addbutton" onclick="document.getElementById('newquestion').scrollIntoView();">Add new question</button>
 @{ if (Model.Count != 0)
     {
         <table class="tablazat">
@@ -54,7 +52,7 @@
         <p>There are no questions!</p>
     }
     <br />
-    <div>
+    <div id="newquestion">
         <h3>Add a new question</h3>
         <hr class="thickhr" />
         <br />

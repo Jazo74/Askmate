@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AskMate2.Domain;
 using AskMate2.Models;
+using AskMate2.Controllers;
 
 namespace AskMate2.Controllers
 {
@@ -44,7 +45,7 @@ namespace AskMate2.Controllers
             //{
             //    ViewData.Add(question.Id.ToString(), question.Title);
             //}
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("ShowQe", "Questions", new { qid = QuestionsController.focusQid }); ;
         }
         [HttpGet]
         public IActionResult ShowAnswers()
@@ -142,14 +143,14 @@ namespace AskMate2.Controllers
         public IActionResult AnswerVote([FromForm(Name = "aId")] string answerId)
         {
             ds.AnswerVote(answerId);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("ShowQe", "Questions", new { qid = QuestionsController.focusQid });
         }
 
         [HttpPost]
         public IActionResult AddImageToAnswer([FromForm(Name = "image")] string image, [FromForm(Name = "aid")] string answerId)
         {
             ds.AddImageToAnswer(answerId, image);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("ShowQe", "Questions", new { qid = QuestionsController.focusQid });
         }
 
 
@@ -169,7 +170,7 @@ namespace AskMate2.Controllers
         public IActionResult CommentToAnswer([FromForm(Name = "answerId")] string answerId, [FromForm(Name = "comment")] string comment)
         {
             ds.AddCommentAnswer(answerId, comment);
-            return RedirectToAction("Index", "Home"); //EDIT (according to specifications)
+            return RedirectToAction("ShowQe", "Questions", new { qid = QuestionsController.focusQid }); //EDIT (according to specifications)
         }
 
 

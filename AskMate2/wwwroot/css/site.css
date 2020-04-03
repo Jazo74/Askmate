@@ -22,7 +22,7 @@ a:active {
     background-color: darkgray;
 }
 
-input {
+input button {
     background-color: #c3d8ee;
     border-radius: 3px;
 }
@@ -152,13 +152,16 @@ li {
     margin: 0 !important;
 }
 
-input[type=button], input[type=submit], input[type=reset] {
+input[type=button], input[type=submit], input[type=reset], button {
     font-size: 18px;
     font-weight: bold;
     background-color: navajowhite;
     border-radius: 6px;
     border: 1px solid #5e86b2;
     color: #5e86b2;
+}
+.addbutton {
+    float: right;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {

@@ -13,6 +13,7 @@ namespace AskMate2.Controllers
     [Microsoft.AspNetCore.Components.Route("")]
     public class QuestionsController : Controller
     {
+        public static string focusQid = "";
         IDataService ds = new DBService();
 
         [HttpGet("list")] // <--- this is what you write after {PORT}
@@ -86,6 +87,7 @@ namespace AskMate2.Controllers
         [Microsoft.AspNetCore.Mvc.Route("/Questions/ShowQe/{qid}")]
         public IActionResult ShowQe(string qid)
         {
+            focusQid = qid;
             ds.ViewIncrement(qid);
             return View("ShowQ", ds.GetQuestionWithAnswers(qid));
         }
@@ -159,7 +161,7 @@ namespace AskMate2.Controllers
         public IActionResult VoteForQuestion([FromForm(Name = "qId")] string qId)
         {
             ds.Vote(qId);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("ShowQe","Questions", new { qid = focusQid });
         }
 
         [HttpPost]
@@ -227,7 +229,7 @@ namespace AskMate2.Controllers
         public IActionResult CommentToQuestion([FromForm(Name = "questionId")] string questionId, [FromForm(Name = "comment")] string comment)
         {
             ds.AddCommentQuestion(questionId, comment);
-            return RedirectToAction("Index", "Home"); //EDIT (according to specifications)
+            return RedirectToAction("ShowQe", "Questions", new { qid = focusQid });
         }
 
 
@@ -244,7 +246,7 @@ namespace AskMate2.Controllers
         public IActionResult AddImageToQuestion([FromForm(Name = "image")] string image, [FromForm(Name ="qid")] string questionId)
         {
             ds.AddImageToQuestion(questionId, image);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("ShowQe", "Questions", new { qid = focusQid });
         }
 
 
