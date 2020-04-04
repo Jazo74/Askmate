@@ -33,7 +33,7 @@ namespace AskMate2.Domain
             Question question = new Question("fakeid", title, text, voteNumber, viewNumber, submissionTime, image);
             return question;
         }
-
+        //js time
 
         public void AddQuestion(Question question) 
         {
