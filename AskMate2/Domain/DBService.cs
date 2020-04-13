@@ -34,15 +34,14 @@ namespace AskMate2.Domain
             return question;
         }
         //js time
-
+        
         public void AddQuestion(Question question) 
         {
             using (var conn = new NpgsqlConnection(Program.ConnectionString))
             {
                 conn.Open();
-                using (var cmd = new NpgsqlCommand(
-                 "INSERT INTO question (submission_time, view_number, vote_number, title, question_message, image) " +
-                 "VALUES (@subtime, @viewnum, @votenum, @title, @quemess, @image)", conn))
+                using (var cmd = new NpgsqlCommand( // no string concantination (SQL Injection Danger)
+                 "INSERT INTO question (submission_time, view_number, vote_number, title, question_message, image) VALUES (@subtime, @viewnum, @votenum, @title, @quemess, @image)", conn))
                 {
                     cmd.Parameters.AddWithValue("subtime", DateTime.Now);
                     cmd.Parameters.AddWithValue("viewnum", 0);
@@ -558,6 +557,27 @@ namespace AskMate2.Domain
                 }
             }
         }
+
+
+
+
+
+        public void AddUser(string email, string password)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("INSERT INTO user (email, password) VALUES (@email, @password)"))
+                {
+                    cmd.Parameters.AddWithValue("email", email);
+                    cmd.Parameters.AddWithValue("password", password);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+
     }
 }
 

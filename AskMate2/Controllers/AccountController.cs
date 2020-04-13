@@ -20,18 +20,6 @@ namespace AskMate2.Controllers
         private readonly ILogger<AccountController> _logger;
         private readonly IUserService _userService;
 
-        public ActionResult Index()
-        {
-            // email for Email (something the user can be identified by?
-            var claim = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
-            User user = _userService.GetOne(email);
-
-            return View(new User
-            {
-
-            }
-                );
-        }
 
         [HttpGet] //MISSING login page
         public IActionResult Login()
