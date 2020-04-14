@@ -169,16 +169,7 @@ input[type=button], input[type=submit], input[type=reset], button {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
-.biglogo {
-    padding: 10px;
-    max-width: 50%;
-    height: auto;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
-    display:block;
-    align-items:center; 
-}
+
 img {
     padding: 10px;
     max-width: 90%;
@@ -197,11 +188,20 @@ img {
     height: auto;
     
 }
+.mainpage {
+    align-items: stretch;
+    justify-content: center;
+}
+.biglogo {
+    padding: 10px;
+    width: 500px;
+    height: auto;
+    display: block;
+}
 .theeye {
     width: 7%;
     height: auto;
-    float: right;
-    align-items: 
+    display: block;
 }
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -241,7 +241,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background-color: #5e86b2;
+    background-color: #3e5ea9;
 }
 .footer {
   position: absolute;
@@ -249,4 +249,45 @@ body {
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+.sp-body {
+    display: grid;
+    height: 1500px;
+    width: auto;
+    grid-template-areas: "header header header"
+                         "left center right"
+                         "footer footer footer";
+    grid-template-columns: 200px auto 200px;
+    grid-template-rows: 100px auto 100px;
+    grid-gap: 15px;
+}
+.sp-header {
+    grid-area: header;
+    background-color:burlywood;
+    justify-items: stretch;
+    justify-content: stretch;
+}
+.sp-left {
+    grid-area: left;
+    background-color:cornsilk;
+}
+.sp-center {
+    grid-area: center;
+    background-color: darkkhaki;
+    justify-items:center;
+}
+.sp-right {
+    grid-area: right;
+    background-color: rosybrown;
+}
+.sp-footer {
+    grid-area: footer;
+    background-color: slategray;
+}
+.sp-navbar {
+    display: flex;
+}
+.sp-navbar li {
+    flex: 3;
+    align-self: center;
 }
