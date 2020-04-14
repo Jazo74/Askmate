@@ -11,6 +11,62 @@ a.navbar-brand {
     padding-left: 80px;
 }
 
+a.navbar-brand-2 {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    font-size: 30px !important;
+    font-weight: bold !important;
+    color: #5e86b2 !important;
+    padding-left: 80px;
+    /*New*/
+    border: 0;
+    border-radius: 15px;
+    line-height: 2.5;
+    padding: 0 20px;
+    text-shadow: 1px 2px 1px #000;
+    border-radius: 10px;
+    background-color: rgba(210, 0, 0, 1);
+    background-image: linear-gradient(to top left,
+                                rgba(59, 163, 227),
+                                rbga(0,0,0 .2) 30%,
+                                rgb(202, 246, 225));
+    box-shadow: inset 2px 1px 1px rgb(41, 142, 118, 0.6),
+                insert -2px -1px 1px rgb(108, 164, 45, 0.6);
+
+}
+a.navbar-brand-2:hover{
+    background-color: rgb(47, 179, 174);
+}
+    a.navbar-brand-2:active {
+        box-shadow: inset -2px -2px 3px rgb(41, 142, 118, 0.6), 
+                    insert 2px 2px 3px rgb(0, 0, 0, 0.6);
+    }
+
+.styled {
+    border: 0;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    border-radius: 10px;
+    background-color: rgba(220, 0, 0, 1);
+    background-image: linear-gradient(to top left, rgba(0, 0, 0, .2), rgba(0, 0, 0, .2) 30%, rgba(0, 0, 0, 0));
+    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6), inset -2px -2px 3px rgba(0, 0, 0, .6);
+}
+
+    .styled:hover {
+        background-color: rgba(255, 0, 0, 1);
+    }
+
+    .styled:active {
+        box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6), inset 2px 2px 3px rgba(0, 0, 0, .6);
+    }
+
+/*--------------------PROBA--------------------------*/
+
 /* Provide sufficient contrast against white background */
 a {
   color:navajowhite;

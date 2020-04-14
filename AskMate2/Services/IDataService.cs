@@ -76,5 +76,11 @@ namespace AskMate2.Domain
 
         void EditAnswer(string answerId, string message, string image);
 
+
+
+        // users
+
+
+
     }
 }

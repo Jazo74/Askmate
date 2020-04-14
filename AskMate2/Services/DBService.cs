@@ -33,16 +33,15 @@ namespace AskMate2.Domain
             Question question = new Question("fakeid", title, text, voteNumber, viewNumber, submissionTime, image);
             return question;
         }
-
-
+        //js time
+        
         public void AddQuestion(Question question) 
         {
             using (var conn = new NpgsqlConnection(Program.ConnectionString))
             {
                 conn.Open();
-                using (var cmd = new NpgsqlCommand(
-                 "INSERT INTO question (submission_time, view_number, vote_number, title, question_message, image) " +
-                 "VALUES (@subtime, @viewnum, @votenum, @title, @quemess, @image)", conn))
+                using (var cmd = new NpgsqlCommand( // no string concantination (SQL Injection Danger)
+                 "INSERT INTO question (submission_time, view_number, vote_number, title, question_message, image) VALUES (@subtime, @viewnum, @votenum, @title, @quemess, @image)", conn))
                 {
                     cmd.Parameters.AddWithValue("subtime", DateTime.Now);
                     cmd.Parameters.AddWithValue("viewnum", 0);
@@ -558,6 +557,15 @@ namespace AskMate2.Domain
                 }
             }
         }
+
+
+
+
+
+        
+
+
+
     }
 }
 

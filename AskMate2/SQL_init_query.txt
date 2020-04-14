@@ -1,0 +1,90 @@
+﻿DROP TABLE IF EXISTS "question" CASCADE;
+DROP TABLE IF EXISTS "answer" CASCADE;
+DROP TABLE IF EXISTS "question_tag" CASCADE;
+DROP TABLE IF EXISTS "tag" CASCADE;
+DROP TABLE IF EXISTS "komment" CASCADE;
+DROP TABLE IF EXISTS "user" CASCADE;
+
+CREATE TABLE "user"(
+	"user_id" varchar(16) Primary Key,
+	email varchar(50) UNIQUE,
+	"password" varchar(50),
+	reputation INT
+);
+
+
+
+CREATE TABLE question(
+	question_id SERIAL PRIMARY KEY,
+	submission_time TIMESTAMP,
+	view_number INT,
+	vote_number INT,
+	title varchar(50),
+	question_message text,
+	image TEXT,
+	user_id varchar(16),
+	FOREIGN KEY (user_id) references
+	"user"(user_id) ON DELETE SET NULL
+);
+CREATE TABLE answer(
+	answer_id SERIAL PRIMARY KEY,	
+	submission_time TIMESTAMP,
+	vote_number INT,
+	question_id INT,
+	answer_message TEXT,
+	image TEXT,
+	user_id varchar(16),
+	FOREIGN KEY (user_id) references
+	"user"(user_id) ON DELETE SET NULL,
+	FOREIGN KEY (question_id) references "question"(question_id) ON DELETE SET NULL
+); 
+
+CREATE TABLE tag(
+	tag_id SERIAL PRIMARY KEY,
+	tag_name varchar(40)
+);
+
+CREATE TABLE question_tag(
+	question_id INT,
+	tag_id INT,
+	FOREIGN KEY (question_id) references "question"(question_id) ON DELETE SET NULL,
+	FOREIGN KEY (tag_id) references "tag"(tag_id) ON DELETE SET NULL
+);
+
+CREATE TABLE komment(
+	komment_id SERIAL PRIMARY KEY,
+	question_id INT,
+	answer_id INT,
+	komment_message TEXT,
+	submission_time TIMESTAMP,
+	edited_number smallint,
+	user_id varchar(16),
+	FOREIGN KEY (user_id) references
+	"user"(user_id) ON DELETE SET NULL,
+	FOREIGN KEY (question_id) references "question"(question_id) ON DELETE SET NULL,
+	FOREIGN KEY (answer_id) references "answer"(answer_id) ON DELETE SET NULL
+);
+
+--user inserts
+
+INSERT INTO "user"(user_id, email, password, reputation)
+VALUES('Erik','erik@mail.com', 'erik', 0);
+INSERT INTO "user"(user_id, email, password, reputation)
+VALUES('Zoli', 'zoli@mail.com', 'zoli', 0);
+INSERT INTO "user"(user_id, email, password, reputation)
+VALUES('Istvan', 'istvan@mail.com', 'istvan', 0);
+INSERT INTO "user"(user_id, email, password, reputation)
+VALUES('Admin', 'admin@mail.com', 'admin', 100);
+
+--Question inserts
+INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)
+VALUES ('2020-03-30 16:14:26.765429', 4, 10, 'How to peel a banana?', 'Monkeys, what is your technique?', '', 'Erik');
+
+INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)
+VALUES ('2020-03-30 16:10:26.765429', 10, 10, 'Which is the cutest dog?', 'Like, the fluffiest?', '', 'Erik');
+
+INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)
+VALUES ('2020-03-30 12:14:26.765429', 90, 101, 'Apples or Oranges?', 'Which one is more healthy?', '', 'Istvan');
+
+INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)
+VALUES ('2020-03-29 16:09:26.765429', 88, 102, 'Cats or dogs?', 'Meow or Vau?', '', 'Zoli');

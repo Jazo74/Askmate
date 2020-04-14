@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AskMate2.Domain;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +26,13 @@ namespace AskMate2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            //services.AddSingleton(typeof(IUserService), //ADD user to database?);
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+                    //.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+                    //{ options.LoginPath = "/Account/Index";
+                    //    options.LogoutPath = "/Account/Logout";
+                    //}
+                       // );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +54,8 @@ namespace AskMate2
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication(); //added (for login)
 
             app.UseEndpoints(endpoints =>
             {
