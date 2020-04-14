@@ -10,6 +10,7 @@ namespace AskMate2.Domain
 {
     public class DBService : IDataService
     {
+        public List<User> allUsers = new List<User>();
         public Answer MakeAnswer(string answerId, string qid, string text, string image)
         {
             Answer answer = new Answer(answerId, qid, text, image);
@@ -559,7 +560,30 @@ namespace AskMate2.Domain
         }
 
 
+        public List<User> GetAllUsers()
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("SELECT * FROM user"))
+                {
+                    List<User> userList = new List<User>();
+                    string id = "";
+                    string email = "";
+                    string password = "";
 
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        id = reader["user_id"].ToString();
+                        email = reader["email"].ToString();
+                        password = reader["password"].ToString();
+                    }
+                    allUsers.Add(new User(id, email, password));
+                    return allUsers;
+                }
+            }
+        }
 
 
         

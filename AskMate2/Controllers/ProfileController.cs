@@ -27,7 +27,7 @@ namespace AskMate2.Controllers
         public IActionResult Index()
         {
             var email = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
-            User user = _userService.GetOne(email);
+            User user = _userService.GetUserByEmail(email);
 
             return View(new 
             {

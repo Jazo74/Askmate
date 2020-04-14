@@ -12,9 +12,9 @@ namespace AskMate2.Domain
 
         public List<User> GetAll();
 
-        public User GetOne(int id);
+        public User GetUserByID(string id);
 
-        public User GetOne(string email);
+        public User GetUserByEmail(string email);
 
         public User Login(string email, string password);
 
