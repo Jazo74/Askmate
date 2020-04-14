@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AskMate2.Models;
+using System.Security.Claims;
 
 namespace AskMate2.Controllers
 {
@@ -35,6 +36,8 @@ namespace AskMate2.Controllers
 
         public IActionResult Theeye()
         {
+            var email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            ViewData.Add("email", email);
             return View("devspage");
         }
 
