@@ -10,43 +10,26 @@ namespace AskMate2.Services
 {
     public class UserHandler : IUserService
     {
-
-        private List<User> _users = new List<User>();
+        //Missing available users
+        private static  DBService dbService = new DBService();
+        private List<User> _users;
 
 
         // gets all users from the DataBase
         public List<User> GetAll()
         {
-            using (var conn = new NpgsqlConnection(Program.ConnectionString))
-            {
-                conn.Open();
-                using (var cmd = new NpgsqlCommand("SELECT * FROM user"))
-                {
-                    List<User> userList = new List<User>();
-                    var id = 0;
-                    string email = "";
-                    string password = "";
+            _users = dbService.GetAllUsers();
 
-                    var reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        id = Convert.ToInt32(reader["user_id"]);
-                        email = reader["email"].ToString();
-                        password = reader["password"].ToString();
-                    }
-                    _users.Add(new User(id, email, password));
-                    return _users;
-                }
-            }
+            return _users;
         }
 
-        public User GetOne(int id)
+        public User GetUserByID(string id)
         {
             return _users.FirstOrDefault(u => u.Id == id);
 
         }
 
-        public User GetOne(string email)
+        public User GetUserByEmail(string email)
         {
             return _users.FirstOrDefault(u => u.Email == email);
         }
@@ -55,7 +38,7 @@ namespace AskMate2.Services
         public User Login(string email, string password)
         {
 
-            var user = GetOne(email);
+            var user = GetUserByEmail(email);
             if (user == null)
             {
                 return null;

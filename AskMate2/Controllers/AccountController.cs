@@ -5,6 +5,7 @@ using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AskMate2.Domain;
+using AskMate2.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -16,7 +17,6 @@ namespace AskMate2.Controllers
 {
     public class AccountController : Controller
     {
-
         private readonly ILogger<AccountController> _logger;
         private readonly IUserService _userService;
 
@@ -27,25 +27,18 @@ namespace AskMate2.Controllers
             return View();
         }
         
-
-        //public IActionResult AuthenticateUser()
-        //{
-        //    var 
-
-
-        //    //startup page, after you have signed in successfully
-        //    return RedirectToAction("Index", "Home"); 
-        //}
-
       
         [HttpPost]
         public async Task<ActionResult> Login([FromForm] string email, [FromForm] string password)
         {
+            _userService.GetAll();
             User user = _userService.Login(email, password);
+            
             if (user == null)
             {
                 return RedirectToAction("Login", "Account");
             }
+           
 
             var claims = new List<Claim> { new Claim(ClaimTypes.Email, email) };
 
@@ -80,7 +73,7 @@ namespace AskMate2.Controllers
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity), 
                 authProperties);
-            return RedirectToAction("Index", "Profile");
+            return RedirectToAction("ListQuestions", "Questions");
         }
 
         [Authorize]

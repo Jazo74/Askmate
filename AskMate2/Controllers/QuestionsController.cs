@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AskMate2;
 using AskMate2.Domain;
 using AskMate2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AskMate2.Controllers
 {
@@ -16,6 +17,7 @@ namespace AskMate2.Controllers
         public static string focusQid = "";
         IDataService ds = new DBService();
 
+        [Authorize]
         [HttpGet("list")] // <--- this is what you write after {PORT}
         public IActionResult ListQuestions()
         {
