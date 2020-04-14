@@ -53,9 +53,11 @@ namespace AskMate2
 
             app.UseRouting();
 
+            app.UseAuthentication(); //added (for login)
+
             app.UseAuthorization();
 
-            app.UseAuthentication(); //added (for login)
+           
 
             app.UseEndpoints(endpoints =>
             {
