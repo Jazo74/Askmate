@@ -19,7 +19,6 @@ namespace AskMate2.Controllers
     {
         private readonly ILogger<AccountController> _logger;
         private readonly IUserService _userService = new UserHandler();
-        private UserHandler userHandler = new UserHandler();
         
         [HttpGet] //MISSING login page
         public IActionResult Login()
@@ -31,9 +30,9 @@ namespace AskMate2.Controllers
         [HttpPost]
         public async Task<ActionResult> Login([FromForm] string email, [FromForm] string password)
         {
-            List<User> allUsers = userHandler.GetAll();
+            List<User> allUsers = _userService.GetAll();
 
-            User user = userHandler.Login(email, password);
+            User user = _userService.Login(email, password);
             
             if (user == null)
             {
