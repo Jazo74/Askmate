@@ -580,8 +580,9 @@ namespace AskMate2.Domain
                         email = reader["email"].ToString();
                         password = reader["password"].ToString();
                         reputation = Convert.ToInt32(reader["reputation"]);
+                        allUsers.Add(new User(id, email, password, reputation));
                     }
-                    allUsers.Add(new User(id, email, password, reputation));
+                    
                     return allUsers;
                 }
             }

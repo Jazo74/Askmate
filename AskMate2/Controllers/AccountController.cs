@@ -36,7 +36,7 @@ namespace AskMate2.Controllers
             
             if (user == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Account");
             }
            
 
@@ -73,7 +73,7 @@ namespace AskMate2.Controllers
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity), 
                 authProperties);
-            return RedirectToAction("Index", "Profile");
+            return RedirectToAction("ListQuestions", "Questions");
         }
 
         [Authorize]

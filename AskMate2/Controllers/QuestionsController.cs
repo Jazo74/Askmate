@@ -36,6 +36,7 @@ namespace AskMate2.Controllers
             }
             return View("AltListQuestions", transitList);
         }
+        [Authorize]
         [HttpGet]
         public IActionResult AddQuestion()
         {
