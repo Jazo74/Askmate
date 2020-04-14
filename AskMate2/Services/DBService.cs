@@ -571,6 +571,7 @@ namespace AskMate2.Domain
                     string id = "";
                     string email = "";
                     string password = "";
+                    int reputation = 0;
 
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())
@@ -578,8 +579,9 @@ namespace AskMate2.Domain
                         id = reader["user_id"].ToString();
                         email = reader["email"].ToString();
                         password = reader["password"].ToString();
+                        reputation = Convert.ToInt32(reader["reputation"]);
                     }
-                    allUsers.Add(new User(id, email, password));
+                    allUsers.Add(new User(id, email, password, reputation));
                     return allUsers;
                 }
             }

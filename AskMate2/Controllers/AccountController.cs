@@ -19,28 +19,29 @@ namespace AskMate2.Controllers
     {
         private readonly ILogger<AccountController> _logger;
         private readonly IUserService _userService = new UserHandler();
-
-
+        private UserHandler userHandler = new UserHandler();
+        
         [HttpGet] //MISSING login page
         public IActionResult Login()
         {
-            return View();
+            return View("Login");
         }
         
       
         [HttpPost]
         public async Task<ActionResult> Login([FromForm] string email, [FromForm] string password)
         {
-            _userService.GetAll();
-            User user = _userService.Login(email, password);
+            List<User> allUsers = userHandler.GetAll();
+
+            User user = userHandler.Login(email, password);
             
             if (user == null)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Index", "Home");
             }
            
 
-            var claims = new List<Claim> { new Claim(ClaimTypes.Email, email) };
+            var claims = new List<Claim> { new Claim(ClaimTypes.Email, user.Email) };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -73,7 +74,7 @@ namespace AskMate2.Controllers
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity), 
                 authProperties);
-            return RedirectToAction("ListQuestions", "Questions");
+            return RedirectToAction("Index", "Profile");
         }
 
         [Authorize]
