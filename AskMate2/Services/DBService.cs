@@ -565,7 +565,7 @@ namespace AskMate2.Domain
             using (var conn = new NpgsqlConnection(Program.ConnectionString))
             {
                 conn.Open();
-                using (var cmd = new NpgsqlCommand("SELECT * FROM user"))
+                using (var cmd = new NpgsqlCommand("SELECT * FROM \"user\"", conn))
                 {
                     List<User> userList = new List<User>();
                     string id = "";

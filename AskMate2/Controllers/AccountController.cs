@@ -18,7 +18,7 @@ namespace AskMate2.Controllers
     public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
-        private readonly IUserService _userService;
+        private readonly IUserService _userService = new UserHandler();
 
 
         [HttpGet] //MISSING login page
