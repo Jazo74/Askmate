@@ -79,7 +79,6 @@ namespace AskMate2.Domain
 
 
         // users
-        void AddUser(string email, string password);
 
 
 

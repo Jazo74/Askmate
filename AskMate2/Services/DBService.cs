@@ -562,19 +562,7 @@ namespace AskMate2.Domain
 
 
 
-        public void AddUser(string email, string password)
-        {
-            using (var conn = new NpgsqlConnection(Program.ConnectionString))
-            {
-                conn.Open();
-                using (var cmd = new NpgsqlCommand("INSERT INTO user (email, password) VALUES (@email, @password)"))
-                {
-                    cmd.Parameters.AddWithValue("email", email);
-                    cmd.Parameters.AddWithValue("password", password);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
+        
 
 
 

@@ -3,7 +3,7 @@
 
 // Write your JavaScript code.
 
-function changeColor(newColor) {
-    var element = document.getElementById('jsproba');
-    element.style.color = newColor;
-}
+//function changeColor(newColor) {
+//    var element = document.getElementById('jsproba');
+//    element.style.color = newColor;
+//}

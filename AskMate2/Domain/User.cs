@@ -12,6 +12,11 @@ namespace AskMate2.Domain
         public string Email { get; set; }
         public string Password { get; set; }
 
-
+        public User(int id, string email, string password)
+        {
+            Id = id;
+            Email = email;
+            Password = password;
+        }
     }
 }

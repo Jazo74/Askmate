@@ -39,7 +39,7 @@ namespace AskMate2.Controllers
 
       
         [HttpPost]
-        public async Task<ActionResult> LoginAsync([FromForm] string email, [FromForm] string password)
+        public async Task<ActionResult> Login([FromForm] string email, [FromForm] string password)
         {
             User user = _userService.Login(email, password);
             if (user == null)
