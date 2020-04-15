@@ -22,7 +22,6 @@
 
 </form>
 <br>
-<button class="addbutton" onclick="document.getElementById('newquestion').scrollIntoView();">Add new question</button>
 @{ if (Model.Count != 0)
     {
         <table class="tablazat">
@@ -51,28 +50,7 @@
     {
         <p>There are no questions!</p>
     }
-    <br />
-    <div id="newquestion">
-        <h3>Add a new question</h3>
-        <hr class="thickhr" />
-        <br />
-        <form method="post" asp-controller="Questions" asp-action="AddQuestion">
-            <label for="addNewTitle">Title:</label>
-            <br />
-            <textarea id="addNewTitle" name="title" rows="1" cols="82" required></textarea>
-            <br />
-            <label for="addNewQuestion">Question:</label>
-            <br />
-            <textarea id="addNewQuestion" name="text" rows="10" cols="82" required></textarea>
-            <br />
-            <label for="image">Link an image:</label>
-            <br />
-            <textarea id="image" name="image" rows="1" cols="82"></textarea>
-            <br />
-            <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
-            <input type="submit" value="Add question" />
-        </form>
-    </div>
+    
 }
 
 

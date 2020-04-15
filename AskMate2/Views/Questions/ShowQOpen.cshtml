@@ -1,0 +1,97 @@
+﻿@model QAC
+<br />
+<hr class="thickhr" />
+@{ if (Model.qModelList.Count != 0)
+    {
+    <div class="questions">
+        @{
+            foreach (QuestionModel item in Model.qModelList)
+            {
+                <p>
+                    Question #@item.Qid - @item.QsubmissionTime - <b>answers: </b> @Model.aModelList.Count - <b>votes:</b> @item.Qvote - <b>views:</b> @item.Qview
+                 </p>
+                <br />
+                <p><b>@item.Qtitle</b></p>
+                <p>@item.Qtext</p>
+            }
+            if (Model.qModelList[0].Qimage != null && Model.qModelList[0].Qimage != "")
+            {
+                <img src="@Model.qModelList[0].Qimage"></img>
+            }
+            else
+            {
+                <br />
+                <p>There is no linked image</p>
+            }
+            <br />
+            <h6><u>Comments:</u></h6>
+            foreach (CommentModel comment in Model.cModelList)
+            {
+                if (comment.Qid == Model.qModelList[0].Qid)
+                {
+                    <ul>
+                        <li>Comment #@comment.Cid - @comment.CsubmissionTime - edited @comment.CeditNr times</li>
+                        <li><b></b>@comment.Ctext</li>
+                        <br />
+                    </ul>
+
+                }
+            }
+        }
+    <br />
+    </div>
+    <div class="answers">
+        @if (Model.aModelList.Count != 0)
+        {
+            <h3>Answers</h3>
+            <hr class="thickhr" />
+                foreach (AnswerModel answer in Model.aModelList)
+                {
+                    <p>
+                        Answer #@answer.Aid - @answer.AsubmissionTime - votes: @answer.Avote
+                    </p>
+                    <p><b>Answer: </b>@answer.Atext</p>
+                    <br />
+                    if (answer.Aimage != null && answer.Aimage != "")
+                    {
+                        <img src="@answer.Aimage"></img>
+                    }
+                    else
+                    {
+                        <br />
+                        <p>There is no linked image</p>
+                    }
+                    <br />
+                    <h6><u>Comments:</u></h6>
+                    foreach (CommentModel comment in Model.cModelList)
+                    {
+                        if (comment.Aid == answer.Aid)
+                        {
+                            <ul>
+                                <li>Comment #@comment.Cid - @comment.CsubmissionTime - edited @comment.CeditNr times</li>
+                                <li><b></b>@comment.Ctext</li>
+                                <br />
+                            </ul>
+                        }
+                    }
+                    
+                    <br />
+            }
+        }
+        else
+        {
+            <br />
+            <h4>There are no answers.</h4>
+            <br />
+        }
+
+    </div>
+    }
+    else
+    {
+        <p>There are no questions!</p>
+    }
+}
+
+
+

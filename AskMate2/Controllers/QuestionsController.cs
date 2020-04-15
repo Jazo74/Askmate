@@ -8,6 +8,7 @@ using AskMate2;
 using AskMate2.Domain;
 using AskMate2.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace AskMate2.Controllers
 {
@@ -21,20 +22,32 @@ namespace AskMate2.Controllers
         [HttpGet("list")] // <--- this is what you write after {PORT}
         public IActionResult ListQuestions()
         {
+            string currentUser = "";
+            currentUser = ds.GetUserId(HttpContext.User.FindFirstValue(ClaimTypes.Email));
+            ViewData.Add("currentUser", currentUser);
+
             List<Transit> transitList = new List<Transit>();
-            foreach (Question question in ds.GetQuestions())
+            
+            if (currentUser == "")
             {
-                Transit transit = new Transit();
-                transit.Qid = question.Id.ToString();
-                transit.Qtitle = question.Title;
-                transit.Qtext = question.Text;
-                transit.Qview = question.ViewNumber;
-                transit.Qvote = question.VoteNumber;
-                transit.QsubmissionTime = question.SubmissionTime;
-                transit.Qimage = question.Image;
-                transitList.Add(transit);
+                return View("AltListQuestionsOpen", transitList);
+            } else
+            {
+                foreach (Question question in ds.GetQuestions())
+                {
+                    Transit transit = new Transit();
+                    transit.Qid = question.Id.ToString();
+                    transit.QUserId = question.UserId;
+                    transit.Qtitle = question.Title;
+                    transit.Qtext = question.Text;
+                    transit.Qview = question.ViewNumber;
+                    transit.Qvote = question.VoteNumber;
+                    transit.QsubmissionTime = question.SubmissionTime;
+                    transit.Qimage = question.Image;
+                    transitList.Add(transit);
+                }
+                return View("AltListQuestions", transitList);
             }
-            return View("AltListQuestions", transitList);
         }
         [Authorize]
         [HttpGet]
@@ -44,9 +57,9 @@ namespace AskMate2.Controllers
         }
         [HttpPost]
 
-        public IActionResult AddQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "text")] string text, [FromForm(Name = "image")] string image)
+        public IActionResult AddQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "text")] string text, [FromForm(Name = "currentUser")] string currentUser, [FromForm(Name = "image")] string image)
         {
-            ds.AddQuestion(ds.MakeQuestionWoId(title, text, 0, 0, DateTime.Now, image));
+            ds.AddQuestion(ds.MakeQuestionWoId(title, currentUser, text, 0, 0, DateTime.Now, image));
             return RedirectToAction("Index", "Home");
         }
 
@@ -90,6 +103,9 @@ namespace AskMate2.Controllers
         [Microsoft.AspNetCore.Mvc.Route("/Questions/ShowQe/{qid}")]
         public IActionResult ShowQe(string qid)
         {
+            string currentUser = "";
+            currentUser = ds.GetUserId(HttpContext.User.FindFirstValue(ClaimTypes.Email));
+            ViewData.Add("currentUser", currentUser);
             focusQid = qid;
             ds.ViewIncrement(qid);
             return View("ShowQ", ds.GetQuestionWithAnswers(qid));

@@ -25,13 +25,13 @@ namespace AskMate2.Domain
 
         public Question MakeQuestion(string questionId, string title, string text, int voteNumber, int viewNumber, DateTime submissionTime, string image)
         {
-            Question question = new Question(questionId, title, text, voteNumber, viewNumber, submissionTime, image);
+            Question question = new Question(questionId,  title, text, voteNumber, viewNumber, submissionTime, image);
             return question;
         }
 
-        public Question MakeQuestionWoId(string title, string text, int voteNumber, int viewNumber, DateTime submissionTime, string image)
+        public Question MakeQuestionWoId(string title, string currentUser, string text, int voteNumber, int viewNumber, DateTime submissionTime, string image)
         {
-            Question question = new Question("fakeid", title, text, voteNumber, viewNumber, submissionTime, image);
+            Question question = new Question("fakeid", currentUser, title, text, voteNumber, viewNumber, submissionTime, image);
             return question;
         }
         //js time
@@ -42,8 +42,9 @@ namespace AskMate2.Domain
             {
                 conn.Open();
                 using (var cmd = new NpgsqlCommand( // no string concantination (SQL Injection Danger)
-                 "INSERT INTO question (submission_time, view_number, vote_number, title, question_message, image) VALUES (@subtime, @viewnum, @votenum, @title, @quemess, @image)", conn))
+                 "INSERT INTO question (user_id, submission_time, view_number, vote_number, title, question_message, image) VALUES (@user_id, @subtime, @viewnum, @votenum, @title, @quemess, @image)", conn))
                 {
+                    cmd.Parameters.AddWithValue("user_id", question.UserId);
                     cmd.Parameters.AddWithValue("subtime", DateTime.Now);
                     cmd.Parameters.AddWithValue("viewnum", 0);
                     cmd.Parameters.AddWithValue("votenum", 0);
@@ -176,6 +177,7 @@ namespace AskMate2.Domain
                     List<Question> questionList = new List<Question>();
                     var reader = cmd.ExecuteReader();
                     var questionid = "";
+                    var qUserId = "";
                     DateTime submissionTime = new DateTime();
                     var viewNumber = 0;
                     var voteNumber = 0;
@@ -185,13 +187,14 @@ namespace AskMate2.Domain
                     while (reader.Read())
                     {
                         questionid = reader["question_id"].ToString();
+                        qUserId = reader["user_id"].ToString();
                         submissionTime = Convert.ToDateTime(reader["submission_time"]);
                         viewNumber = Convert.ToInt32(reader["view_number"]);
                         voteNumber = Convert.ToInt32(reader["vote_number"]);
                         title = reader["title"].ToString();
                         questionMessage = reader["question_message"].ToString();
                         image = reader["image"].ToString();
-                        questionList.Add(new Question(questionid, title.ToString(), questionMessage.ToString(), voteNumber, viewNumber, submissionTime, image));
+                        questionList.Add(new Question(questionid, qUserId, title, questionMessage, voteNumber, viewNumber, submissionTime, image));
                     }
                     return questionList;
                 }
@@ -488,6 +491,7 @@ namespace AskMate2.Domain
                     while (reader.Read())
                     {
                         var questionid = reader["question_id"].ToString();
+                        var qUserId = reader["user_id"].ToString();
                         var qSubmissionTime = Convert.ToDateTime(reader["submission_time"]);
                         var qViewNumber = Convert.ToInt32(reader["view_number"]);
                         var qVoteNumber = Convert.ToInt32(reader["vote_number"]);
@@ -496,6 +500,7 @@ namespace AskMate2.Domain
                         var qImage = reader["image"].ToString();
                         QuestionModel qModel = new QuestionModel();
                         qModel.Qid = questionid;
+                        qModel.QUserId = qUserId;
                         qModel.Qtitle = qTitle.ToString();
                         qModel.Qtext = questionMessage.ToString();
                         qModel.Qvote = qVoteNumber;
@@ -588,11 +593,27 @@ namespace AskMate2.Domain
             }
         }
 
+        public string GetUserId(string email)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                var userId = "";
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("SELECT user_id FROM \"user\" " +
+                    "WHERE email = @email", conn))
+                {
+                    cmd.Parameters.AddWithValue("email", email);
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        userId = reader["user_id"].ToString();
+                    }
 
-        
-
-
-
+                    return userId;
+                }
+            }
+        }
+                
     }
 }
 

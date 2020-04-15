@@ -8,6 +8,7 @@ namespace AskMate2.Domain
     public class Question
     {
         public string Id { get; set; }
+        public string UserId { get; set; }
         public string Title { get; set; }
         public string Text { get; set; }
         public int VoteNumber { get; set; }
@@ -20,6 +21,18 @@ namespace AskMate2.Domain
         public Question(string id, string title, string text, int voteNumber, int viewNumber, DateTime submissionTime, string image)
         {
             Id = id;
+            Title = title;
+            Text = text;
+            VoteNumber = voteNumber;
+            ViewNumber = viewNumber;
+            SubmissionTime = submissionTime;
+            Image = image;
+        }
+
+        public Question(string id, string userId, string title, string text, int voteNumber, int viewNumber, DateTime submissionTime, string image)
+        {
+            Id = id;
+            UserId = userId;
             Title = title;
             Text = text;
             VoteNumber = voteNumber;

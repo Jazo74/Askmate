@@ -8,6 +8,7 @@ namespace AskMate2.Models
     public class QuestionModel
     {
         public string Qid { get; set; }
+        public string QUserId { get; set; }
         public string Qtext { get; set; }
         public string Qtitle { get; set; }
         public int Qvote { get; set; }

@@ -12,7 +12,7 @@ namespace AskMate2.Domain
 
         Question MakeQuestion(string questionId, string title, string text, int voteNumber, int viewNumber, DateTime submissionTime, string image);
 
-        Question MakeQuestionWoId(string title, string text, int voteNumber, int viewNumber, DateTime submissionTime, string image);
+        Question MakeQuestionWoId(string title, string currentUser, string text, int voteNumber, int viewNumber, DateTime submissionTime, string image);
 
         void AddQuestion(Question question);
 
@@ -76,9 +76,10 @@ namespace AskMate2.Domain
 
         void EditAnswer(string answerId, string message, string image);
 
-
-
         // users
+
+        string GetUserId(string email);
+
 
 
 

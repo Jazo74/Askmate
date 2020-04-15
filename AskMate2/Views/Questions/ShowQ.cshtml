@@ -9,10 +9,12 @@
             {
                 <p>
                     Question #@item.Qid - @item.QsubmissionTime - <b>answers: </b> @Model.aModelList.Count - <b>votes:</b> @item.Qvote - <b>views:</b> @item.Qview
-                    <form method="post" asp-controller="Questions" asp-action="VoteForQuestion">
-                        <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
-                        <input type="submit" value="Vote" style="float:right;" />
-                    </form>
+                @{ if (ViewData["currentUser"] == Model.qModelList[0].)
+                <form method="post" asp-controller="Questions" asp-action="VoteForQuestion">
+                    <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
+                    <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
+                    <input type="submit" value="Vote" style="float:right;" />
+                </form>}
                 </p>
                 <br />
                 <p><b>@item.Qtitle</b></p>
@@ -27,11 +29,12 @@
                 <br />
                 <p>There is no linked image</p>
             }
-            <form method="post" asp-controller="Questions" asp-action="AddImageToQuestion">
-                <input type="text" name="image" size="80" value="@Model.qModelList[0].Qimage" />
-                <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
-                <input type="submit" value="Link image" />
-            </form>
+    <form method="post" asp-controller="Questions" asp-action="AddImageToQuestion">
+        <input type="text" name="image" size="80" value="@Model.qModelList[0].Qimage" />
+        <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
+        <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
+        <input type="submit" value="Link image" />
+    </form>
             <br />
             <h6><u>Comments:</u></h6>
             foreach (CommentModel comment in Model.cModelList)
@@ -46,14 +49,15 @@
 
                 }
             }
-            <form method="post" asp-controller="Questions" asp-action="CommentToQuestion">
-                <input type="hidden" name="questionId" value="@Model.qModelList[0].Qid" />
-                <label for="answerbox">Your comment: </label>
-                <br />
-                <textarea id="answerbox" name="comment" rows="4" cols="82" required></textarea>
-                <br />
-                <input type="submit" value="Comment" />
-            </form>
+    <form method="post" asp-controller="Questions" asp-action="CommentToQuestion">
+        <input type="hidden" name="questionId" value="@Model.qModelList[0].Qid" />
+        <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
+        <label for="answerbox">Your comment: </label>
+        <br />
+        <textarea id="answerbox" name="comment" rows="4" cols="82" required></textarea>
+        <br />
+        <input type="submit" value="Comment" />
+    </form>
         }
     <br />
     </div>
@@ -67,6 +71,7 @@
                     <p>
                         Answer #@answer.Aid - @answer.AsubmissionTime - votes: @answer.Avote
                         <form method="post" asp-controller="Answers" asp-action="AnswerVote">
+                            <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
                             <input type="hidden" name="aId" value="@answer.Aid" />
                             <input type="submit" value="Vote" style="float:right;" />
                         </form>
@@ -83,6 +88,7 @@
                         <p>There is no linked image</p>
                     }
                     <form method="post" asp-controller="Answers" asp-action="AddImageToAnswer">
+                        <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
                         <input type="text" name="image" size="80" value="@answer.Aimage" />
                         <input type="hidden" name="aId" value="@answer.Aid" />
                         <input type="submit" value="Link image" />
@@ -101,6 +107,7 @@
                         }
                     }
                     <form method="post" asp-controller="Answers" asp-action="CommentToAnswer">
+                        <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
                         <input type="hidden" name="answerId" value="@answer.Aid" />
                         <label for="answerbox">Your comment: </label>
                         <br />
@@ -125,13 +132,14 @@
         <br />
         <form method="post" asp-controller="Answers" asp-action="NewAnswer">
             <input type="hidden" name="qID" value="@Model.qModelList[0].Qid" />
+            <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
             <label for="answerbox">Your answer: </label>
             <br />
             <textarea id="answerbox" name="answer" rows="6" cols="82" required></textarea>
             <br />
             <label for="img">Your linked image:</label>
             <br />
-            <input type="text" id="img "name="image" size="80"  />
+            <input type="text" id="img " name="image" size="80" />
             <br />
             <br />
             <input type="submit" value="Send answer" />

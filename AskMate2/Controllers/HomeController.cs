@@ -36,7 +36,7 @@ namespace AskMate2.Controllers
 
         public IActionResult Theeye()
         {
-            var email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            string email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
             ViewData.Add("email", email);
             return View("devspage");
         }
