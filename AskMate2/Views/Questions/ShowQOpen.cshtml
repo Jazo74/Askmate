@@ -3,48 +3,48 @@
 <hr class="thickhr" />
 @{ if (Model.qModelList.Count != 0)
     {
-    <div class="questions">
-        @{
-            foreach (QuestionModel item in Model.qModelList)
-            {
-                <p>
-                    Question #@item.Qid - @item.QsubmissionTime - <b>answers: </b> @Model.aModelList.Count - <b>votes:</b> @item.Qvote - <b>views:</b> @item.Qview
-                 </p>
-                <br />
-                <p><b>@item.Qtitle</b></p>
-                <p>@item.Qtext</p>
-            }
-            if (Model.qModelList[0].Qimage != null && Model.qModelList[0].Qimage != "")
-            {
-                <img src="@Model.qModelList[0].Qimage"></img>
-            }
-            else
-            {
-                <br />
-                <p>There is no linked image</p>
-            }
-            <br />
-            <h6><u>Comments:</u></h6>
-            foreach (CommentModel comment in Model.cModelList)
-            {
-                if (comment.Qid == Model.qModelList[0].Qid)
+        <div class="questions">
+            @{
+                foreach (QuestionModel item in Model.qModelList)
                 {
-                    <ul>
-                        <li>Comment #@comment.Cid - @comment.CsubmissionTime - edited @comment.CeditNr times</li>
-                        <li><b></b>@comment.Ctext</li>
-                        <br />
-                    </ul>
+                    <p>
+                        Question #@item.Qid - @item.QsubmissionTime - <b>answers: </b> @Model.aModelList.Count - <b>votes:</b> @item.Qvote - <b>views:</b> @item.Qview
+                    </p>
+                    <br />
+                    <p><b>@item.Qtitle</b></p>
+                    <p>@item.Qtext</p>
+                }
+                if (Model.qModelList[0].Qimage != null && Model.qModelList[0].Qimage != "")
+                {
+                    <img src="@Model.qModelList[0].Qimage"></img>
+                }
+                else
+                {
+                    <br />
+                    <p>There is no linked image</p>
+                }
+                <br />
+                <h6><u>Comments:</u></h6>
+                foreach (CommentModel comment in Model.cModelList)
+                {
+                    if (comment.Qid == Model.qModelList[0].Qid)
+                    {
+                        <ul>
+                            <li>Comment #@comment.Cid - @comment.CsubmissionTime - edited @comment.CeditNr times</li>
+                            <li><b></b>@comment.Ctext</li>
+                            <br />
+                        </ul>
 
+                    }
                 }
             }
-        }
-    <br />
-    </div>
-    <div class="answers">
-        @if (Model.aModelList.Count != 0)
-        {
-            <h3>Answers</h3>
-            <hr class="thickhr" />
+            <br />
+        </div>
+        <div class="answers">
+            @if (Model.aModelList.Count != 0)
+            {
+                <h3>Answers</h3>
+                <hr class="thickhr" />
                 foreach (AnswerModel answer in Model.aModelList)
                 {
                     <p>
@@ -74,23 +74,29 @@
                             </ul>
                         }
                     }
-                    
-                    <br />
-            }
-        }
-        else
-        {
-            <br />
-            <h4>There are no answers.</h4>
-            <br />
-        }
 
-    </div>
+                    <br />
+                }
+            }
+            else
+            {
+                <br />
+                <h4>There are no answers.</h4>
+                <br />
+            }
+
+        </div>
     }
     else
     {
         <p>There are no questions!</p>
     }
+    <br />
+    <hr />
+    <br />
+    <p>If you want to add a new questions, answers or comments you have to <a asp-controller="Account" asp-action="Login">LOG IN</a> first!</p>
+    <br />
+
 }
 
 

@@ -278,16 +278,18 @@ namespace AskMate2.Domain
             }
         }
 
-        public void AddCommentQuestion(string questionId, string komment)
+        public void AddCommentQuestion(string questionId, string komment, string currentUser)
         {
             DateTime subTime = DateTime.Now;
             int edit = 0;
             using (var conn = new NpgsqlConnection(Program.ConnectionString))
             {
                 conn.Open();
-                using (var cmd = new NpgsqlCommand("INSERT INTO komment(question_id, komment_message, submission_time, edited_number) VALUES (@qid, @komment, @subTime, @edit);", conn))
+                using (var cmd = new NpgsqlCommand("INSERT INTO komment(question_id, user_id, komment_message, submission_time, edited_number) VALUES (@qid, @currentUser, @komment, @subTime, @edit);", conn))
                 {
                     cmd.Parameters.AddWithValue("qid", Int32.Parse(questionId));
+                    cmd.Parameters.AddWithValue("currentUser",currentUser);
+                    cmd.Parameters.AddWithValue("subTime", subTime);
                     cmd.Parameters.AddWithValue("komment", komment);
                     cmd.Parameters.AddWithValue("subTime", subTime);
                     cmd.Parameters.AddWithValue("edit", edit);
@@ -520,12 +522,14 @@ namespace AskMate2.Domain
                     while (reader.Read())
                     {
                         var answerid = reader["answer_id"].ToString();
+                        var aUserId = reader["user_id"].ToString();
                         var aSubmissionTime = Convert.ToDateTime(reader["submission_time"]);
                         var aVoteNumber = Convert.ToInt32(reader["vote_number"]);
                         var answerMessage = reader["answer_message"].ToString();
                         var aImage = reader["image"].ToString();
                         AnswerModel aModel = new AnswerModel();
                         aModel.Aid = answerid;
+                        aModel.AUserId = aUserId;
                         aModel.Atext = answerMessage.ToString();
                         aModel.Avote = aVoteNumber;
                         aModel.AsubmissionTime = aSubmissionTime;
@@ -545,6 +549,7 @@ namespace AskMate2.Domain
                     while (reader.Read())
                     {
                         var kommentId = reader["komment_id"].ToString();
+                        var cUserId = reader["user_id"].ToString();                        
                         var qId = reader["question_id"].ToString();
                         var aId = reader["answer_id"].ToString();
                         var cSubmissionTime = Convert.ToDateTime(reader["submission_time"]);
@@ -552,6 +557,7 @@ namespace AskMate2.Domain
                         var cEditNr = Convert.ToInt32(reader["edited_number"]);
                         CommentModel cModel = new CommentModel();
                         cModel.Cid = kommentId;
+                        cModel.CUserid = cUserId;
                         cModel.Qid = qId;
                         cModel.Aid = aId;
                         cModel.Ctext = commentMessage;

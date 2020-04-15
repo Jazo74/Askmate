@@ -59,7 +59,7 @@ namespace AskMate2.Domain
         void ViewIncrement(string questionId);
         void AnswerVote(string answerId);
 
-        void AddCommentQuestion(string questionId, string komment);
+        void AddCommentQuestion(string questionId, string komment, string currentUser);
 
         void AddCommentAnswer(string answerId, string komment);
 

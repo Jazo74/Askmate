@@ -107,7 +107,15 @@ namespace AskMate2.Controllers
             ViewData.Add("currentUser", currentUser);
             focusQid = qid;
             ds.ViewIncrement(qid);
-            return View("ShowQ", ds.GetQuestionWithAnswers(qid));
+            if (currentUser == "")
+            {
+                return View("ShowQOpen", ds.GetQuestionWithAnswers(qid));
+            }
+            else
+            {
+                return View("ShowQ", ds.GetQuestionWithAnswers(qid));
+
+            }
         }
 
         [HttpGet]
@@ -244,9 +252,9 @@ namespace AskMate2.Controllers
         }
 
         [HttpPost]
-        public IActionResult CommentToQuestion([FromForm(Name = "questionId")] string questionId, [FromForm(Name = "comment")] string comment)
+        public IActionResult CommentToQuestion([FromForm(Name = "questionId")] string questionId, [FromForm(Name = "comment")] string comment, [FromForm(Name = "currentUser")] string currentUser)
         {
-            ds.AddCommentQuestion(questionId, comment);
+            ds.AddCommentQuestion(questionId, comment, currentUser);
             return RedirectToAction("ShowQe", "Questions", new { qid = focusQid });
         }
 

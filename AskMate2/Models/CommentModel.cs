@@ -8,6 +8,7 @@ namespace AskMate2.Models
     public class CommentModel
     {
         public string Cid { get; set; }
+        public string CUserid { get; set; }
         public string Qid { get; set; }
         public string Aid { get; set; }
         public string Ctext { get; set; }
