@@ -38,7 +38,7 @@ namespace AskMate2.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-           
+
 
             var claims = new List<Claim> { new Claim(ClaimTypes.Email, user.Email) };
 
@@ -71,7 +71,7 @@ namespace AskMate2.Controllers
 
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity), 
+                new ClaimsPrincipal(claimsIdentity),
                 authProperties);
             return RedirectToAction("Index", "Home");
         }
@@ -90,6 +90,19 @@ namespace AskMate2.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
+
+
+
+        [HttpPost]
+        public IActionResult Register([FromForm] string user_id, [FromForm] string email, [FromForm] string password)
+        {
+
+
+            _userService.RegisterUser(user_id, email, password);
+
+            return RedirectToAction("Index", "Home");
+        }
+
 
 
     }
