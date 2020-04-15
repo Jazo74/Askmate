@@ -598,6 +598,10 @@ namespace AskMate2.Domain
             using (var conn = new NpgsqlConnection(Program.ConnectionString))
             {
                 var userId = "";
+                if (email == null)
+                {
+                    email = "";
+                }
                 conn.Open();
                 using (var cmd = new NpgsqlCommand("SELECT user_id FROM \"user\" " +
                     "WHERE email = @email", conn))

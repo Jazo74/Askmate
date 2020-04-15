@@ -18,7 +18,6 @@ namespace AskMate2.Controllers
         public static string focusQid = "";
         IDataService ds = new DBService();
 
-        [Authorize]
         [HttpGet("list")] // <--- this is what you write after {PORT}
         public IActionResult ListQuestions()
         {
@@ -27,25 +26,25 @@ namespace AskMate2.Controllers
             ViewData.Add("currentUser", currentUser);
 
             List<Transit> transitList = new List<Transit>();
-            
+            foreach (Question question in ds.GetQuestions())
+            {
+                Transit transit = new Transit();
+                transit.Qid = question.Id.ToString();
+                transit.QUserId = question.UserId;
+                transit.Qtitle = question.Title;
+                transit.Qtext = question.Text;
+                transit.Qview = question.ViewNumber;
+                transit.Qvote = question.VoteNumber;
+                transit.QsubmissionTime = question.SubmissionTime;
+                transit.Qimage = question.Image;
+                transitList.Add(transit);
+            }
+
             if (currentUser == "")
             {
                 return View("AltListQuestionsOpen", transitList);
             } else
             {
-                foreach (Question question in ds.GetQuestions())
-                {
-                    Transit transit = new Transit();
-                    transit.Qid = question.Id.ToString();
-                    transit.QUserId = question.UserId;
-                    transit.Qtitle = question.Title;
-                    transit.Qtext = question.Text;
-                    transit.Qview = question.ViewNumber;
-                    transit.Qvote = question.VoteNumber;
-                    transit.QsubmissionTime = question.SubmissionTime;
-                    transit.Qimage = question.Image;
-                    transitList.Add(transit);
-                }
                 return View("AltListQuestions", transitList);
             }
         }

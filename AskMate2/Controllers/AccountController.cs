@@ -73,15 +73,22 @@ namespace AskMate2.Controllers
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity), 
                 authProperties);
-            return RedirectToAction("ListQuestions", "Questions");
+            return RedirectToAction("Index", "Home");
         }
 
-        [Authorize]
         [HttpGet]
-        public async Task<IActionResult> LogoutAsync()
+        [Authorize]
+        public IActionResult Logout()
+        {
+            return View("Logout");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult> Logout([FromForm] string hidden)
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Home");
         }
 
 

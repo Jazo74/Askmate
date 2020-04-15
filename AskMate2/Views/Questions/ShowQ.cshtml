@@ -9,12 +9,16 @@
             {
                 <p>
                     Question #@item.Qid - @item.QsubmissionTime - <b>answers: </b> @Model.aModelList.Count - <b>votes:</b> @item.Qvote - <b>views:</b> @item.Qview
-                @{ if (ViewData["currentUser"] == Model.qModelList[0].)
-                <form method="post" asp-controller="Questions" asp-action="VoteForQuestion">
-                    <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
-                    <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
-                    <input type="submit" value="Vote" style="float:right;" />
-                </form>}
+                @{ if (ViewData["currentUser"] == Model.qModelList[0].QUserId)
+                    {
+                        <form method="post" asp-controller="Questions" asp-action="VoteForQuestion">
+                            <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
+                            <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
+                            <input type="submit" value="Vote" style="float:right;" />
+                        </form>
+                    }
+                    
+                }
                 </p>
                 <br />
                 <p><b>@item.Qtitle</b></p>
