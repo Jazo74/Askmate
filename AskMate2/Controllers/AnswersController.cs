@@ -39,7 +39,10 @@ namespace AskMate2.Controllers
         }
         public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "qID")] string qID, [FromForm(Name = "image")] string image, [FromForm(Name = "currentUser")] string currentUser)
         {
-            
+            if (image == null || !image.StartsWith("https://"))
+            {
+                image = "https://";
+            }
             ds.AddAnswer(ds.MakeAnswerWoId(qID, currentUser, answer, image));
             //foreach (Question question in ds.GetQuestions())
             //{
@@ -149,7 +152,11 @@ namespace AskMate2.Controllers
         [HttpPost]
         public IActionResult AddImageToAnswer([FromForm(Name = "image")] string image, [FromForm(Name = "aid")] string answerId)
         {
-            ds.AddImageToAnswer(answerId, image);
+            if (image == null || !image.StartsWith("https://"))
+            {
+                image = "https://";
+            }
+            ds.AddImageToAnswer(answerId, (image));
             return RedirectToAction("ShowQe", "Questions", new { qid = QuestionsController.focusQid });
         }
 

@@ -58,6 +58,10 @@ namespace AskMate2.Controllers
 
         public IActionResult AddQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "text")] string text, [FromForm(Name = "currentUser")] string currentUser, [FromForm(Name = "image")] string image)
         {
+            if (image == null || !image.StartsWith("https://"))
+            {
+                image = "https://";
+            }
             ds.AddQuestion(ds.MakeQuestionWoId(title, currentUser, text, 0, 0, DateTime.Now, image));
             return RedirectToAction("Index", "Home");
         }

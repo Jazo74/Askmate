@@ -1,4 +1,16 @@
 ﻿@model List<Transit>
+@{
+    string username = "unknown";
+    if (ViewData["currentUser"].ToString() != "")
+    {
+        username = ViewData["currentUser"].ToString();
+    }
+    else
+    {
+        username = "unknown user";
+    }
+}
+<p class="currentUser">Welcome @username !</p>
 <h2>Questions</h2>
 <hr class="thickhr" />
 <br />
@@ -54,7 +66,7 @@
     <hr />
     <br />
     <p>If you want to add a new questions, answers or comments you have to <a asp-controller="Account" asp-action="Login">LOG IN</a> first!</p>
-    
+
 }
 
 

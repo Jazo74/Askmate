@@ -129,8 +129,8 @@ namespace AskMate2.Domain
                         qId = reader["question_id"].ToString();
                         questionMessage = reader["answer_message"].ToString();
                         image = reader["image"].ToString();
+                        answerList.Add(new Answer(answerId, qId, questionMessage.ToString(), image));
                     }
-                    answerList.Add(new Answer(answerId, qId, questionMessage.ToString(), image));
                     return answerList;
                 }
             }
@@ -315,7 +315,7 @@ namespace AskMate2.Domain
                     cmd.Parameters.AddWithValue("komment", komment);
                     cmd.Parameters.AddWithValue("subTime", subTime);
                     cmd.Parameters.AddWithValue("edit", edit);
-                    cmd.ExecuteNonQuery(); //this has to be here'
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
