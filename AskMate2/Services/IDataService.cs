@@ -79,6 +79,8 @@ namespace AskMate2.Domain
         // users
 
         string GetUserId(string email);
+        QAC GetQACByUserId(string userId);
+
 
 
 

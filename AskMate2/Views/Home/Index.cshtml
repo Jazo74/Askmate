@@ -1,5 +1,5 @@
 ﻿<div class="mainpage">
-    @{ 
+    @{
         string username = "unknown";
         if (ViewData["currentUser"].ToString() != "")
         {
@@ -10,7 +10,11 @@
             username = "unknown user";
         }
     }
-    <p class="currentUser">Welcome @username !</p>
+    <div class="currentUser">
+        <p>Welcome @username !</p>
+        <a asp-controller="User" asp-action="user">My activity</a>
+    </div>
+    <br />
     <a asp-controller="Questions" asp-action="ListQuestions">
         <img class="biglogo" src="~/braintree.png" alt="Transparent Background Questions And Answers Clipart" />
     </a>

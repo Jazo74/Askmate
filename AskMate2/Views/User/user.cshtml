@@ -1,0 +1,42 @@
+﻿@model QAC
+@{
+    ViewData["Title"] = "user";
+}
+
+@{
+    string username = "unknown";
+    if (ViewData["currentUser"].ToString() != "")
+    {
+        username = ViewData["currentUser"].ToString();
+    }
+    else
+    {
+        username = "unknown user";
+    }
+}
+<p class="currentUser">Welcome @username !</p>
+<h1>My activity</h1>
+
+<h1>My questions</h1>
+<table class="tablazat">
+    <thead>
+        <tr>
+            <th>Question title</th>
+            <th>Submission time</th>
+            <th>Votes</th>
+            <th>View number</th>
+        </tr>
+    </thead>
+    <tbody>
+    @{ foreach (QuestionModel question in Model.qModelList)
+        {
+            <tr>
+                <td>@question.Qtitle</td>
+                <td>@question.QsubmissionTime</td>
+                <td>@question.Qvote</td>
+                <td>@question.Qview</td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
