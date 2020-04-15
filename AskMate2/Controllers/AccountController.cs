@@ -5,6 +5,7 @@ using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AskMate2.Domain;
+using AskMate2.Models;
 using AskMate2.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -30,7 +31,7 @@ namespace AskMate2.Controllers
         [HttpPost]
         public async Task<ActionResult> Login([FromForm] string email, [FromForm] string password)
         {
-            List<User> allUsers = _userService.GetAll();
+            List<User> allUsers = _userService.GetAllUsers();
 
             User user = _userService.Login(email, password);
             
@@ -102,6 +103,16 @@ namespace AskMate2.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+
+        
+        public IActionResult AllUsers()
+        {
+            List<UserTransit> allUser = _userService.GetAllUsersModel();
+            
+            return View("AllUsers", allUser);
+        }
+
 
 
 

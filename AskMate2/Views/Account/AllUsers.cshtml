@@ -1,0 +1,36 @@
+﻿@model List<UserTransit>
+@{
+    ViewData["Title"] = "AllUsers";
+}
+
+<div class="div2">
+    <h1 class="h12">All Users</h1>
+    <form method="post">
+
+        <table class="tablazat">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Reputation</th>
+                    <th>Registration Date</th>
+                </tr>
+                
+            </thead>
+                <tbody>
+                    @{
+                        foreach (UserTransit user in Model)
+                        {
+                            <tr>
+                                <td>@user.Id</td>
+                                <td>@user.Email</td>
+                                <td>@user.Reputation</td>
+                                <td>@user.RegistrationDate</td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+        </table>
+    </form>
+</div>

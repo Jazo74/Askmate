@@ -596,7 +596,7 @@ namespace AskMate2.Domain
                         reputation = Convert.ToInt32(reader["reputation"]);
                         allUsers.Add(new User(id, email, password, reputation));
                     }
-                    
+
                     return allUsers;
                 }
             }

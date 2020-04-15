@@ -352,3 +352,17 @@ body {
     flex: 3;
     align-self: center;
 }
+
+/* ---------------------------------------------------  */
+
+.div2{
+
+}
+
+.table2 {
+    width:auto;
+}
+
+.tr2:nth-child(){
+    background-color:wheat;
+}

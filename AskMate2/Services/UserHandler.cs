@@ -1,4 +1,5 @@
 ﻿using AskMate2.Domain;
+using AskMate2.Models;
 using Newtonsoft.Json.Schema;
 using Npgsql;
 using System;
@@ -11,17 +12,41 @@ namespace AskMate2.Services
     public class UserHandler : IUserService
     {
         //Missing available users
-        private static  DBService dbService = new DBService();
-        private List<User> _users;
+        private List<User> _users = new List<User>();
+
+        private List<UserTransit> _users2 = new List<UserTransit>();
 
 
         // gets all users from the DataBase
-        public List<User> GetAll()
-        {
-            _users = dbService.GetAllUsers();
 
-            return _users;
+        public List<User> GetAllUsers()
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("SELECT * FROM \"user\"", conn))
+                {
+                    List<User> userList = new List<User>();
+                    string id = "";
+                    string email = "";
+                    string password = "";
+                    int reputation = 0;
+
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        id = reader["user_id"].ToString();
+                        email = reader["email"].ToString();
+                        password = reader["password"].ToString();
+                        reputation = Convert.ToInt32(reader["reputation"]);
+                        _users.Add(new User(id, email, password, reputation));
+                    }
+
+                    return _users;
+                }
+            }
         }
+
 
         public User GetUserByID(string id)
         {
@@ -93,6 +118,33 @@ namespace AskMate2.Services
             }
         }
 
+        public List<UserTransit> GetAllUsersModel()
+        {
+            DateTime registrationDate = DateTime.Now;
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("SELECT * FROM \"user\"", conn))
+                {
+                    string id = "";
+                    string email = "";
+                    string password = "";
+                    int reputation = 0;
+
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        id = reader["user_id"].ToString();
+                        email = reader["email"].ToString();
+                        password = reader["password"].ToString();
+                        reputation = Convert.ToInt32(reader["reputation"]);
+                        registrationDate = Convert.ToDateTime(reader["registration_date"]);
+                        _users2.Add(new UserTransit(id, email, password, reputation, registrationDate));
+                    }
+                    return _users2;
+                }
+            }
+        }
 
     }
 }

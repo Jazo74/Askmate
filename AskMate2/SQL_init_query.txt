@@ -35,6 +35,7 @@ CREATE TABLE answer(
 	answer_message TEXT,
 	image TEXT,
 	user_id varchar(16),
+	accepted BOOLEAN,
 	FOREIGN KEY (user_id) references
 	"user"(user_id) ON DELETE SET NULL,
 	FOREIGN KEY (question_id) references "question"(question_id) ON DELETE SET NULL

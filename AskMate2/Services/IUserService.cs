@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AskMate2.Models;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -10,7 +11,8 @@ namespace AskMate2.Domain
     public interface IUserService
     {
 
-        public List<User> GetAll();
+        public List<User> GetAllUsers();
+        public List<UserTransit> GetAllUsersModel();
 
         public User GetUserByID(string id);
 
