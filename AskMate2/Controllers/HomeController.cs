@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AskMate2.Models;
+using AskMate2.Domain;
 using System.Security.Claims;
 
 namespace AskMate2.Controllers
 {
     public class HomeController : Controller
     {
+        IDataService ds = new DBService();
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -21,6 +23,9 @@ namespace AskMate2.Controllers
 
         public IActionResult Index()
         {
+            string currentUser = "";
+            currentUser = ds.GetUserId(HttpContext.User.FindFirstValue(ClaimTypes.Email));
+            ViewData.Add("currentUser", currentUser);
             return View();
         }
 

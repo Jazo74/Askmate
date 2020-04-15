@@ -17,9 +17,9 @@ namespace AskMate2.Domain
             return answer;
         }
 
-        public Answer MakeAnswerWoId(string qid, string text, string image)
+        public Answer MakeAnswerWoId(string qid, string currentUser, string text, string image)
         {
-            Answer answer = new Answer("fakeid", qid, text, image);
+            Answer answer = new Answer("fakeid", currentUser, qid, text, image);
             return answer;
         }
 
@@ -62,10 +62,11 @@ namespace AskMate2.Domain
             {
                 conn.Open();
                 using (var cmd = new NpgsqlCommand(
-                 "INSERT INTO answer (submission_time, vote_number, question_id, answer_message, image) " +
-                 "VALUES (@subtime, @votenum, @qid, @answmess, @image)", conn))
+                 "INSERT INTO answer (submission_time, user_id, vote_number, question_id, answer_message, image) " +
+                 "VALUES (@subtime, @user_id, @votenum, @qid, @answmess, @image)", conn))
                 {
                     cmd.Parameters.AddWithValue("subtime", DateTime.Now);
+                    cmd.Parameters.AddWithValue("user_id", answer.AUserId);
                     cmd.Parameters.AddWithValue("votenum", 0);
                     cmd.Parameters.AddWithValue("qid", Convert.ToInt32(answer.QId));
                     cmd.Parameters.AddWithValue("answmess", answer.Text);
@@ -299,16 +300,17 @@ namespace AskMate2.Domain
         }
 
 
-        public void AddCommentAnswer(string answerId, string komment)
+        public void AddCommentAnswer(string answerId, string komment, string currentUser)
         {
             DateTime subTime = DateTime.Now;
             int edit = 0;
             using (var conn = new NpgsqlConnection(Program.ConnectionString))
             {
                 conn.Open();
-                using (var cmd = new NpgsqlCommand("INSERT INTO komment(answer_id, komment_message, submission_time, edited_number) VALUES (@aid, @komment, @subTime, @edit)", conn))
+                using (var cmd = new NpgsqlCommand("INSERT INTO komment(answer_id, user_id, komment_message, submission_time, edited_number) VALUES (@aid, @currentUser, @komment, @subTime, @edit)", conn))
                 {
                     cmd.Parameters.AddWithValue("aid", Int32.Parse(answerId));
+                    cmd.Parameters.AddWithValue("currentUser", currentUser);
                     cmd.Parameters.AddWithValue("komment", komment);
                     cmd.Parameters.AddWithValue("subTime", subTime);
                     cmd.Parameters.AddWithValue("edit", edit);

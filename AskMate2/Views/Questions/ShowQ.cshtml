@@ -8,8 +8,8 @@
             foreach (QuestionModel item in Model.qModelList)
             {
                 <p>
-                    Question #@item.Qid - @item.QsubmissionTime - <b>answers: </b> @Model.aModelList.Count - <b>votes:</b> @item.Qvote - <b>views:</b> @item.Qview
-                </P>
+                    @(item.QUserId + "'s") question #@item.Qid - @item.QsubmissionTime - <b>answers: </b> @Model.aModelList.Count - <b>votes:</b> @item.Qvote - <b>views:</b> @item.Qview
+                </p>
                 <form method="post" asp-controller="Questions" asp-action="VoteForQuestion">
                     <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
                     <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
@@ -44,7 +44,7 @@
                 if (comment.Qid == Model.qModelList[0].Qid)
                 {
                     <ul>
-                        <li>Comment #@comment.Cid - @comment.CsubmissionTime - edited @comment.CeditNr times</li>
+                        <li>@(comment.CUserid + "'s") comment #@comment.Cid - @comment.CsubmissionTime - edited @comment.CeditNr times</li>
                         <li><b></b>@comment.Ctext</li>
                         <br />
                     </ul>
@@ -72,7 +72,7 @@
                 foreach (AnswerModel answer in Model.aModelList)
                 {
                     <p>
-                        Answer #@answer.Aid - @answer.AsubmissionTime - votes: @answer.Avote
+                        @(answer.AUserId + "'s") answer #@answer.Aid - @answer.AsubmissionTime - votes: @answer.Avote
                     </p>
                     <form method="post" asp-controller="Answers" asp-action="AnswerVote">
                         <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
@@ -106,7 +106,7 @@
                     if (comment.Aid == answer.Aid)
                     {
                         <ul>
-                            <li>Comment #@comment.Cid - @comment.CsubmissionTime - edited @comment.CeditNr times</li>
+                            <li>@(comment.CUserid + "'s") comment #@comment.Cid - @comment.CsubmissionTime - edited @comment.CeditNr times</li>
                             <li><b></b>@comment.Ctext</li>
                             <br />
                         </ul>

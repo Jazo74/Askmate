@@ -37,10 +37,10 @@ namespace AskMate2.Controllers
             ViewData.Add(question, text);
             return View("Answer"); 
         }
-        public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "qID")] string qID, [FromForm(Name = "image")] string image)
+        public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "qID")] string qID, [FromForm(Name = "image")] string image, [FromForm(Name = "currentUser")] string currentUser)
         {
             
-            ds.AddAnswer(ds.MakeAnswerWoId(qID, answer, image));
+            ds.AddAnswer(ds.MakeAnswerWoId(qID, currentUser, answer, image));
             //foreach (Question question in ds.GetQuestions())
             //{
             //    ViewData.Add(question.Id.ToString(), question.Title);
@@ -154,12 +154,6 @@ namespace AskMate2.Controllers
         }
 
 
-
-
-
-
-
-
         [HttpGet]
         public IActionResult CommentToAnswer()
         {
@@ -167,9 +161,9 @@ namespace AskMate2.Controllers
         }
 
         [HttpPost]
-        public IActionResult CommentToAnswer([FromForm(Name = "answerId")] string answerId, [FromForm(Name = "comment")] string comment)
+        public IActionResult CommentToAnswer([FromForm(Name = "answerId")] string answerId, [FromForm(Name = "comment")] string comment, [FromForm(Name = "currentUser")] string currentUser)
         {
-            ds.AddCommentAnswer(answerId, comment);
+            ds.AddCommentAnswer(answerId, comment, currentUser);
             return RedirectToAction("ShowQe", "Questions", new { qid = QuestionsController.focusQid }); //EDIT (according to specifications)
         }
 

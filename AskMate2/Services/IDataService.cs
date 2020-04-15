@@ -39,7 +39,7 @@ namespace AskMate2.Domain
 
         Answer MakeAnswer(string answerId, string questionId, string text, string image);
 
-        Answer MakeAnswerWoId(string questionId, string text, string image);
+        Answer MakeAnswerWoId(string questionId, string currentUser, string text, string image);
 
         void AddAnswer(Answer answer);
 
@@ -61,7 +61,7 @@ namespace AskMate2.Domain
 
         void AddCommentQuestion(string questionId, string komment, string currentUser);
 
-        void AddCommentAnswer(string answerId, string komment);
+        void AddCommentAnswer(string answerId, string komment, string currentUser);
 
         void AddImageToQuestion(string questionId, string image);
 

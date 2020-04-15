@@ -1,4 +1,16 @@
 ﻿<div class="mainpage">
+    @{ 
+        string username = "unknown";
+        if (ViewData["currentUser"].ToString() != "")
+        {
+            username = ViewData["currentUser"].ToString();
+        }
+        else
+        {
+            username = "unknown user";
+        }
+    }
+    <p class="currentUser">Welcome @username !</p>
     <a asp-controller="Questions" asp-action="ListQuestions">
         <img class="biglogo" src="~/braintree.png" alt="Transparent Background Questions And Answers Clipart" />
     </a>

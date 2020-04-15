@@ -216,6 +216,11 @@ input[type=button], input[type=submit], input[type=reset], button {
     border: 1px solid #5e86b2;
     color: #5e86b2;
 }
+.currentUser {
+    float: right;
+    font-size: 14;
+    font-weight: bold;
+}
 .addbutton {
     float: right;
 }
@@ -235,7 +240,7 @@ img {
     margin-right: auto;
 }
 .nav-link {
-    font-size: 28px !important;
+    font-size: 22px !important;
     color: #1861ac !important;
     font-weight: bold;
 }
