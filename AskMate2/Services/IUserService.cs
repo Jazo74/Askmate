@@ -20,7 +20,7 @@ namespace AskMate2.Domain
 
         void AddUser(string email, string password);
 
-
+        void RegisterUser(string user_id, string email, string password);
 
     }
 }

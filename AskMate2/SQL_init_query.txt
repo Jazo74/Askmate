@@ -9,7 +9,8 @@ CREATE TABLE "user"(
 	"user_id" varchar(16) Primary Key,
 	email varchar(50) UNIQUE,
 	"password" varchar(50),
-	reputation INT
+	reputation INT,
+	registration_date TIMESTAMP
 );
 
 
@@ -67,14 +68,14 @@ CREATE TABLE komment(
 
 --user inserts
 
-INSERT INTO "user"(user_id, email, "password", reputation)
-VALUES('Erik','erik@mail.com', 'erik', 0);
-INSERT INTO "user"(user_id, email, "password", reputation)
-VALUES('Zoli', 'zoli@mail.com', 'zoli', 0);
-INSERT INTO "user"(user_id, email, "password", reputation)
-VALUES('Istvan', 'istvan@mail.com', 'istvan', 0);
-INSERT INTO "user"(user_id, email, "password", reputation)
-VALUES('Admin', 'admin@mail.com', 'admin', 100);
+INSERT INTO "user"(user_id, email, "password", reputation, registration_date)
+VALUES('Erik','erik@mail.com', 'erik', 0, '2020-04-10 4:10:00');
+INSERT INTO "user"(user_id, email, "password", reputation, registration_date)
+VALUES('Zoli', 'zoli@mail.com', 'zoli', 0, '2020-04-10 4:10:00');
+INSERT INTO "user"(user_id, email, "password", reputation, registration_date)
+VALUES('Istvan', 'istvan@mail.com', 'istvan', 0, '2020-04-11 4:11:00');
+INSERT INTO "user"(user_id, email, "password", reputation, registration_date)
+VALUES('Admin', 'admin@mail.com', 'admin', 100, '2020-04-12 4:12:00');
 
 --Question inserts
 INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)

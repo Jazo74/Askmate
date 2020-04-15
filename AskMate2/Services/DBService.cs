@@ -38,6 +38,7 @@ namespace AskMate2.Domain
         
         public void AddQuestion(Question question) 
         {
+            
             using (var conn = new NpgsqlConnection(Program.ConnectionString))
             {
                 conn.Open();
@@ -625,7 +626,28 @@ namespace AskMate2.Domain
                 }
             }
         }
-                
+
+
+        public void RegisterUser(string user_id, string email, string password)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("INSERT INTO \"user\"(user_id, email, \"password\", reputation, registration_date) VALUES(@user_id, @email, @password, @reputation, @registration_date)"))
+                {
+                    int reputation = 0;
+                    DateTime registration_date = DateTime.Now;
+                    cmd.Parameters.AddWithValue("@user_id", user_id);
+                    cmd.Parameters.AddWithValue("@email", email);
+                    cmd.Parameters.AddWithValue("@password", password);
+                    cmd.Parameters.AddWithValue("@reputation", reputation);
+                    cmd.Parameters.AddWithValue("@registration_date", registration_date);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
     }
 }
 

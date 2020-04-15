@@ -73,7 +73,25 @@ namespace AskMate2.Services
             }
         }
 
+        public void RegisterUser(string user_id, string email, string password)
+        {
+            DateTime registration_date = DateTime.Now;
+            int reputation = 0;
 
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("INSERT INTO \"user\"(user_id, email, \"password\", reputation, registration_date) VALUES(@user_id, @email, @password, @reputation, @registration_date)", conn))
+                {
+                    cmd.Parameters.AddWithValue("@user_id", user_id);
+                    cmd.Parameters.AddWithValue("@email", email);
+                    cmd.Parameters.AddWithValue("@password", password);
+                    cmd.Parameters.AddWithValue("@reputation", reputation);
+                    cmd.Parameters.AddWithValue("@registration_date", registration_date);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
 
     }
