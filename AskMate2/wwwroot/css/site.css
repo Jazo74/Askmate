@@ -68,6 +68,14 @@ a.navbar-brand-2:hover{
 /*--------------------PROBA--------------------------*/
 
 /* Provide sufficient contrast against white background */
+
+input type=text {
+    background-color: #b7a693 !important;
+}
+
+textarea {
+    background-color: #b7a693 !important;
+}
 a {
   color:burlywood;
 }
@@ -236,6 +244,7 @@ input[type=button], input[type=submit], input[type=reset], button {
   border-color: #1861ac;
 }
 
+}
 img {
     padding: 10px;
     max-width: 90%;
