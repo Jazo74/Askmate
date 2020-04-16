@@ -18,23 +18,23 @@
 <hr class="thickhr" />
 @{ if (Model.qModelList.Count != 0)
     {
-        <div class="questions">
-            @{
-                foreach (QuestionModel item in Model.qModelList)
-                {
-                    <p>
-                        @(item.QUserId + "'s") question #@item.Qid - @item.QsubmissionTime - <b>answers: </b> @Model.aModelList.Count - <b>votes:</b> @item.Qvote - <b>views:</b> @item.Qview
-                    </p>
-                    <form method="post" asp-controller="Questions" asp-action="VoteForQuestion">
-                        <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
-                        <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
-                        <input class="vote" type="image" src="~/Images/thumbsUp.png" alt="Submit" value="UpVote" style="float:right;" />
-                    </form>
-                    <form method="post" asp-controller="Questions" asp-action="DownVoteForQuestion">
-                        <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
-                        <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
-                        <input class="vote" type="image" src="~/Images/thumbsDown.png" alt="Submit" value="DownVote" style="float:right;" />
-                    </form>
+    <div class="questions">
+        @{
+            foreach (QuestionModel item in Model.qModelList)
+            {
+                <p>
+                    @(item.QUserId + "'s") question #@item.Qid - @item.QsubmissionTime - <b>answers: </b> @Model.aModelList.Count - <b>votes:</b> @item.Qvote - <b>views:</b> @item.Qview
+                </p>
+                <form method="post" asp-controller="Questions" asp-action="VoteForQuestion">
+                    <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
+                    <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
+                    <input class="vote" type="image" src="~/Images/thumbsUp.png" alt="Submit" value="UpVote" style="float:right;" />
+                </form>
+                <form method="post" asp-controller="Questions" asp-action="DownVoteForQuestion">
+                    <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
+                    <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
+                    <input class="vote" type="image"  src="~/Images/thumbsDown.png" alt="Submit" value="DownVote" style="float:right;" />
+                </form>
 
                     <br />
                     <p><b>@item.Qtitle</b></p>
