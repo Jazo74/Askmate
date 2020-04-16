@@ -54,10 +54,14 @@ namespace AskMate2.Domain
 
         void Vote(string qestionId);
 
+        void DownVote(string questionId);
+
         QAC GetQuestionWithAnswers(string questionId);
 
         void ViewIncrement(string questionId);
         void AnswerVote(string answerId);
+
+        void AnswerDownVote(string answerId);
 
         void AddCommentQuestion(string questionId, string komment, string currentUser);
 
@@ -84,8 +88,13 @@ namespace AskMate2.Domain
         void AccepAnswer(string answerId);
 
 
+        void IncreaseReputation(string userId, int amount);
 
+        void DecreaseReputation(string userId, int amount);
 
+        string GetUserFromQuestion(string questionId);
+
+        string GetUserFromAnswer(string answerId);
 
     }
 }

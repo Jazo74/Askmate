@@ -11,6 +11,7 @@ namespace AskMate2.Domain
     public class DBService : IDataService
     {
         public List<User> allUsers = new List<User>();
+        private NpgsqlConnection _conn = new NpgsqlConnection(Program.ConnectionString);
         public Answer MakeAnswer(string answerId, string qid, string text, string image)
         {
             Answer answer = new Answer(answerId, qid, text, image);
@@ -253,6 +254,104 @@ namespace AskMate2.Domain
                 }
             }
         }
+        public void DownVote(string questionId)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("UPDATE question SET vote_number = vote_number - 1 WHERE question_id = @qid", conn))
+                {
+                    cmd.Parameters.AddWithValue("qid", Int32.Parse(questionId));
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public string GetUserFromQuestion(string questionId)
+        {
+            int qid = Convert.ToInt32(questionId);
+            string user_id = "";
+            using (_conn)
+            {
+                _conn.Open();
+                using (var cmd = new NpgsqlCommand("SELECT user_id FROM question WHERE question_id = @qid", _conn))
+                {
+                    cmd.Parameters.AddWithValue("qid", qid);
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        user_id = reader["user_id"].ToString();
+                    }
+
+                }
+            }
+            return user_id;
+        }
+
+        public string GetUserFromAnswer(string answerId)
+        {
+            int aid = Convert.ToInt32(answerId);
+            string user_id = "";
+            using (_conn)
+            {
+                _conn.Open();
+                using (var cmd = new NpgsqlCommand("SELECT user_id FROM answer WHERE answer_id = @aid", _conn))
+                {
+                    cmd.Parameters.AddWithValue("aid", aid);
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        user_id = reader["user_id"].ToString();
+                    }
+
+                }
+            }
+            return user_id;
+        }
+
+        public void IncreaseReputation(string userId, int amount)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("UPDATE \"user\" SET reputation = reputation + @amount WHERE user_id = @uid", conn))
+                {
+                    cmd.Parameters.AddWithValue("uid", userId);
+                    cmd.Parameters.AddWithValue("amount", amount);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void DecreaseReputation(string userId, int amount)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("UPDATE \"user\" SET reputation = reputation - @amount WHERE user_id = @uid", conn))
+                {
+                    cmd.Parameters.AddWithValue("uid", userId);
+                    cmd.Parameters.AddWithValue("amount", amount);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        //this is 10 points, regular vote for answer UP
+        //public void IncreaseReputationAnswer(string answerId) 
+        //{
+        //    int amount = 10;
+        //    using (var conn = new NpgsqlConnection(Program.ConnectionString))
+        //    {
+        //        conn.Open();
+        //        using (var cmd = new NpgsqlCommand("UPDATE \"user\" SET reputation = reputation + @amount WHERE answer_id = @aid", conn))
+        //        {
+        //            cmd.Parameters.AddWithValue("aid", answerId);
+        //            cmd.Parameters.AddWithValue("amount", amount);
+        //            cmd.ExecuteNonQuery();
+        //        }
+        //    }
+        //}
 
         public void ViewIncrement(string questionId)
         {
@@ -273,6 +372,18 @@ namespace AskMate2.Domain
             {
                 conn.Open();
                 using (var cmd = new NpgsqlCommand("UPDATE answer SET vote_number = vote_number + 1 WHERE answer_id = @aid", conn))
+                {
+                    cmd.Parameters.AddWithValue("aid", Int32.Parse(answerId));
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public void AnswerDownVote(string answerId)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("UPDATE answer SET vote_number = vote_number - 1 WHERE answer_id = @aid", conn))
                 {
                     cmd.Parameters.AddWithValue("aid", Int32.Parse(answerId));
                     cmd.ExecuteNonQuery();
