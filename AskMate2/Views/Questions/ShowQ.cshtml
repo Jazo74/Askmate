@@ -156,23 +156,27 @@
 
         </div>
         <div>
-            <h3>Add a new answer</h3>
-            <hr class="thickhr" />
-            <br />
-            <form method="post" asp-controller="Answers" asp-action="NewAnswer">
-                <input type="hidden" name="qID" value="@Model.qModelList[0].Qid" />
-                <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
-                <label for="answerbox">Your answer: </label>
+
+            @if (ViewData["currentUser"].ToString() != Model.qModelList[0].QUserId && ViewData["currentUser"].ToString() == "Admin")
+            {
+                <h3>Add a new answer</h3>
+                <hr class="thickhr" />
                 <br />
-                <textarea id="answerbox" name="answer" rows="6" cols="82" required></textarea>
-                <br />
-                <label for="img">Your linked image:</label>
-                <br />
-                <input type="text" id="img " name="image" size="80" />
-                <br />
-                <br />
-                <input type="submit" value="Send answer" />
-            </form>
+                <form method="post" asp-controller="Answers" asp-action="NewAnswer">
+                    <input type="hidden" name="qID" value="@Model.qModelList[0].Qid" />
+                    <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
+                    <label for="answerbox">Your answer: </label>
+                    <br />
+                    <textarea id="answerbox" name="answer" rows="6" cols="82" required></textarea>
+                    <br />
+                    <label for="img">Your linked image:</label>
+                    <br />
+                    <input type="text" id="img " name="image" size="80" />
+                    <br />
+                    <br />
+                    <input type="submit" value="Send answer" />
+                </form>
+            }
         </div>
     }
     else

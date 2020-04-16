@@ -69,13 +69,6 @@ a.navbar-brand-2:hover{
 
 /* Provide sufficient contrast against white background */
 
-input type=text {
-    background-color: #b7a693 !important;
-}
-
-textarea {
-    background-color: #b7a693 !important;
-}
 a {
   color:burlywood;
 }
@@ -88,6 +81,7 @@ a :active {
 a :hover {
     text-emphasis-color:aliceblue;
     color: azure;
+    text-decoration: none;
 }
 .inactive-input {
     background-color: darkgray;
