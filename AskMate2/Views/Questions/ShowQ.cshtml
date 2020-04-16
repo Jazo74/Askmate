@@ -157,7 +157,7 @@
         </div>
         <div>
 
-            @if (ViewData["currentUser"].ToString() != Model.qModelList[0].QUserId && ViewData["currentUser"].ToString() == "Admin")
+            @if (ViewData["currentUser"].ToString() != Model.qModelList[0].QUserId || ViewData["currentUser"].ToString() == "Admin")
             {
                 <h3>Add a new answer</h3>
                 <hr class="thickhr" />

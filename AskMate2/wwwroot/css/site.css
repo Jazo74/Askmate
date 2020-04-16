@@ -70,18 +70,19 @@ a.navbar-brand-2:hover{
 /* Provide sufficient contrast against white background */
 
 a {
-  color:burlywood;
+    color: burlywood;
+    text-decoration: none !important;
 }
 a :active {
     text-emphasis-color: aliceblue;
     color: azure;
-
+    text-decoration: none !important;
 }
 
 a :hover {
     text-emphasis-color:aliceblue;
     color: azure;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 .inactive-input {
     background-color: darkgray;
