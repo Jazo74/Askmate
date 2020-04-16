@@ -73,17 +73,17 @@ a {
     color: burlywood;
     text-decoration: none !important;
 }
-a :active {
-    text-emphasis-color: aliceblue;
-    color: azure;
-    text-decoration: none !important;
-}
+    a :active {
+        text-emphasis-color: aliceblue !important;
+        color: azure !important;
+        text-decoration: none !important;
+    }
 
-a :hover {
-    text-emphasis-color:aliceblue;
-    color: azure;
-    text-decoration: none !important;
-}
+    a :hover {
+        text-emphasis-color: aliceblue !important;
+        color: azure !important;
+        text-decoration: none !important;
+    }
 .inactive-input {
     background-color: darkgray;
 }
@@ -230,16 +230,24 @@ input[type=button], input[type=submit], input[type=reset], button {
     border-radius: 6px;
     border: 1px solid #5e86b2;
     color: #684e10;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 .currentUser {
     float: right;
     font-size: 14;
     font-weight: bold;
+    text-emphasis-color: aliceblue !important;
+    color: azure !important;
+    text-decoration: none !important;
 }
 .addbutton {
     float: right;
 }
 
+.linkedImage {
+    width: 100% !important;
+}
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
   background-color: #1b6ec2;
@@ -249,7 +257,7 @@ input[type=button], input[type=submit], input[type=reset], button {
 }
 img {
     padding: 10px;
-    max-width: 90%;
+    width: 95%;
     height: auto;
     justify-content: center;
     margin-left: auto;

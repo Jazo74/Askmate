@@ -15,34 +15,35 @@
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Ask Mate</a> @*Change*@
                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                 @{
-                    if (ViewData["currentUser"].Equals("Admin"))
+                    if (ViewData["currentUser"] != null && ViewData["currentUser"].Equals("Admin"))
                     {
                         <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="AllUsers">AllUsers</a>
 
                     }
-                    if (ViewData["currentUser"] != "")
-                    {
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                    }
-                    else
+                    if (ViewData["currentUser"] == null || ViewData["currentUser"].Equals(""))
                     {
                         <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
                     }
-                    }
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    else
+                    {
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
 
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                @*<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">"Home"</a>*@
-                            </li>
-                        </ul>
-                    </div>
-                    <img class="centerimg" src="~/qmark.png" alt="animated question mark">
+                    }
+                }
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            @*<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">"Home"</a>*@
+                        </li>
+                    </ul>
                 </div>
+                <img class="centerimg" src="~/qmark.png" alt="animated question mark">
+            </div>
         </nav>
     </header>
     <div class="container">

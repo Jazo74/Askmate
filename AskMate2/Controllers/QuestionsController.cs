@@ -81,9 +81,9 @@ namespace AskMate2.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult DeleteQuestion([FromForm(Name = "question")] string question)
+        public IActionResult DeleteQuestion([FromForm(Name = "qId")] string qId)
         {
-            ds.DeleteQuestion(question.Split(":").ToArray()[0]);
+            ds.DeleteQuestion(qId);
             return RedirectToAction("Index", "Home");
         }
 

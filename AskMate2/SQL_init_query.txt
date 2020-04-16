@@ -81,13 +81,53 @@ VALUES('Admin', 'admin@mail.com', 'admin', 100, '2020-04-12 4:12:00');
 
 --Question inserts
 INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)
-VALUES ('2020-03-30 16:14:26.765429', 4, 10, 'How to peel a banana?', 'Monkeys, what is your technique?', '', 'Erik');
+VALUES ('2020-03-30 16:14:26.765429', 0, 0, 'How to peel a banana?', 'Monkeys, what is your technique?', 'https://article.images.consumerreports.org/f_auto/prod/content/dam/CRO%20Images%202018/Health/April/CR-Health-Inlinehero-bananas-good-for-you-0418', 'Erik');
 
 INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)
-VALUES ('2020-03-30 16:10:26.765429', 10, 10, 'Which is the cutest dog?', 'Like, the fluffiest?', '', 'Erik');
+VALUES ('2020-03-30 16:10:26.765429', 0, 0, 'Which is the cutest dog?', 'Like, the fluffiest?', 'https://si.wsj.net/public/resources/images/B3-EU419_201908_GR_20190822110317.jpg', 'Erik');
 
 INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)
-VALUES ('2020-03-30 12:14:26.765429', 90, 101, 'Apples or Oranges?', 'Which one is more healthy?', '', 'Istvan');
+VALUES ('2020-03-30 12:14:26.765429', 0, 0, 'Apples or Oranges?', 'Which one is more healthy?', 'https://www.sporcle.com/blog/wp-content/uploads/2017/09/1-4.jpg', 'Istvan');
 
 INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)
-VALUES ('2020-03-29 16:09:26.765429', 88, 102, 'Cats or dogs?', 'Meow or Vau?', '', 'Zoli');
+VALUES ('2020-03-29 16:09:26.765429', 0, 0, 'Cats or dogs?', 'Meow or Vau?', 'https://www.theladders.com/wp-content/uploads/dog-cat-190709-1000x563.jpg', 'Zoli');
+
+
+INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)
+VALUES ('2020-03-25 12:14:26.765429', 0, 0, 'The color or the mirror?', 'What is the color of the mirror?', 'https://thumbor-gc.tomandco.uk/unsafe/513x513/center/middle/smart/filters:upscale():fill(white):sharpen(0.5,0.5,true)/https://www.pooky.com/static/media/catalog/product/m/i/mikil100marbra_lifestyle.jpg', 'Erik');
+
+
+INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)
+VALUES ('2020-03-02 12:41:26.765429', 0, 0, 'The resolution of the eye?', 'What Is The Resolution Of The Human Eye?', 'https://cdn.drweil.com/wp-content/uploads/2017/08/blog_health-tips_Want-To-Promote-Healthy-Eyesight-Try-These-5-Supplements_66333475.jpg', 'Istvan');
+
+
+INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)
+VALUES ('2020-03-10 18:14:26.765429', 0, 0, 'Is the sunlight has weight?', 'Does Sunlight Weigh Anything?', 'https://jooinn.com/images/rays-of-sunlight-5.jpg', 'Zoli');
+
+
+INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)
+VALUES ('2020-03-12 12:56:25.765429', 0, 0, 'The center of the Universe?', 'Where Is The Center Of The Universe?', 'https://miro.medium.com/max/2000/1*p4w-LG9eHpZfgI2spkDT9w.jpeg', 'Erik');
+
+
+INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)
+VALUES ('2020-03-23 10:14:26.765429', 0, 0, 'Egg or chicken?', 'Which Came First – The Egg or The Chicken?', 'https://godschild.org/wp-content/uploads/Egg-Laying-Chicken-e1501693493605.jpg', 'Istvan');
+
+
+INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)
+VALUES ('2020-03-25 12:28:26.765429', 0, 0, 'About space guns', 'Can You Fire A Gun In Space?', 'https://i.ytimg.com/vi/am4ALo-iAyk/maxresdefault.jpg', 'Zoli');
+
+
+INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)
+VALUES ('2020-03-27 11:14:26.765429', 0, 0, 'All about money?', 'How Much Money Is There In The World?', 'https://3o15h033zmpwracwx2i00rqx-wpengine.netdna-ssl.com/wp-content/uploads/2015/07/money-shot-balanced-budget-e1446215536794.jpg', 'Erik');
+
+
+INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)
+VALUES ('2020-03-30 12:14:26.765429', 0, 0, 'The weight of the Earth?', 'How Much Is The Earth Worth?', 'https://natgeo.imgix.net/subjects/headers/shutterstock_276228476.jpg?auto=compress,format&w=1920&h=960&fit=crop', 'Istvan');
+
+
+INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)
+VALUES ('2020-03-30 12:14:26.765429', 0, 0, 'Some space question', 'What If The Earth Stopped Rotating?', 'https://i.ytimg.com/vi/tx_pawMRPAY/maxresdefault.jpg', 'Zoli');
+
+
+INSERT INTO question(submission_time, view_number, vote_number, title, question_message, image, user_id)
+VALUES ('2020-03-30 12:14:26.765429', 0, 0, 'About time travelling', 'Is Time Travel Really Possible?', 'https://miro.medium.com/max/4000/1*Er9JmMdTpKj8SgR4txg-Mw.jpeg', 'Admin');
