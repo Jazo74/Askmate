@@ -27,12 +27,12 @@
                 <form method="post" asp-controller="Questions" asp-action="VoteForQuestion">
                     <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
                     <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
-                    <input type="image" src="~/Images/UpVote.png" alt="Submit" value="Vote" style="float:right;" />
+                    <input class="vote" type="image" src="~/Images/thumbsUp.png" alt="Submit" value="UpVote" style="float:right;" />
                 </form>
                 <form method="post" asp-controller="Questions" asp-action="DownVoteForQuestion">
                     <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
                     <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
-                    <input type="image" src="~/Images/DownVote.png" alt="Submit" value="DownVote" style="float:right;" />
+                    <input class="vote" type="image" src="~/Images/thumbsDown.png" alt="Submit" value="DownVote" style="float:right;" />
                 </form>
 
                 <br />
@@ -81,74 +81,79 @@
                 <input type="submit" value="Comment" />
             </form>
 
-            }
-            <br />
-        </div>
-        <div class="answers">
-            @if (Model.aModelList.Count != 0)
+        }
+        <br />
+    </div>
+    <div class="answers">
+        @if (Model.aModelList.Count != 0)
+        {
+            <h3>Answers</h3>
+            <hr class="thickhr" />
+            foreach (AnswerModel answer in Model.aModelList)
             {
-                <h3>Answers</h3>
-                <hr class="thickhr" />
-                foreach (AnswerModel answer in Model.aModelList)
+                <p>
+                    @(answer.AUserId + "'s") answer #@answer.Aid - @answer.AsubmissionTime - votes: @answer.Avote - accepted: @answer.Aaccepted
+                </p>
+                <form method="post" asp-controller="Answers" asp-action="AnswerVote">
+                    <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
+                    <input type="hidden" name="aId" value="@answer.Aid" />
+                    <input type="submit" src="~/Images/thumbsUp.png" alt="Submit" value="UpVote" style="float:right;" />
+                </form>
+                <form method="post" asp-controller="Answers" asp-action="AnswerDownVote">
+                    <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
+                    <input type="hidden" name="aId" value="@answer.Aid" />
+                    <input type="submit" src="~/Images/thumbsDown.png" alt="Submit" value="DownVote" style="float:right;" />
+                </form>
+                if (ViewData["currentUser"].ToString() == Model.qModelList[0].QUserId)
                 {
-                    <p>
-                        @(answer.AUserId + "'s") answer #@answer.Aid - @answer.AsubmissionTime - votes: @answer.Avote - accepted: @answer.Aaccepted
-                    </p>
-                    <form method="post" asp-controller="Answers" asp-action="AnswerVote">
+                    <form method="post" asp-controller="Answers" asp-action="AcceptedAnswer">
                         <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
                         <input type="hidden" name="aId" value="@answer.Aid" />
-                        <input type="submit" value="Vote" style="float:right;" />
+                        <input type="submit" value="Accept" style="float:right;" />
                     </form>
-                    if (ViewData["currentUser"].ToString() == Model.qModelList[0].QUserId)
-                    {
-                        <form method="post" asp-controller="Answers" asp-action="AcceptedAnswer">
-                            <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
-                            <input type="hidden" name="aId" value="@answer.Aid" />
-                            <input type="submit" value="Accept" style="float:right;" />
-                        </form>
-                    }
-                    <p><b>Answer: </b>@answer.Atext</p>
+                }
+                <p><b>Answer: </b>@answer.Atext</p>
+                <br />
+                if (answer.Aimage != null && answer.Aimage != "")
+                {
+                    <img src="@answer.Aimage"></img>
+                }
+                else
+                {
                     <br />
-                    if (answer.Aimage != null && answer.Aimage != "")
-                    {
-                        <img src="@answer.Aimage"></img>
-                    }
-                    else
-                    {
-                        <br />
-                        <p>There is no linked image</p>
-                    }
-                    if (ViewData["currentUser"].ToString() == Model.aModelList[0].AUserId || ViewData["currentUser"].ToString() == "Admin")
-                    {
-                        <form method="post" asp-controller="Answers" asp-action="AddImageToAnswer">
-                            <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
-                            <input type="text" name="image" size="80" value="@answer.Aimage" />
-                            <input type="hidden" name="aId" value="@answer.Aid" />
-                            <input type="submit" value="Link image" />
-                        </form>
-                    }
-                    <br />
-                    <h6><u>Comments:</u></h6>
-                    foreach (CommentModel comment in Model.cModelList)
-                    {
-                        if (comment.Aid == answer.Aid)
-                        {
-                            <ul>
-                                <li>@(comment.CUserid + "'s") comment #@comment.Cid - @comment.CsubmissionTime - edited @comment.CeditNr times</li>
-                                <li><b></b>@comment.Ctext</li>
-                                <br />
-                            </ul>
-                        }
-                    }
-                    <form method="post" asp-controller="Answers" asp-action="CommentToAnswer">
+                    <p>There is no linked image</p>
+                }
+                if (ViewData["currentUser"].ToString() == Model.aModelList[0].AUserId || ViewData["currentUser"].ToString() == "Admin")
+                {
+                    <form method="post" asp-controller="Answers" asp-action="AddImageToAnswer">
                         <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
-                        <input type="hidden" name="answerId" value="@answer.Aid" />
-                        <label for="answerbox">Your comment: </label>
-                        <br />
-                        <textarea id="answerbox" name="comment" rows="4" cols="82" required></textarea>
-                        <br />
-                        <input type="submit" value="Comment" />
+                        <input type="text" name="image" size="80" value="@answer.Aimage" />
+                        <input type="hidden" name="aId" value="@answer.Aid" />
+                        <input type="submit" value="Link image" />
                     </form>
+                }
+                <br />
+                <h6><u>Comments:</u></h6>
+                foreach (CommentModel comment in Model.cModelList)
+                {
+                    if (comment.Aid == answer.Aid)
+                    {
+                        <ul>
+                            <li>@(comment.CUserid + "'s") comment #@comment.Cid - @comment.CsubmissionTime - edited @comment.CeditNr times</li>
+                            <li><b></b>@comment.Ctext</li>
+                            <br />
+                        </ul>
+                    }
+                }
+                <form method="post" asp-controller="Answers" asp-action="CommentToAnswer">
+                    <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
+                    <input type="hidden" name="answerId" value="@answer.Aid" />
+                    <label for="answerbox">Your comment: </label>
+                    <br />
+                    <textarea id="answerbox" name="comment" rows="4" cols="82" required></textarea>
+                    <br />
+                    <input type="submit" value="Comment" />
+                </form>
 
                 <br />
             }
