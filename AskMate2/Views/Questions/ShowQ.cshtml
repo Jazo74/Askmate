@@ -32,7 +32,7 @@
                 <form method="post" asp-controller="Questions" asp-action="DownVoteForQuestion">
                     <input type="hidden" name="qId" value="@Model.qModelList[0].Qid" />
                     <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
-                    <input class="vote" type="image" src="~/Images/thumbsDown.png" alt="Submit" value="DownVote" style="float:right;" />
+                    <input class="vote" type="image"  src="~/Images/thumbsDown.png" alt="Submit" value="DownVote" style="float:right;" />
                 </form>
 
                 <br />
@@ -97,12 +97,12 @@
                 <form method="post" asp-controller="Answers" asp-action="AnswerVote">
                     <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
                     <input type="hidden" name="aId" value="@answer.Aid" />
-                    <input type="submit" src="~/Images/thumbsUp.png" alt="Submit" value="UpVote" style="float:right;" />
+                    <input type="image" src="~/Images/thumbsUp.png" alt="Submit" value="UpVote" style="float:right;" />
                 </form>
                 <form method="post" asp-controller="Answers" asp-action="AnswerDownVote">
                     <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
                     <input type="hidden" name="aId" value="@answer.Aid" />
-                    <input type="submit" src="~/Images/thumbsDown.png" alt="Submit" value="DownVote" style="float:right;" />
+                    <input type="image" src="~/Images/thumbsDown.png" alt="Submit" value="DownVote" style="float:right;" />
                 </form>
                 if (ViewData["currentUser"].ToString() == Model.qModelList[0].QUserId)
                 {
