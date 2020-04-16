@@ -18,6 +18,7 @@ namespace AskMate2.Controllers
         public static string focusQid = "";
         IDataService ds = new DBService();
 
+        [Authorize]
         [HttpGet("list")] // <--- this is what you write after {PORT}
         public IActionResult ListQuestions()
         {
@@ -48,14 +49,16 @@ namespace AskMate2.Controllers
                 return View("AltListQuestions", transitList);
             }
         }
+
         [Authorize]
         [HttpGet]
         public IActionResult AddQuestion()
         {
             return View("AddQuestion");
         }
-        [HttpPost]
 
+        [Authorize]
+        [HttpPost]
         public IActionResult AddQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "text")] string text, [FromForm(Name = "currentUser")] string currentUser, [FromForm(Name = "image")] string image)
         {
             if (image == null || !image.StartsWith("https://"))
@@ -66,6 +69,7 @@ namespace AskMate2.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
         public IActionResult DeleteQuestion([FromForm(Name = "DelId")] int delId)
         {
             foreach (Question question in ds.GetQuestions())
@@ -74,12 +78,16 @@ namespace AskMate2.Controllers
             }
             return View("DeleteQuestion");
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult DeleteQuestion([FromForm(Name = "question")] string question)
         {
             ds.DeleteQuestion(question.Split(":").ToArray()[0]);
             return RedirectToAction("Index", "Home");
         }
+
+        [Authorize]
         [HttpGet]
         public IActionResult ShowQuestion()
         {
@@ -94,6 +102,8 @@ namespace AskMate2.Controllers
             }
             return View("ShowQuestion", transitList);
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult ShowQ([FromForm(Name = "question")] string question)
         {
@@ -102,6 +112,8 @@ namespace AskMate2.Controllers
             return View("ShowQ", ds.GetQuestionWithAnswers(qid));
 
         }
+
+        [Authorize]
         [HttpGet]
         [Microsoft.AspNetCore.Mvc.Route("/Questions/ShowQe/{qid}")]
         public IActionResult ShowQe(string qid)
@@ -122,6 +134,7 @@ namespace AskMate2.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult EditQuestion1()
         {
@@ -137,6 +150,8 @@ namespace AskMate2.Controllers
             }
             return View("EditQuestion1", transList);
         }
+
+        [Authorize]
         public IActionResult EditQuestion2([FromForm(Name = "editTitle")] string que)
         {
             Transit transit = new Transit();
@@ -152,6 +167,8 @@ namespace AskMate2.Controllers
             }
             return View("EditQuestion2", transit);
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult EditQuestion3([FromForm(Name = "editId")] string id,
                                           [FromForm(Name = "editTitle")] string title,
@@ -161,6 +178,8 @@ namespace AskMate2.Controllers
             return RedirectToAction("Index","Home");
         }
 
+
+        [Authorize]
         [HttpGet]
         public IActionResult Vote()
         {
@@ -179,6 +198,7 @@ namespace AskMate2.Controllers
         }
         //Change from Vote -> Vote2
 
+        [Authorize]
         [HttpPost]
         public IActionResult Vote([FromForm(Name = "question")] string question)
         {
@@ -187,6 +207,7 @@ namespace AskMate2.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult VoteForQuestion([FromForm(Name = "qId")] string qId)
         {
@@ -194,6 +215,7 @@ namespace AskMate2.Controllers
             return RedirectToAction("ShowQe","Questions", new { qid = focusQid });
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult ShowQWithSelect([FromForm(Name = "wordToSearch")] string word,
                                           [FromForm(Name = "fromTimeToSearch")] DateTime fromTime,
@@ -216,6 +238,7 @@ namespace AskMate2.Controllers
             return RedirectToAction("AltListQuestions",transitList);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult ShowQLatestSelect([FromForm(Name = "latestX")] int latestX)
         {
@@ -235,10 +258,6 @@ namespace AskMate2.Controllers
             return RedirectToAction("AltListQuestions", transitList);
         }
 
-
-
-
-
         //[HttpPost]
         //public IActionResult AnswerVote([FromForm(Name = "answer")] string answer)
         //{
@@ -247,14 +266,14 @@ namespace AskMate2.Controllers
         //    return RedirectToAction("Index", "Home");
         //}
 
-
-
+        [Authorize]
         [HttpGet]
         public IActionResult CommentToQuestion()
         {
             return View("CommentToQuestion");
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult CommentToQuestion([FromForm(Name = "questionId")] string questionId, [FromForm(Name = "comment")] string comment, [FromForm(Name = "currentUser")] string currentUser)
         {
@@ -262,16 +281,14 @@ namespace AskMate2.Controllers
             return RedirectToAction("ShowQe", "Questions", new { qid = focusQid });
         }
 
-
-
-
-
+        [Authorize]
         [HttpGet]
         public IActionResult AddImageToQuestion()
         {
             return View("AddImage");
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult AddImageToQuestion([FromForm(Name = "image")] string image, [FromForm(Name ="qid")] string questionId)
         {
@@ -279,15 +296,14 @@ namespace AskMate2.Controllers
             return RedirectToAction("ShowQe", "Questions", new { qid = focusQid });
         }
 
-
-
-
-
+        [Authorize]
         [HttpGet]
         public IActionResult EditCommentQuestion()
         {
             return View("EditCommentQuestion");
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult EditCommentQuestion([FromForm(Name = "questionId")] string questionId, [FromForm(Name = "komment")] string komment)
         {
@@ -295,20 +311,19 @@ namespace AskMate2.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
-
+        [Authorize]
         [HttpGet]
         public IActionResult DeleteCommentQuestion()
         {
             return View("DelQ");
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult DeleteCommentQuestion([FromForm(Name = "questionId")] string questionId)
         {
             ds.DeleteCommentQuestion(questionId);
             return RedirectToAction("Index", "Home");
         }
-
-
     }
 }

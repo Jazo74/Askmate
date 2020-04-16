@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using AskMate2.Models;
 using AskMate2.Domain;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AskMate2.Controllers
 {
@@ -39,6 +40,7 @@ namespace AskMate2.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Theeye()
         {
             string email = HttpContext.User.FindFirstValue(ClaimTypes.Email);

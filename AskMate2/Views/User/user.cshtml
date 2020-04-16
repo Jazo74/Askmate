@@ -15,9 +15,9 @@
     }
 }
 <p class="currentUser">Welcome @username !</p>
-<h1>My activity</h1>
+<h1 class="H1center">My activity</h1>
 
-<h1>My questions</h1>
+<h4>questions</h4>
 <table class="tablazat">
     <thead>
         <tr>
@@ -28,15 +28,63 @@
         </tr>
     </thead>
     <tbody>
-    @{ foreach (QuestionModel question in Model.qModelList)
-        {
-            <tr>
-                <td>@question.Qtitle</td>
-                <td>@question.QsubmissionTime</td>
-                <td>@question.Qvote</td>
-                <td>@question.Qview</td>
-            </tr>
+        @{ foreach (QuestionModel question in Model.qModelList)
+            {
+                <tr>
+                    <td>@question.Qtitle</td>
+                    <td>@question.QsubmissionTime</td>
+                    <td>@question.Qvote</td>
+                    <td>@question.Qview</td>
+                </tr>
+            }
         }
-    }
+    </tbody>
+</table>
+<br />
+<hr />
+<br />
+<h4>answers</h4>
+<table class="tablazat">
+    <thead>
+        <tr>
+            <th>Answer id</th>
+            <th>Submission time</th>
+            <th>Votes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ foreach (AnswerModel answer in Model.aModelList)
+            {
+                <tr>
+                    <td>@answer.Aid</td>
+                    <td>@answer.AsubmissionTime</td>
+                    <td>@answer.Avote</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<br />
+<hr />
+<br />
+<h4>comments</h4>
+<table class="tablazat">
+    <thead>
+        <tr>
+            <th>Comment id</th>
+            <th>Submission time</th>
+            <th>Edit number</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ foreach (CommentModel comment in Model.cModelList)
+            {
+                <tr>
+                    <td>@comment.Cid</td>
+                    <td>@comment.CsubmissionTime</td>
+                    <td>@comment.CeditNr</td>
+                </tr>
+            }
+        }
     </tbody>
 </table>

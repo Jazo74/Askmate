@@ -21,6 +21,7 @@ namespace AskMate2.Controllers
         public static string focusQid = "";
         IDataService ds = new DBService();
 
+        [Authorize]
         [HttpGet]
         public IActionResult user()
         {

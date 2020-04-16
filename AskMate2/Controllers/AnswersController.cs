@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using AskMate2.Domain;
 using AskMate2.Models;
 using AskMate2.Controllers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AskMate2.Controllers
 {
@@ -13,6 +14,7 @@ namespace AskMate2.Controllers
     public class AnswersController : Controller
     {
         IDataService ds = new DBService();
+        [Authorize]
         [HttpGet]
         public IActionResult AddAnswer()
         {
@@ -22,6 +24,8 @@ namespace AskMate2.Controllers
             }
             return View("AddAnswer");
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult AddAnswer([FromForm(Name = "question")] string question)
         {
@@ -37,6 +41,8 @@ namespace AskMate2.Controllers
             ViewData.Add(question, text);
             return View("Answer"); 
         }
+
+        [Authorize]
         public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "qID")] string qID, [FromForm(Name = "image")] string image, [FromForm(Name = "currentUser")] string currentUser)
         {
             if (image == null || !image.StartsWith("https://"))
@@ -50,6 +56,8 @@ namespace AskMate2.Controllers
             //}
             return RedirectToAction("ShowQe", "Questions", new { qid = QuestionsController.focusQid }); ;
         }
+
+        [Authorize]
         [HttpGet]
         public IActionResult ShowAnswers()
         {
@@ -59,6 +67,8 @@ namespace AskMate2.Controllers
             }
             return View("ShowAnswers");
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult ShowAnswers([FromForm(Name = "question")] string question)
         {
@@ -88,6 +98,8 @@ namespace AskMate2.Controllers
             
             return View("ShowA", transitLst);
         }
+
+        [Authorize]
         [HttpGet]
         public IActionResult DeleteAnswer()
         {
@@ -97,6 +109,8 @@ namespace AskMate2.Controllers
             }
             return View("DeleteAnswer");
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult DeleteAnswer([FromForm(Name = "question")] string question)
         {
@@ -129,19 +143,21 @@ namespace AskMate2.Controllers
 
         }
 
+        [Authorize]
         public IActionResult DelAnswer([FromForm(Name = "Aid")] string Aid)
         {
             ds.DeleteAnswer(Aid);
             return RedirectToAction("Index","Home");
         }
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult AnswerVote()
         {
             return View("VoteAnswer");
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult AnswerVote([FromForm(Name = "aId")] string answerId)
         {
@@ -149,6 +165,7 @@ namespace AskMate2.Controllers
             return RedirectToAction("ShowQe", "Questions", new { qid = QuestionsController.focusQid });
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult AddImageToAnswer([FromForm(Name = "image")] string image, [FromForm(Name = "aid")] string answerId)
         {
@@ -160,13 +177,14 @@ namespace AskMate2.Controllers
             return RedirectToAction("ShowQe", "Questions", new { qid = QuestionsController.focusQid });
         }
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult CommentToAnswer()
         {
             return View("CommentToAnswer");
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult CommentToAnswer([FromForm(Name = "answerId")] string answerId, [FromForm(Name = "comment")] string comment, [FromForm(Name = "currentUser")] string currentUser)
         {
@@ -176,12 +194,14 @@ namespace AskMate2.Controllers
 
 
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult EditCommentAnswer()
         {
             return View("EditCommentAnswer");
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult EditCommentAnswer([FromForm(Name = "answerId")] string answerId, [FromForm(Name = "komment")] string komment)
         {
@@ -189,12 +209,14 @@ namespace AskMate2.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult EditAnswer()
         {
             return View("EditAnswer");
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult EditAnswer([FromForm(Name = "answerId")] string answerId, [FromForm(Name = "message")] string message, [FromForm(Name = "image")] string image)
         {

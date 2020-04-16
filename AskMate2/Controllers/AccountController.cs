@@ -105,7 +105,8 @@ namespace AskMate2.Controllers
         }
 
 
-        
+        [Authorize]
+        [HttpGet]
         public IActionResult AllUsers()
         {
             List<UserTransit> allUser = _userService.GetAllUsersModel();

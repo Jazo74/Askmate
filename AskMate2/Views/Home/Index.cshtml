@@ -7,18 +7,35 @@
         }
         else
         {
-            username = "unknown user";
+            username = "stranger";
         }
     }
     <div class="currentUser">
-        <p>Welcome @username !</p>
-        <a asp-controller="User" asp-action="user">My activity</a>
+        @{<p>Welcome @username !</p>
+            if (username != "stranger")
+            {
+                <a asp-controller="User" asp-action="user">My activity</a>
+            }
+        }
     </div>
-    <br />
-    <a asp-controller="Questions" asp-action="ListQuestions">
-        <img class="biglogo" src="~/braintree.png" alt="Transparent Background Questions And Answers Clipart" />
-    </a>
-    <a asp-controller="Home" asp-action="Theeye">
-        <img class="theeye" src="~/theeye.png" alt="All Seeing Eye Transparent Png - Novus Ordo Seclorum Vector" />
-    </a>
+    <div class="kozepre">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <a asp-controller="Questions" asp-action="ListQuestions">
+            <h1 class="bigcenter">If you didn't know,...now you know.</h1>
+            <!--<img class="biglogo" src="~/braintree.png" alt="Transparent Background Questions And Answers Clipart" />-->
+        </a>
+        <a asp-controller="Home" asp-action="Theeye">
+            <img class="theeye" src="~/theeye.png" alt="All Seeing Eye Transparent Png - Novus Ordo Seclorum Vector" />
+        </a>
+    </div>
 </div>
