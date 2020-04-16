@@ -162,8 +162,28 @@ namespace AskMate2.Controllers
         public IActionResult AnswerVote([FromForm(Name = "aId")] string answerId)
         {
             ds.AnswerVote(answerId);
+            var uId = ds.GetUserFromAnswer(answerId);
+            ds.IncreaseReputation(uId, 10);
             return RedirectToAction("ShowQe", "Questions", new { qid = QuestionsController.focusQid });
         }
+        
+        [Authorize]
+        [HttpGet]
+        public IActionResult AnswerDownVote()
+        {
+            return View("VoteAnswer");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult AnswerDownVote([FromForm(Name = "aId")] string answerId)
+        {
+            ds.AnswerDownVote(answerId);
+            var uId = ds.GetUserFromAnswer(answerId);
+            ds.DecreaseReputation(uId, 2);
+            return RedirectToAction("ShowQe", "Questions", new { qid = QuestionsController.focusQid });
+        }
+
 
         [Authorize]
         [HttpPost]

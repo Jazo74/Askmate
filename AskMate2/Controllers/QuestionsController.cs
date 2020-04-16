@@ -212,8 +212,23 @@ namespace AskMate2.Controllers
         public IActionResult VoteForQuestion([FromForm(Name = "qId")] string qId)
         {
             ds.Vote(qId);
-            return RedirectToAction("ShowQe","Questions", new { qid = focusQid });
+            var uId = ds.GetUserFromQuestion(qId);
+            ds.IncreaseReputation(uId, 5); //reputation increase by 5
+            return RedirectToAction("ShowQe", "Questions", new { qid = focusQid });
         }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult DownVoteForQuestion([FromForm(Name = "qId")] string qId)
+        {
+            ds.DownVote(qId);
+            var uId = ds.GetUserFromQuestion(qId);
+            ds.DecreaseReputation(uId, 2); //reputation increase by 5
+            return RedirectToAction("ShowQe", "Questions", new { qid = focusQid });
+        }
+
+        
+
 
         [Authorize]
         [HttpPost]
