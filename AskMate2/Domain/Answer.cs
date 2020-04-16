@@ -12,6 +12,8 @@ namespace AskMate2.Domain
         public string AUserId { get; set; }
         public string Text { get; set; }
         public string Image { get; set; }
+        public string Aaccepted { get; set; }
+
 
         public Answer(string aId, string qId, string text, string image)
         {
@@ -19,6 +21,7 @@ namespace AskMate2.Domain
             QId = qId;
             Text = text;
             Image = image;
+            Aaccepted = "no";
         }
 
         public Answer(string aId, string userId, string qId, string text, string image)
@@ -28,6 +31,7 @@ namespace AskMate2.Domain
             QId = qId;
             Text = text;
             Image = image;
+            Aaccepted = "no";
         }
 
         public override string ToString()

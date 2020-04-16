@@ -530,6 +530,7 @@ namespace AskMate2.Domain
                         var aVoteNumber = Convert.ToInt32(reader["vote_number"]);
                         var answerMessage = reader["answer_message"].ToString();
                         var aImage = reader["image"].ToString();
+                        var aAccepted = reader["accepted"].ToString();
                         AnswerModel aModel = new AnswerModel();
                         aModel.Aid = answerid;
                         aModel.AUserId = aUserId;
@@ -537,6 +538,7 @@ namespace AskMate2.Domain
                         aModel.Avote = aVoteNumber;
                         aModel.AsubmissionTime = aSubmissionTime;
                         aModel.Aimage = aImage;
+                        aModel.Aaccepted = aAccepted;
                         qac.aModelList.Add(aModel);
                     }
                     conn.Close();
@@ -696,6 +698,7 @@ namespace AskMate2.Domain
                         var aVoteNumber = Convert.ToInt32(reader["vote_number"]);
                         var answerMessage = reader["answer_message"].ToString();
                         var aImage = reader["image"].ToString();
+                        var aAccepted = reader["accepted"].ToString();
                         AnswerModel aModel = new AnswerModel();
                         aModel.Aid = answerid;
                         aModel.AUserId = aUserId;
@@ -703,6 +706,7 @@ namespace AskMate2.Domain
                         aModel.Avote = aVoteNumber;
                         aModel.AsubmissionTime = aSubmissionTime;
                         aModel.Aimage = aImage;
+                        aModel.Aaccepted = aAccepted;
                         qac.aModelList.Add(aModel);
                     }
                     conn.Close();
@@ -737,6 +741,19 @@ namespace AskMate2.Domain
             }
         }
 
+        public void AccepAnswer(string answerId)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("UPDATE answer " +
+                    "SET accepted = 'yes' WHERE answer_id = @aid", conn))
+                {
+                    cmd.Parameters.AddWithValue("aid", Int32.Parse(answerId));
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
 

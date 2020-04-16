@@ -17,7 +17,12 @@
                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                @{
+                    if (ViewData["currentUser"] != "")
+                    {
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                    }
+                }
                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="AllUsers">AllUsers</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">

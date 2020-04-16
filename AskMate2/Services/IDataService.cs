@@ -81,6 +81,8 @@ namespace AskMate2.Domain
         string GetUserId(string email);
         QAC GetQACByUserId(string userId);
 
+        void AccepAnswer(string answerId);
+
 
 
 

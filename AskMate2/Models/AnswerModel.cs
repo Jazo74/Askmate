@@ -13,5 +13,6 @@ namespace AskMate2.Models
         public int Avote { get; set; }
         public DateTime AsubmissionTime { get; set; }
         public string Aimage { get; set; }
+        public string Aaccepted { get; set; }
     }
 }

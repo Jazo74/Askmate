@@ -223,5 +223,13 @@ namespace AskMate2.Controllers
             ds.EditAnswer(answerId, message, image);
             return RedirectToAction("Index", "Home");
         }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult AcceptedAnswer([FromForm(Name = "aId")] string aId)
+        {
+            ds.AccepAnswer(aId);
+            return RedirectToAction("ShowQe", "Questions", new { qid = QuestionsController.focusQid });
+        }
     }
 }
