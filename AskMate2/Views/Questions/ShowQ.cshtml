@@ -106,14 +106,14 @@
             <form method="post" asp-controller="Answers" asp-action="AnswerDownVote">
                 <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
                 <input type="hidden" name="aId" value="@answer.Aid" />
-                <input type="submit" src="~/Images/thumbsDown.png" alt="Submit" value="DownVote" style="float:right;" />
+                <input type="image" src="~/Images/thumbsDown.png" alt="Submit" value="DownVote" style="float:right;" />
             </form>
             if (ViewData["currentUser"].ToString() == Model.qModelList[0].QUserId)
             {
                 <form method="post" asp-controller="Answers" asp-action="AcceptedAnswer">
                     <input type="hidden" name="currentUser" value="@ViewData["currentUser"]" />
                     <input type="hidden" name="aId" value="@answer.Aid" />
-                    <input type="submit" value="Accept" style="float:right;" />
+                    <input type="image" value="Accept" style="float:right;" />
                 </form>
             }
             <p><b>Answer: </b>@answer.Atext</p>
