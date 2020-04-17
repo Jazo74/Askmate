@@ -258,6 +258,8 @@ namespace AskMate2.Controllers
         public IActionResult AcceptedAnswer([FromForm(Name = "aId")] string aId)
         {
             ds.AccepAnswer(aId);
+            var uid = ds.GetUserFromAnswer(aId);
+            ds.IncreaseReputation(uid, 15);
             return RedirectToAction("ShowQe", "Questions", new { qid = QuestionsController.focusQid });
         }
     }
