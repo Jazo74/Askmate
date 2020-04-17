@@ -569,9 +569,8 @@ namespace AskMate2.Domain
             using (var conn = new NpgsqlConnection(Program.ConnectionString))
             {
                 conn.Open();
-                using (var cmd = new NpgsqlCommand("UPDATE answer SET submission_time = @subTime, answer_message = @message, image = @img WHERE answer_id = @aid", conn))
+                using (var cmd = new NpgsqlCommand("UPDATE answer SET answer_message = @message, image = @img WHERE answer_id = @aid", conn))
                 {
-                    cmd.Parameters.AddWithValue("subTime", subTime);
                     cmd.Parameters.AddWithValue("message", message);
                     cmd.Parameters.AddWithValue("img", image);
                     cmd.Parameters.AddWithValue("aid", Int32.Parse(answerId));
@@ -862,6 +861,38 @@ namespace AskMate2.Domain
                 {
                     cmd.Parameters.AddWithValue("aid", Int32.Parse(answerId));
                     cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public Answer GetAnswer(string aId)
+        {
+            using (var conn = new NpgsqlConnection(Program.ConnectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("SELECT * FROM answer WHERE answer_id = @aid", conn))
+                {
+                    cmd.Parameters.AddWithValue("aid", int.Parse(aId));
+                    var answerId = "";
+                    var userId = "";
+                    DateTime submission_time = new DateTime();
+                    var voteNumber = 0;
+                    var qId = "";
+                    var questionMessage = "";
+                    var image = "";
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        answerId = reader["answer_id"].ToString();
+                        userId = reader["user_id"].ToString();
+                        submission_time = Convert.ToDateTime(reader["submission_time"]);
+                        voteNumber = Convert.ToInt32(reader["vote_number"]);
+                        qId = reader["question_id"].ToString();
+                        questionMessage = reader["answer_message"].ToString();
+                        image = reader["image"].ToString();
+                        
+                    }
+                    Answer answer = new Answer(answerId, userId, qId, submission_time, questionMessage.ToString(), image);
+                    return answer;
                 }
             }
         }

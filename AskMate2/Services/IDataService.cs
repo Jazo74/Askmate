@@ -45,6 +45,8 @@ namespace AskMate2.Domain
 
         List<Answer> GetAnswers(string questionId);
 
+        Answer GetAnswer(string answerId);
+
         void AddVoteForAnswer(string answerId);
 
         void AddImageToAnswer(string answerId, string image);

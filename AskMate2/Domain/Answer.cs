@@ -13,6 +13,7 @@ namespace AskMate2.Domain
         public string Text { get; set; }
         public string Image { get; set; }
         public string Aaccepted { get; set; }
+        public DateTime SubmissionTime = new DateTime();
 
 
         public Answer(string aId, string qId, string text, string image)
@@ -32,6 +33,18 @@ namespace AskMate2.Domain
             Text = text;
             Image = image;
             Aaccepted = "no";
+            SubmissionTime = DateTime.Now;
+        }
+
+        public Answer(string aId, string userId, string qId, DateTime submissionTime, string text, string image)
+        {
+            AId = aId;
+            AUserId = userId;
+            QId = qId;
+            Text = text;
+            Image = image;
+            Aaccepted = "no";
+            SubmissionTime = submissionTime;
         }
 
         public override string ToString()

@@ -1,14 +1,32 @@
-﻿
+﻿@model Transit
 @{
     ViewData["Title"] = "EditAnswer";
 }
 
-<h1>EditAnswer</h1>
+<h1>Edit Answer</h1>
 
-<form method="post" asp-controller="Answers" asp-action="EditAnswer">
+<form method="post" asp-controller="Answers" asp-action="EditAnswer2">
 
-    <input type="text" name="answerId" value="A ID?" />
-    <input type="text" name="message" value="New Message" />
-    <input type="text" name="image" value="Image url" />
+    <label for="qid">Question ID:</label>
+    <input type="text" id="qid" name="questionId" value="@Model.Qid" disabled />
+    <br />
+    <label for="aid">Answer ID:</label>
+    <input id="aid" type="text" name="aid" value="@Model.Aid" disabled />
+    <input type="hidden" name="Aid" value="@Model.Aid" />
+    <br />
+    <label for="uid">User ID:</label>
+    <input type="text" id="uid" name="userId" value="@Model.AUserId" disabled />
+    <br />
+    <label for="st">Submission time:</label>
+    <input type="text" id="st" name="userId" value="@Model.AsubmissionTime" disabled />
+    <br />
+    <label for="txt">Answer:</label>
+    <br />
+    <textarea name="message" id="txt" rows="15" cols="80">@Model.Atext</textarea>
+    <br />
+    <label for="img">Image:</label>
+    <input type="text" id="img" name="image" size="80" value="@Model.Aimage" />
+    <br />
+    <br />
     <input type="submit" value="Edit Answer" />
 </form>

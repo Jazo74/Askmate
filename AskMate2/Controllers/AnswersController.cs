@@ -230,15 +230,24 @@ namespace AskMate2.Controllers
         }
 
         [Authorize]
-        [HttpGet]
-        public IActionResult EditAnswer()
+        [HttpPost]
+        public IActionResult EditAnswer([FromForm(Name = "Aid")] string answerId)
         {
-            return View("EditAnswer");
+            Transit transit = new Transit();
+            Answer answer = ds.GetAnswer(answerId);
+            transit.Aid = answer.AId;
+            transit.AUserId = answer.AUserId;
+            transit.Qid = answer.QId;
+            transit.AsubmissionTime = answer.SubmissionTime;
+            transit.Atext = answer.Text;
+            transit.Aimage = answer.Image;
+            transit.Aaccepted = answer.Aaccepted;
+            return View("EditAnswer", transit);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult EditAnswer([FromForm(Name = "answerId")] string answerId, [FromForm(Name = "message")] string message, [FromForm(Name = "image")] string image)
+        public IActionResult EditAnswer2([FromForm(Name = "Aid")] string answerId, [FromForm(Name = "message")] string message, [FromForm(Name = "image")] string image)
         {
             ds.EditAnswer(answerId, message, image);
             return RedirectToAction("Index", "Home");
